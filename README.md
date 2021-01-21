@@ -1,6 +1,13 @@
 
-
-
+#### Conceitos de api
+Headers
+______
+````
+° Como estou peguntando
+  - Key "Accept", Value "application/json" 
+° Como estou respondendo
+  - key "Content-Type",  Value "application/json" 
+````
 
 #### Criando models e controller Category
 ````
