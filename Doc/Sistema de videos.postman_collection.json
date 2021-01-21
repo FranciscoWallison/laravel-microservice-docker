@@ -12,7 +12,8 @@
 				"cceecd64-eb25-54af-0cb7-ab1690c2fdca",
 				"6d901ff1-cc8f-5fb0-90bc-369a2745c3ae",
 				"d1b8f93e-b677-d2e2-fba8-349d7c06d48e",
-				"d66211bc-e735-23b5-03f5-37ea506ec73f"
+				"d66211bc-e735-23b5-03f5-37ea506ec73f",
+				"d8d8adc2-cc0f-e6c9-53b0-253ba69301d7"
 			],
 			"owner": "2500282",
 			"folders_order": [],
@@ -43,7 +44,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:8000/api/categories/1",
+			"url": "http://localhost:8000/api/categories/2",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -54,7 +55,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1611237393880,
+			"time": 1611243170022,
 			"name": "CategoryShow",
 			"description": "Show object",
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
@@ -155,6 +156,42 @@
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"responses": [],
 			"rawModeData": "{\n\t\"name\": \"category 3\",\n\t\"description\": \"descrição update\",\n\t\"is_active\": true\n}"
+		},
+		{
+			"id": "d8d8adc2-cc0f-e6c9-53b0-253ba69301d7",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/categories/3",
+			"folder": "81a76e9f-5c10-0876-180f-860957d14622",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611243165572,
+			"name": "CategoryDelete",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": ""
 		}
 	]
 }
