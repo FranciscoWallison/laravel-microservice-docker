@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    private $rules = [
+        'name' => 'required|max:255',
+        'is_active' => 'boolean'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        // Listando todas aca categories
         return Category::all();
     }
 
@@ -28,10 +34,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //Iniciando validador
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'is_active' => 'boolean'
-        ]);
+        $this->validate($request, $this->rules);
         //
         Category::created($request->all());
     }
@@ -59,7 +62,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        //Iniciando validador
+        $this->validate($request, $this->rules);
+        $category->update($request->all());
+        return $category;
     }
 
     /**
