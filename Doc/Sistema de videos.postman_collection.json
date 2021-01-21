@@ -18,15 +18,67 @@
 			"owner": "2500282",
 			"folders_order": [],
 			"id": "81a76e9f-5c10-0876-180f-860957d14622"
+		},
+		{
+			"name": "Genre",
+			"description": "",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"order": [
+				"bf2b47dd-7824-566c-89b6-377ca06b6fe8",
+				"d8051f6c-a4be-a3ce-a1e1-447c7eb1a982",
+				"f3bc5dc9-c03c-dbbd-3c54-b71982186fbe",
+				"fecea13b-d9e6-e0e6-c701-4a485f961cc5",
+				"1be9f7c3-da1f-8442-06ab-f999d6fef76e"
+			],
+			"owner": "2500282",
+			"folders_order": [],
+			"id": "8e1761b7-9026-5b89-ed36-d1f2586732ed"
 		}
 	],
 	"folders_order": [
-		"81a76e9f-5c10-0876-180f-860957d14622"
+		"81a76e9f-5c10-0876-180f-860957d14622",
+		"8e1761b7-9026-5b89-ed36-d1f2586732ed"
 	],
 	"timestamp": 1611230298856,
 	"owner": "2500282",
 	"public": false,
 	"requests": [
+		{
+			"id": "1be9f7c3-da1f-8442-06ab-f999d6fef76e",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/genres/061702d4-973b-422b-a79a-6ce3ab5e3e77",
+			"folder": "8e1761b7-9026-5b89-ed36-d1f2586732ed",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611265599603,
+			"name": "GenreDelete",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": ""
+		},
 		{
 			"id": "6d901ff1-cc8f-5fb0-90bc-369a2745c3ae",
 			"headers": "Accept: application/json\nContent-Type: application/json\n",
@@ -44,7 +96,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:8000/api/categories/2",
+			"url": "http://localhost:8000/api/categories/04bcc049-e8aa-4159-98db-02d2edfa3941",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -55,9 +107,32 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1611243170022,
+			"time": 1611264130944,
 			"name": "CategoryShow",
 			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": []
+		},
+		{
+			"id": "bf2b47dd-7824-566c-89b6-377ca06b6fe8",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8000/api/genres",
+			"folder": "8e1761b7-9026-5b89-ed36-d1f2586732ed",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611265259636,
+			"name": "GenreIndex",
+			"description": "cerelização all category",
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"responses": []
 		},
@@ -114,7 +189,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1611236714754,
+			"time": 1611264137812,
 			"name": "CategoryStore",
 			"description": "Show object",
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
@@ -138,7 +213,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:8000/api/categories/1",
+			"url": "http://localhost:8000/api/categories/04bcc049-e8aa-4159-98db-02d2edfa3941",
 			"folder": "81a76e9f-5c10-0876-180f-860957d14622",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -150,12 +225,47 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1611237394678,
+			"time": 1611264143583,
 			"name": "CategoryUpdate",
 			"description": "Show object",
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"responses": [],
 			"rawModeData": "{\n\t\"name\": \"category 3\",\n\t\"description\": \"descrição update\",\n\t\"is_active\": true\n}"
+		},
+		{
+			"id": "d8051f6c-a4be-a3ce-a1e1-447c7eb1a982",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/genres/025f305b-c60f-46e0-9389-d5a0bdcc1125",
+			"folder": "8e1761b7-9026-5b89-ed36-d1f2586732ed",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611265302728,
+			"name": "GenreShow",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": []
 		},
 		{
 			"id": "d8d8adc2-cc0f-e6c9-53b0-253ba69301d7",
@@ -174,7 +284,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:8000/api/categories/3",
+			"url": "http://localhost:8000/api/categories/0637189f-ed9a-4595-814c-af71a2310312",
 			"folder": "81a76e9f-5c10-0876-180f-860957d14622",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -186,12 +296,84 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1611243165572,
+			"time": 1611264154008,
 			"name": "CategoryDelete",
 			"description": "Show object",
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"responses": [],
 			"rawModeData": ""
+		},
+		{
+			"id": "f3bc5dc9-c03c-dbbd-3c54-b71982186fbe",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/genres",
+			"folder": "8e1761b7-9026-5b89-ed36-d1f2586732ed",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611265365745,
+			"name": "GenreStore",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"genres 1\",\n\t\"is_active\": false\n}"
+		},
+		{
+			"id": "fecea13b-d9e6-e0e6-c701-4a485f961cc5",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/genres/054bbe5f-9e2e-4f51-a5ed-bdd692c647c6",
+			"folder": "8e1761b7-9026-5b89-ed36-d1f2586732ed",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611265561507,
+			"name": "GenreUpdate",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"genres 3\",\n\t\"is_active\": true\n}"
 		}
 	]
 }
