@@ -14,3 +14,10 @@
   Validando model criado pelas --seed
     - App\Models\Category::all()
 ````
+
+#### Command
+Rotas da aplicação 
+______
+````
+  - php artisan route:list
+````
