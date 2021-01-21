@@ -9,6 +9,10 @@ use App\Models\Genre;
 
 class GenreController extends Controller
 {
+    private $rules = [
+        'name' => 'required|max:255',
+        'is_active' => 'boolean'
+    ];
     /**
      * Display a listing of the resource.
      *
