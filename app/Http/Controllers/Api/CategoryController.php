@@ -35,7 +35,7 @@ class CategoryController extends Controller
     {
         //Iniciando validador
         $this->validate($request, $this->rules);
-        Category::created($request->all());
+        return Category::created($request->all());
     }
 
     /**
