@@ -16,6 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        return Category::all();
     }
 
     /**
@@ -34,10 +35,13 @@ class CategoryController extends Controller
      *
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
+     * 
+     * Route Model Binding
      */
     public function show(Category $category)
     {
         //
+        return $category;
     }
 
     /**
