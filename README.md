@@ -14,6 +14,9 @@ ______
   ° Status code com o valor ~200 é semântico para o sucesso.
     - 204, valor vazio muito utilizado para DELETE.
 ````
+#### Route Model Binding
+
+
 ## Laravel
 #### Criando models e controller Category
 ````
