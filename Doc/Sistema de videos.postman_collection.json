@@ -10,7 +10,9 @@
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"order": [
 				"cceecd64-eb25-54af-0cb7-ab1690c2fdca",
-				"6d901ff1-cc8f-5fb0-90bc-369a2745c3ae"
+				"6d901ff1-cc8f-5fb0-90bc-369a2745c3ae",
+				"d1b8f93e-b677-d2e2-fba8-349d7c06d48e",
+				"d66211bc-e735-23b5-03f5-37ea506ec73f"
 			],
 			"owner": "2500282",
 			"folders_order": [],
@@ -26,27 +28,37 @@
 	"requests": [
 		{
 			"id": "6d901ff1-cc8f-5fb0-90bc-369a2745c3ae",
-			"headers": "",
-			"headerData": [],
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
 			"url": "http://localhost:8000/api/categories/1",
 			"queryParams": [],
+			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
-			"preRequestScript": null,
 			"method": "GET",
-			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"data": null,
 			"dataMode": "params",
-			"name": "http://localhost:8000/api/categories/1",
-			"description": "Show object",
-			"descriptionFormat": "html",
-			"time": 1611231052581,
-			"version": 2,
-			"responses": [],
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"folder": "81a76e9f-5c10-0876-180f-860957d14622"
+			"time": 1611237393880,
+			"name": "CategoryShow",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": []
 		},
 		{
 			"id": "cceecd64-eb25-54af-0cb7-ab1690c2fdca",
@@ -61,7 +73,7 @@
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"data": null,
 			"dataMode": "params",
-			"name": "http://localhost:8000/api/categories",
+			"name": "CategoryIndex",
 			"description": "cerelização all category",
 			"descriptionFormat": "html",
 			"time": 1611230930830,
@@ -71,6 +83,78 @@
 			"currentHelper": "normal",
 			"helperAttributes": {},
 			"folder": "81a76e9f-5c10-0876-180f-860957d14622"
+		},
+		{
+			"id": "d1b8f93e-b677-d2e2-fba8-349d7c06d48e",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/categories",
+			"folder": "81a76e9f-5c10-0876-180f-860957d14622",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611236714754,
+			"name": "CategoryStore",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"category 1\",\n\t\"description\": \"descrição\",\n\t\"is_active\": false\n}"
+		},
+		{
+			"id": "d66211bc-e735-23b5-03f5-37ea506ec73f",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/categories/1",
+			"folder": "81a76e9f-5c10-0876-180f-860957d14622",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611237394678,
+			"name": "CategoryUpdate",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"category 3\",\n\t\"description\": \"descrição update\",\n\t\"is_active\": true\n}"
 		}
 	]
 }
