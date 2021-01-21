@@ -29,6 +29,11 @@ ______
 ````
   - php artisan make:model Models/Category --all
 ```` 
+#### Criando models e controller Genre
+````
+  - php artisan make:model Models/Genre --all
+```` 
+
 
 #### Testando Models
 ````
