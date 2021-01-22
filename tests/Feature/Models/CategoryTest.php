@@ -11,12 +11,18 @@ use Tests\TestCase;
 class CategoryTest extends TestCase
 {
     use DatabaseMigrations;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testListCrete()
+    
+    public function testCreate(){
+        $category = Category::create([
+            'name' => 'teste1'
+        ]);
+        $category->refresh();
+        $this->assertEquals('teste1', $category->name);
+        $this->assertNull($category->description);
+        $this->assertTrue($category->is_active);
+    }
+
+    public function testListCreate()
     {
         $atributes = [
             "id",
@@ -32,8 +38,7 @@ class CategoryTest extends TestCase
         $this->assertCount(1, $categories);
     }
 
-
-    public function testListAtributes()
+    public function testListCreateAtributes()
     {
         $atributes = [
             "id",
@@ -48,5 +53,38 @@ class CategoryTest extends TestCase
         $categories = Category::all();
         $categoryKey = array_keys($categories->first()->getAttributes());
         $this->assertEqualsCanonicalizing($atributes, $categoryKey);
+    }
+
+    public function testCreateDescriptionNull(){
+        $category = Category::create([
+            'name' => 'teste1',
+            'description' => null
+        ]);       
+        $this->assertNull($category->description);
+    }
+
+    public function testCreateDescriptionEquals(){
+        $category = Category::create([
+            'name' => 'teste1',
+            'description' => 'teste1_description'
+        ]);       
+        $this->assertEquals('teste1_description',$category->description);
+    }
+
+    public function testCreateIsActiveTrue(){
+        $category = Category::create([
+            'name' => 'teste1'
+        ]);
+        $category->refresh();
+        $this->assertTrue($category->is_active);
+    }
+
+    public function testCreateIsActiveFalse(){
+        $category = Category::create([
+            'name' => 'teste1',
+            'is_active' => false
+        ]);
+        $category->refresh();
+        $this->assertFalse($category->is_active);
     }
 }
