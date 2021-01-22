@@ -58,15 +58,18 @@ ______
 Test
 ______
 ````
-  Criando FEATURE
-    - php artisan make:test CategoryTest
+  Criando FEATURE    
     - php artisan make:test Models/CategoryTest
+    - php artisan make:test Models/Genre
   Criando UNIT
-    - php artisan make:test CategoryTest --unit
+    - php artisan make:test Models/CategoryTest --unit
+    - php artisan make:test Models/Genre --unit
   Executando Teste
     - vendor/bin/phpunit
   Executando Teste em uma Única Class
     - vendor/bin/phpunit --filter CategoryTest
+    - vendor/bin/phpunit --filter GenreTest
   Executando Teste em uma Única Class/Metodo
     - vendor/bin/phpunit --filter CategoryTest::testExample
+    - vendor/bin/phpunit --filter GenreTest::testExample
 ````
