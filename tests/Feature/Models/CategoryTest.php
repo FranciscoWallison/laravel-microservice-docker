@@ -22,7 +22,7 @@ class CategoryTest extends TestCase
         $this->assertTrue($category->is_active);
     }
 
-    public function testListCreate()
+    public function testCreateList()
     {
         $atributes = [
             "id",
@@ -38,7 +38,7 @@ class CategoryTest extends TestCase
         $this->assertCount(1, $categories);
     }
 
-    public function testListCreateAtributes()
+    public function testCreateListAtributes()
     {
         $atributes = [
             "id",
@@ -86,5 +86,24 @@ class CategoryTest extends TestCase
         ]);
         $category->refresh();
         $this->assertFalse($category->is_active);
+    }
+
+    // INIT UPDATE Update
+
+    public function testUpdate(){
+        $category = factory(Category::class, 1)->create([
+            'description' => 'test_description'
+        ])->first();
+
+        $data = [
+            'name' => 'test_name_update',
+            'description' => 'test_description_update'
+        ];
+            
+        $category->update($data);
+
+        foreach($data as $key => $value){
+            $this->assertEquals($value, $category->{$key});
+        }
     }
 }
