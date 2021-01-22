@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Models;
 
 use App\Models\Category;
 use PHPUnit\Framework\TestCase;
@@ -9,6 +9,7 @@ use App\Models\Traits\Uuid;
 
 class CategoryTest extends TestCase
 {
+    private $category;
 
     public function testIfUseTraits()
     {
@@ -21,7 +22,7 @@ class CategoryTest extends TestCase
 
     public function testFillableAttribute()
     {
-        $fillable = ['name', 'description', 'is_active'];
+        $fillable = ['name', 'is_active'];
         $category = new Category();
         $this->assertEquals($fillable,$category->getFillable());
     }
@@ -33,12 +34,13 @@ class CategoryTest extends TestCase
         foreach ($dates as $date){
             $this->assertContains($date,$category->getDates());
         }
-        $this->assertCount(count($date), $category->getDates());
+ 
+        $this->assertCount(count($dates), $category->getDates());
     }
 
     public function testCastsAttribute()
     {
-        $casts = ['id'=> 'string'];
+        $casts = ['id'=> 'string', 'is_active'=> 'boolean'];
         $category = new Category();
         $this->assertEquals($casts,$category->getCasts());
     }
