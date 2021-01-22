@@ -1,40 +1,15 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Models;
 
 use App\Models\Category;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\Uuid;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CategoryTest extends TestCase
 {
-
-    use DatabaseMigrations;
     private $category;
-
-    public static function setUpBeforeClass(): void
-    {
-        // parent::setUpBeforeClass();
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->category = new Category();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        parent::tearDownAfterClass();
-    }
-
 
     public function testIfUseTraits()
     {

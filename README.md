@@ -60,6 +60,7 @@ ______
 ````
   Criando FEATURE
     - php artisan make:test CategoryTest
+    - php artisan make:test Models/CategoryTest
   Criando UNIT
     - php artisan make:test CategoryTest --unit
   Executando Teste
