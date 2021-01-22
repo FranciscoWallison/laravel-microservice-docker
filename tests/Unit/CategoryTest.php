@@ -6,9 +6,12 @@ use App\Models\Category;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\Uuid;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CategoryTest extends TestCase
 {
+
+    use DatabaseMigrations;
 
     public function testIfUseTraits()
     {
@@ -33,7 +36,8 @@ class CategoryTest extends TestCase
         foreach ($dates as $date){
             $this->assertContains($date,$category->getDates());
         }
-        $this->assertCount(count($date), $category->getDates());
+ 
+        $this->assertCount(count($dates), $category->getDates());
     }
 
     public function testCastsAttribute()
