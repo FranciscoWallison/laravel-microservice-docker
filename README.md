@@ -25,17 +25,29 @@ ______
 
 
 ## Laravel
-#### Criando models e controller Category
+
+#### Command
+Criando models, controller e factory
+______
 ````
   - php artisan make:model Models/Category --all
-```` 
-#### Criando models e controller Genre
-````
   - php artisan make:model Models/Genre --all
-```` 
-
-
-#### Testando Models
+````
+Consultando Rotas da aplicação 
+______
+````
+  - php artisan route:list
+````
+Consultando Models com Tinker
+______
+````
+  Iniciando TINKER
+    - php artisan tinker
+  Validando model criado pelas --seed
+    - App\Models\Category::all()
+````
+Consultando Models com Tinker
+______
 ````
   Iniciando TINKER
     - php artisan tinker
@@ -43,9 +55,17 @@ ______
     - App\Models\Category::all()
 ````
 
-#### Command
-Rotas da aplicação 
+Test
 ______
 ````
-  - php artisan route:list
+  Criando FEATURE
+    - php artisan make:test CategoryTest
+  Criando UNIT
+    - php artisan make:test CategoryTest --unit
+  Executando Teste
+    - vendor/bin/phpunit
+  Executando Teste em uma Única Class
+    - vendor/bin/phpunit --filter CategoryTest
+  Executando Teste em uma Única Class/Metodo
+    - vendor/bin/phpunit --filter CategoryTest::testExample
 ````
