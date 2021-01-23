@@ -19,6 +19,7 @@ class GenreTest extends TestCase
         $genre->refresh();
 
         $this->assertIsString($genre->id);
+        $this->assertEquals(36,strlen($genre->id));
         $this->assertRegExp('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $genre->id);        
         $this->assertEquals('teste1', $genre->name);
         $this->assertIsString($genre->name);
@@ -96,10 +97,15 @@ class GenreTest extends TestCase
 
     public function testDelete(){
 
-        $category = factory(Genre::class, 1)->create()->first();
+        $category = factory(Genre::class)->create();
         $category->delete();
+        $this->assertNull(Genre::find($category->id));
         $category->refresh();
         $categories = Genre::withTrashed()->get();
         $this->assertCount(1, $categories);
+
+        $category->restore();
+        $this->assertNotNull(Genre::find($category->id));
+
     }
 }
