@@ -13,25 +13,33 @@ class GenreControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
+    private $genre;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->genre = factory(Genre::class)->create(); 
+    }
+
     public function testIndexList()
     {
-        $genre = factory(Genre::class)->create(); 
+         
         $response = $this->get(route('genres.index'));
 
         $response
         ->assertStatus(200)
-        ->assertJson([$genre->toArray()]);
+        ->assertJson([$this->genre->toArray()]);
     }
 
 
     public function testShow()
     {
-        $genre = factory(Genre::class)->create(); 
-        $response = $this->get(route('genres.show', ['genre' => $genre->id]));
+         
+        $response = $this->get(route('genres.show', ['genre' => $this->genre->id]));
 
         $response
         ->assertStatus(200)
-        ->assertJson($genre->toArray());
+        ->assertJson($this->genre->toArray());
     }
 
     //Falhas
@@ -84,10 +92,10 @@ class GenreControllerTest extends TestCase
 
     public function testInvalidationDataIsActiveUpdate()
     {
-        $genre = factory(Genre::class)->create(); 
+         
         $response = $this->json(
             'PUT', 
-            route('genres.update',['genre' => $genre->id]), 
+            route('genres.update',['genre' => $this->genre->id]), 
             [
                 'name' => str_repeat('a', 256),
                 'is_active' => 'a'
@@ -112,11 +120,11 @@ class GenreControllerTest extends TestCase
         ]);
 
         $id = $response->json('id');
-        $genre = Genre::find($id);
+        $this->genre = Genre::find($id);
 
         $response
             ->assertStatus(201)
-            ->assertJson($genre->toArray());
+            ->assertJson($this->genre->toArray());
         
         $this->assertTrue($response->json('is_active'));
 
@@ -135,13 +143,13 @@ class GenreControllerTest extends TestCase
 
     public function testUpdate()
     {
-        $genre = factory(Genre::class)->create([
+        $this->genre = factory(Genre::class)->create([
             'is_active' => false
         ]); 
         $response = $this->json(
             'PUT', 
             route('genres.update', 
-            ['genre' => $genre->id]), 
+            ['genre' => $this->genre->id]), 
             [
             'name' => 'test_update_name',
             'is_active' => true
@@ -150,11 +158,11 @@ class GenreControllerTest extends TestCase
         );
 
         $id = $response->json('id');
-        $genre = Genre::find($id);
+        $this->genre = Genre::find($id);
 
         $response
             ->assertStatus(200)
-            ->assertJson($genre->toArray());
+            ->assertJson($this->genre->toArray());
         
             $response
             ->assertJsonFragment([
@@ -164,10 +172,10 @@ class GenreControllerTest extends TestCase
 
     public function testDestroy()
     {
-        $genre = $genre = factory(Genre::class)->create();
-        $response = $this->json('DELETE', route('genres.destroy', ['genre' => $genre->id]));
+        $this->genre = 
+        $response = $this->json('DELETE', route('genres.destroy', ['genre' => $this->genre->id]));
         $response->assertStatus(204);
-        $this->assertNull(Genre::find($genre->id));
-        $this->assertNotNull(Genre::withTrashed()->find($genre->id));
+        $this->assertNull(Genre::find($this->genre->id));
+        $this->assertNotNull(Genre::withTrashed()->find($this->genre->id));
     }
 }
