@@ -39,6 +39,22 @@ class CategoryControllerTest extends TestCase
     //Falhas
     public function testInvalidationData()
     {
+
+        $data = [
+            'name' => ''
+        ];
+        $this->assertInvalidationInStoreAction($data, 'required');
+        $data = [
+            'name'=> str_repeat('a', 256)
+        ];
+        $this->assertInvalidationInStoreAction($data, 'max.string', ['max' => 255]);
+        $data = [
+            'is_active' => 'a'
+        ];
+        $this->assertInvalidationInStoreAction($data, 'boolean');
+
+
+
         $response = $this->json('POST', route('categories.store'), []);
 
         $response
@@ -196,10 +212,10 @@ class CategoryControllerTest extends TestCase
     }
 
     // Teste chamadas
-    protected function assertInvalidateionRequered(TestResponse $response)
+    protected function assertInvalidationRequered(TestResponse $response)
     {
 
-        $this->assertInvalidateionsFilds(
+        $this->assertInvalidationsFields(
             $response,
             ['name'],
             'required',
@@ -209,9 +225,9 @@ class CategoryControllerTest extends TestCase
             ->assertJsonMissingValidationErrors(['is_active']);
     }
 
-    protected function assertInvalidateionMax(TestResponse $response)
+    protected function assertInvalidationMax(TestResponse $response)
     {
-        $this->assertInvalidateionsFilds(
+        $this->assertInvalidationsFields(
             $response,
             ['name'],
             'max.string',
@@ -219,14 +235,20 @@ class CategoryControllerTest extends TestCase
         );
     }
 
-    protected function assertInvalidateionBoolean(TestResponse $response)
+    protected function assertInvalidationBoolean(TestResponse $response)
     {
 
-        $this->assertInvalidateionsFilds(
+        $this->assertInvalidationsFields(
             $response,
             ['is_active'],
             'boolean',
             []
         );
     }
+
+    protected function routeStore()
+    {
+        return route('categories.store');
+    }
+
 }
