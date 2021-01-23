@@ -66,10 +66,12 @@ ______
 ````
   Criando FEATURE    
     - php artisan make:test Models/CategoryTest
-    - php artisan make:test Models/Genre
+    - php artisan make:test Http/Controllers/Api/CategoryTest
+    - php artisan make:test Models/GenreTest
+    - php artisan make:test Http/Controllers/Api/GenreTest
   Criando UNIT
     - php artisan make:test Models/CategoryTest --unit
-    - php artisan make:test Models/Genre --unit
+    - php artisan make:test Models/GenreTest --unit
   Executando Teste
     - vendor/bin/phpunit
   Executando Teste em uma Única Class
