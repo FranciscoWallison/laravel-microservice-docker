@@ -9,6 +9,12 @@ ______
   - key "Content-Type",  Value "application/json" 
 ````
 #### Status code
+´´´´
+    Respostas de sucesso (200-299)
+    Erros do cliente (400-499)
+    Erros do servidor (500-599)
+````
+Conceitos Básicos
 ______
 ````
   ° Status code com o valor ~200 é semântico para o sucesso.
@@ -60,10 +66,12 @@ ______
 ````
   Criando FEATURE    
     - php artisan make:test Models/CategoryTest
-    - php artisan make:test Models/Genre
+    - php artisan make:test Http/Controllers/Api/CategoryTest
+    - php artisan make:test Models/GenreTest
+    - php artisan make:test Http/Controllers/Api/GenreTest
   Criando UNIT
     - php artisan make:test Models/CategoryTest --unit
-    - php artisan make:test Models/Genre --unit
+    - php artisan make:test Models/GenreTest --unit
   Executando Teste
     - vendor/bin/phpunit
   Executando Teste em uma Única Class
