@@ -32,4 +32,13 @@ class CategoryControllerTest extends TestCase
         ->assertStatus(200)
         ->assertJson($category->toArray());
     }
+
+    public function testInvalidationData()
+    {
+        $response = $this->json('POST', route('categories.store'), []);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['name']);
+    }
 }
