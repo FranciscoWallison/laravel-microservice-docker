@@ -14,51 +14,27 @@ class CategoryController extends Controller
         'is_active' => 'boolean'
     ];
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         // Listando todas aca categories
         return Category::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //Iniciando validador
         $this->validate($request, $this->rules);
-        return Category::created($request->all());
+        $category = Category::create($request->all());
+        $category->refresh();
+        return $category;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     * 
-     * Route Model Binding
-     */
     public function show(Category $category)
     {
         //
         return $category;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Category $category)
     {
         //Iniciando validador
@@ -67,12 +43,6 @@ class CategoryController extends Controller
         return $category;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Category $category)
     {
         //
