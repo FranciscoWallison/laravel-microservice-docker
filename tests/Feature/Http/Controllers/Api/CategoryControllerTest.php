@@ -5,13 +5,15 @@ namespace Tests\Feature\Http\Controllers\Api;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Lang;
+use Tests\Traits\TestValidations;
 use Tests\TestCase;
 
 class CategoryControllerTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, TestValidations;
 
     public function testIndexList()
     {
@@ -191,5 +193,40 @@ class CategoryControllerTest extends TestCase
         $response->assertStatus(204);
         $this->assertNull(Category::find($category->id));
         $this->assertNotNull(Category::withTrashed()->find($category->id));
+    }
+
+    // Teste chamadas
+    protected function assertInvalidateionRequered(TestResponse $response)
+    {
+
+        $this->assertInvalidateionsFilds(
+            $response,
+            ['name'],
+            'required',
+            []
+        );
+        $response
+            ->assertJsonMissingValidationErrors(['is_active']);
+    }
+
+    protected function assertInvalidateionMax(TestResponse $response)
+    {
+        $this->assertInvalidateionsFilds(
+            $response,
+            ['name'],
+            'max.string',
+            ['max' => 255]
+        );
+    }
+
+    protected function assertInvalidateionBoolean(TestResponse $response)
+    {
+
+        $this->assertInvalidateionsFilds(
+            $response,
+            ['is_active'],
+            'boolean',
+            []
+        );
     }
 }
