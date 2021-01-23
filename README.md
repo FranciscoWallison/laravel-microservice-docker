@@ -63,6 +63,7 @@ ______
 
 Test
 ______
+Media de teste 18 à 40 Megas
 ````
   Criando FEATURE    
     - php artisan make:test Models/CategoryTest
