@@ -9,6 +9,12 @@ ______
   - key "Content-Type",  Value "application/json" 
 ````
 #### Status code
+´´´´
+    Respostas de sucesso (200-299)
+    Erros do cliente (400-499)
+    Erros do servidor (500-599)
+````
+Conceitos Básicos
 ______
 ````
   ° Status code com o valor ~200 é semântico para o sucesso.
