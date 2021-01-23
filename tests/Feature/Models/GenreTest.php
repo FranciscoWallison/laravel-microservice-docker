@@ -17,7 +17,11 @@ class GenreTest extends TestCase
             'name' => 'teste1'
         ]);
         $genre->refresh();
+
+        $this->assertIsString($genre->id);
+        $this->assertRegExp('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $genre->id);        
         $this->assertEquals('teste1', $genre->name);
+        $this->assertIsString($genre->name);
         $this->assertTrue($genre->is_active);
     }
 
@@ -86,5 +90,16 @@ class GenreTest extends TestCase
         foreach($data as $key => $value){
             $this->assertEquals($value, $genre->{$key});
         }
+    }
+
+    // INIT DELETE delete
+
+    public function testDelete(){
+
+        $category = factory(Genre::class, 1)->create()->first();
+        $category->delete();
+        $category->refresh();
+        $categories = Genre::withTrashed()->get();
+        $this->assertCount(1, $categories);
     }
 }

@@ -17,7 +17,11 @@ class CategoryTest extends TestCase
             'name' => 'teste1'
         ]);
         $category->refresh();
+
+        $this->assertIsString($category->id);
+        $this->assertRegExp('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $category->id);        
         $this->assertEquals('teste1', $category->name);
+        $this->assertIsString ($category->name);
         $this->assertNull($category->description);
         $this->assertTrue($category->is_active);
     }
@@ -88,7 +92,7 @@ class CategoryTest extends TestCase
         $this->assertFalse($category->is_active);
     }
 
-    // INIT UPDATE Update
+    // INIT UPDATE update
 
     public function testUpdate(){
         $category = factory(Category::class, 1)->create([
@@ -105,5 +109,18 @@ class CategoryTest extends TestCase
         foreach($data as $key => $value){
             $this->assertEquals($value, $category->{$key});
         }
+    }
+
+    // INIT DELETE delete
+
+    public function testDelete(){
+
+        $category = factory(Category::class, 1)->create([
+            'description' => 'test_description_delete'
+        ])->first();
+        $category->delete();
+        $category->refresh();
+        $categories = Category::withTrashed()->get();
+        $this->assertCount(1, $categories);
     }
 }
