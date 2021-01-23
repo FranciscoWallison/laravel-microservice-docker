@@ -22,7 +22,7 @@ class CategoryTest extends TestCase
 
     public function testFillableAttribute()
     {
-        $fillable = ['name', 'is_active'];
+        $fillable = ['name', 'description', 'is_active'];
         $category = new Category();
         $this->assertEquals($fillable,$category->getFillable());
     }
