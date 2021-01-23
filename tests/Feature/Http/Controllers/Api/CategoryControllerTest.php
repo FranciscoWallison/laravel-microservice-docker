@@ -86,10 +86,24 @@ class CategoryControllerTest extends TestCase
     {
 
         $data = [
-            'name' => 'test'
+            'name' => 'test_name'
         ];
-        $this->assertStore($data, $data + ['description' => null, 'is_active' => true]);
-
+        $response = $this->assertStore(
+            $data, 
+            $data + ['description' => null, 'is_active' => true , 'deleted_at' => null]
+        );
+        $response->assertJsonStructure([
+            'created_at', 'updated_at'
+        ]);
+        $data = [
+            'name' => 'test_name',
+            'description' => 'test_description',
+            'is_active' => false
+        ];
+        $this->assertStore(
+            $data, 
+            $data + ['description' => 'description', 'is_active' => false]
+        );
     }
 
 
