@@ -7,14 +7,21 @@ use PHPUnit\Framework\TestCase;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\Uuid;
 
-class CastMemberTest extends TestCase
+class CastMemberUnitTest extends TestCase
 {
-    private $cast_member;
+    private $castMember;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->castMember = new CastMember();
+    }
 
     public function testIfUseTraits()
     {
         $traits = [
-            SoftDeletes::class, Uuid::class
+            SoftDeletes::class, 
+            Uuid::class
         ];
         $castMemberTraits = array_keys(class_uses(CastMember::class));
         $this->assertEquals($traits, $castMemberTraits);
@@ -23,31 +30,27 @@ class CastMemberTest extends TestCase
     public function testFillableAttribute()
     {
         $fillable = ['name', 'type'];
-        $cast_member = new CastMember();
-        $this->assertEquals($fillable,$cast_member->getFillable());
+        $this->assertEquals($fillable,$this->castMember->getFillable());
     }
 
     public function testDatesAttribute()
     {
         $dates = ['deleted_at', 'created_at', 'updated_at'];
-        $cast_member = new CastMember();
         foreach ($dates as $date){
-            $this->assertContains($date,$cast_member->getDates());
+            $this->assertContains($date,$this->castMember->getDates());
         }
  
-        $this->assertCount(count($dates), $cast_member->getDates());
+        $this->assertCount(count($dates), $this->castMember->getDates());
     }
 
     public function testCastsAttribute()
     {
-        $casts = ['id'=> 'string'];
-        $cast_member = new CastMember();
-        $this->assertEquals($casts,$cast_member->getCasts());
+        $casts = ['id'=> 'string', 'type' => 'integer'];
+        $this->assertEquals($casts,$this->castMember->getCasts());
     }
 
     public function testIncrementingAttribute()
     {
-        $cast_member = new CastMember();
-        $this->assertFalse($cast_member->incrementing);
+        $this->assertFalse($this->castMember->incrementing);
     }
 }
