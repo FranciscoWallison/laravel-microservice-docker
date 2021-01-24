@@ -21,7 +21,7 @@ class CastMemberController extends BasicCrudController
 
     protected function model()
     {
-        return Category::class;
+        return CastMember::class;
     }
 
     protected function rulesStore()
