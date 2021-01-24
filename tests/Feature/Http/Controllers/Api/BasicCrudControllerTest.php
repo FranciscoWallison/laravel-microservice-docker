@@ -2,12 +2,15 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\BasicCrudController;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Mockery;
 use Tests\Stubs\Controllers\CategoryControllerStub;
 use Tests\Stubs\Models\CategoryStub;
 use Tests\TestCase;
 use Illuminate\Validation\ValidationException;
+use Reflection;
 
 class BasicCrudControllerTest extends TestCase
 {
@@ -48,4 +51,52 @@ class BasicCrudControllerTest extends TestCase
         
         $this->controller->store($request);
     }
+
+    public function testStore()
+    {
+        $request = Mockery::mock(Request::class);
+        $request
+            ->shouldReceive('all')
+            ->once()
+            ->andReturn(['name'=>'test_name', 'description' => 'test_description']);
+            
+        $obj = $this->controller->store($request);
+        $this->assertEquals(
+            CategoryStub::find(1)->toArray(),
+            $obj->toArray()
+        );
+    }
+
+    // public function testIfFindOrFailFetchModel()
+    // {
+    //     /**@var CategoryStub $category */
+    //     $category = CategoryStub::created(['name', 'test_name', 'description' => 'test_description']);
+
+    //     $reflectionClass = new \ReflectionClass(BasicCrudController::class);
+    //     $reflectionMethod = $reflectionClass->getMethod('findOrFail');
+    //     $reflectionMethod->setAccessible(true);
+
+    //     $result = $reflectionMethod->invokeArgs($this->controller, [$category->id]);
+    //     $this->assertNotInstanceOf(CategoryStub::class, $result);
+    // }
+
+    // public function testIfFindOrFailThrowExceptionWhenIdInvalid()
+    // {
+    //     $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
+
+    //     $reflectionClass = new \ReflectionClass(BasicCrudController::class);
+    //     $reflectionMethod = $reflectionClass->getMethod('findOrFail');
+    //     $reflectionMethod->setAccessible(true);
+
+    //     $reflectionMethod->invokeArgs($this->controller, [0]);
+    // }
+
+    // public function testShow()
+    // {
+    //     $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description' ]);
+    //     $category->refresh();
+    //     $result = $this->controller->show($category->id);
+
+    //     $this->assertEquals($result->toArray(), CategoryStub::find(1)->toArray());
+    // }
 }
