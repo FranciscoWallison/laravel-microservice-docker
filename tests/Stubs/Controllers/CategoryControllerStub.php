@@ -5,12 +5,12 @@ namespace Tests\Stubs\Controllers;
 use App\Http\Controllers\Api\BasicCrudController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use Tests\Stubs\Models\CategoryStub;
 
 class CategoryControllerStub extends BasicCrudController
 {
     protected function model()
     {
-        return Category::class;
+        return CategoryStub::class;
     }
 }

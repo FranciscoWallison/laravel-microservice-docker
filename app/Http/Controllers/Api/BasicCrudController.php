@@ -17,7 +17,7 @@ abstract class BasicCrudController extends Controller
 
     public function index()
     {
-        return Category::all();
+        return $this->model()::all();
     }
 
     // public function store(Request $request)
