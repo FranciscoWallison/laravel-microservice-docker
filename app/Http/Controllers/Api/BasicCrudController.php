@@ -9,25 +9,17 @@ use App\Models\Category;
 abstract class BasicCrudController extends Controller
 {
     protected abstract function model();
-
-    private $rules = [
-        'name' => 'required|max:255',
-        'is_active' => 'boolean'
-    ];
-
+    protected abstract function rulesStore();
+    
     public function index()
     {
         return $this->model()::all();
     }
 
-    // public function store(Request $request)
-    // {
-    //     //Iniciando validador
-    //     $this->validate($request, $this->rules);
-    //     $category = Category::create($request->all());
-    //     $category->refresh();
-    //     return $category;
-    // }
+    public function store(Request $request)
+    {
+        $this->validate($request, $this->rulesStore());
+    }
 
     // public function show(Category $category)
     // {

@@ -2,24 +2,22 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
-use App\Models\Category;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Lang;
+use Illuminate\Http\Request;
+use Mockery;
 use Tests\Stubs\Controllers\CategoryControllerStub;
 use Tests\Stubs\Models\CategoryStub;
-use Tests\Traits\TestValidations;
-use Tests\Traits\TestSaves;
 use Tests\TestCase;
+use Illuminate\Validation\ValidationException;
 
 class BasicCrudControllerTest extends TestCase
 {
+    private $controller;
     protected function setUp(): void
     {
         parent::setUp();
         CategoryStub::dropTable();
         CategoryStub::createTable();
+        $this->controller = new CategoryControllerStub();
     }
 
     protected function tearDown(): void
@@ -32,10 +30,22 @@ class BasicCrudControllerTest extends TestCase
     {
         $category =  CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
         $category->refresh();
-        $controller = new CategoryControllerStub();
+       
      
-        $result = $controller->index()->toArray();
+        $result = $this->controller->index()->toArray();
         $this->assertEquals([$category->toArray()], $result);
 
+    }
+
+    public function testInvalidationDataInStore()
+    {
+        $this->expectException(\Illuminate\Validation\ValidationException::class);
+        $request = Mockery::mock(Request::class);
+        $request
+            ->shouldReceive('all')
+            ->once()
+            ->andReturn(['name'=>'']);
+        
+        $this->controller->store($request);
     }
 }
