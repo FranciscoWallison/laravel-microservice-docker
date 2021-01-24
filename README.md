@@ -1,6 +1,6 @@
 
 ## Conceitos de api
-#### Headers
+### Headers
 ______
 ````
 ° Como estou peguntando
@@ -8,8 +8,8 @@ ______
 ° Como estou respondendo
   - key "Content-Type",  Value "application/json" 
 ````
-#### Status code
-´´´´
+### Status code
+````
     Respostas de sucesso (200-299)
     Erros do cliente (400-499)
     Erros do servidor (500-599)
@@ -63,6 +63,7 @@ ______
 
 Test
 ______
+Media de teste 18 à 40 Megas
 ````
   Criando FEATURE    
     - php artisan make:test Models/CategoryTest
