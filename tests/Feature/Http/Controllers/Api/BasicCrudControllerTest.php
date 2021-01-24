@@ -59,7 +59,7 @@ class BasicCrudControllerTest extends TestCase
             ->shouldReceive('all')
             ->once()
             ->andReturn(['name'=>'test_name', 'description' => 'test_description']);
-            
+
         $obj = $this->controller->store($request);
         $this->assertEquals(
             CategoryStub::find(1)->toArray(),
@@ -67,36 +67,64 @@ class BasicCrudControllerTest extends TestCase
         );
     }
 
-    // public function testIfFindOrFailFetchModel()
-    // {
-    //     /**@var CategoryStub $category */
-    //     $category = CategoryStub::created(['name', 'test_name', 'description' => 'test_description']);
+    public function testIfFindOrFailFetchModel()
+    {
+        /** @var CategoryStub $category */
+        $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
+        $category->refresh();
 
-    //     $reflectionClass = new \ReflectionClass(BasicCrudController::class);
-    //     $reflectionMethod = $reflectionClass->getMethod('findOrFail');
-    //     $reflectionMethod->setAccessible(true);
+        $reflectionClass = new \ReflectionClass(BasicCrudController::class);
+        $reflectionMethod = $reflectionClass->getMethod('findOrFail');
+        $reflectionMethod->setAccessible(true);
 
-    //     $result = $reflectionMethod->invokeArgs($this->controller, [$category->id]);
-    //     $this->assertNotInstanceOf(CategoryStub::class, $result);
-    // }
+        $result = $reflectionMethod->invokeArgs($this->controller, [$category->id]);
+        $this->assertInstanceOf(CategoryStub::class, $result);
+    }
 
-    // public function testIfFindOrFailThrowExceptionWhenIdInvalid()
-    // {
-    //     $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
+    public function testIfFindOrFailThrowExceptionWhenIdInvalid()
+    {
+        $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
 
-    //     $reflectionClass = new \ReflectionClass(BasicCrudController::class);
-    //     $reflectionMethod = $reflectionClass->getMethod('findOrFail');
-    //     $reflectionMethod->setAccessible(true);
+        $reflectionClass = new \ReflectionClass(BasicCrudController::class);
+        $reflectionMethod = $reflectionClass->getMethod('findOrFail');
+        $reflectionMethod->setAccessible(true);
 
-    //     $reflectionMethod->invokeArgs($this->controller, [0]);
-    // }
+        $reflectionMethod->invokeArgs($this->controller, [0]);
+    }
 
-    // public function testShow()
-    // {
-    //     $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description' ]);
-    //     $category->refresh();
-    //     $result = $this->controller->show($category->id);
+    public function testShow()
+    {
+        $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description' ]);
+        $category->refresh();
+        $result = $this->controller->show($category->id);
 
-    //     $this->assertEquals($result->toArray(), CategoryStub::find(1)->toArray());
-    // }
+        $this->assertEquals($result->toArray(), CategoryStub::find(1)->toArray());
+    }
+
+    public function testUpdate()
+    {
+        $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description' ]);
+        $category->refresh();
+
+        $request = Mockery::mock(Request::class);
+        $request
+            ->shouldReceive('all')
+            ->once()
+            ->andReturn(['name'=>'test_name_changed', 'description' => 'test_description_changed']);
+
+        $result = $this->controller->update($request, $category->id);
+        $this->assertEquals($result->toArray(), CategoryStub::find(1)->toArray());
+    }
+
+    public function testDestroy()
+    {
+        $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description' ]);
+        $category->refresh();
+
+        $response = $this->controller->destroy($category->id);
+        $this
+            ->createTestResponse($response)
+            ->assertStatus(204);
+        $this->assertCount(0,CategoryStub::all());
+    }
 }
