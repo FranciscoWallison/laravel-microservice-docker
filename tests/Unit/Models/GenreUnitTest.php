@@ -7,9 +7,15 @@ use App\Models\Genre;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\Uuid;
 
-class GenreTest extends TestCase
+class GenreUnitTest extends TestCase
 {
     private $genre;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->genre = new Genre();
+    }
 
     public function testIfUseTraits()
     {
@@ -23,31 +29,27 @@ class GenreTest extends TestCase
     public function testFillableAttribute()
     {
         $fillable = ['name', 'is_active'];
-        $genre = new Genre();
-        $this->assertEquals($fillable,$genre->getFillable());
+        $this->assertEquals($fillable,$this->genre->getFillable());
     }
 
     public function testDatesAttribute()
     {
         $dates = ['deleted_at', 'created_at', 'updated_at'];
-        $genre = new Genre();
         foreach ($dates as $date){
-            $this->assertContains($date,$genre->getDates());
+            $this->assertContains($date,$this->genre->getDates());
         }
  
-        $this->assertCount(count($dates), $genre->getDates());
+        $this->assertCount(count($dates), $this->genre->getDates());
     }
 
     public function testCastsAttribute()
     {
         $casts = ['id'=> 'string', 'is_active'=> 'boolean'];
-        $genre = new Genre();
-        $this->assertEquals($casts,$genre->getCasts());
+        $this->assertEquals($casts,$this->genre->getCasts());
     }
 
     public function testIncrementingAttribute()
     {
-        $genre = new Genre();
-        $this->assertFalse($genre->incrementing);
+        $this->assertFalse($this->genre->incrementing);
     }
 }

@@ -5,6 +5,21 @@
 	"order": [],
 	"folders": [
 		{
+			"name": "CastMember",
+			"description": "",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"order": [
+				"32091860-9d2b-f8cb-6d2b-7be2cd5ac26b",
+				"b43dac2b-d738-09d2-fe18-43f35bafb33b",
+				"ee777b7e-1e40-7ff9-cf0c-e9e5d75703df",
+				"5e7c5c2d-4f10-4bca-729a-73f3b2fd6afb",
+				"65536579-48df-8c92-68f8-a1f7979fc6ef"
+			],
+			"owner": "2500282",
+			"folders_order": [],
+			"id": "4df193f4-d97c-9ab1-1cae-92f533c55ea7"
+		},
+		{
 			"name": "Category",
 			"description": "",
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
@@ -37,7 +52,8 @@
 	],
 	"folders_order": [
 		"81a76e9f-5c10-0876-180f-860957d14622",
-		"8e1761b7-9026-5b89-ed36-d1f2586732ed"
+		"8e1761b7-9026-5b89-ed36-d1f2586732ed",
+		"4df193f4-d97c-9ab1-1cae-92f533c55ea7"
 	],
 	"timestamp": 1611230298856,
 	"owner": "2500282",
@@ -80,6 +96,101 @@
 			"rawModeData": ""
 		},
 		{
+			"id": "32091860-9d2b-f8cb-6d2b-7be2cd5ac26b",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8000/api/cast_members",
+			"folder": "4df193f4-d97c-9ab1-1cae-92f533c55ea7",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611501186669,
+			"name": "CastMemberIndex",
+			"description": "cerelização all category",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": []
+		},
+		{
+			"id": "5e7c5c2d-4f10-4bca-729a-73f3b2fd6afb",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/cast_members/508c0ca1-f675-410c-b876-b3b0c8022633",
+			"folder": "4df193f4-d97c-9ab1-1cae-92f533c55ea7",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611501550799,
+			"name": "CastMemberUpdate",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"genres 3\",\n\t\"type\": 1\n}"
+		},
+		{
+			"id": "65536579-48df-8c92-68f8-a1f7979fc6ef",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/cast_members/508c0ca1-f675-410c-b876-b3b0c8022633",
+			"folder": "4df193f4-d97c-9ab1-1cae-92f533c55ea7",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611501568813,
+			"name": "CastMemberDelete",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": ""
+		},
+		{
 			"id": "6d901ff1-cc8f-5fb0-90bc-369a2745c3ae",
 			"headers": "Accept: application/json\nContent-Type: application/json\n",
 			"headerData": [
@@ -97,6 +208,7 @@
 				}
 			],
 			"url": "http://localhost:8000/api/categories/04bcc049-e8aa-4159-98db-02d2edfa3941",
+			"folder": "81a76e9f-5c10-0876-180f-860957d14622",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -109,6 +221,41 @@
 			"helperAttributes": {},
 			"time": 1611264130944,
 			"name": "CategoryShow",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": []
+		},
+		{
+			"id": "b43dac2b-d738-09d2-fe18-43f35bafb33b",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/cast_members/0007a12e-86c5-4893-8d84-f02654fc990c",
+			"folder": "4df193f4-d97c-9ab1-1cae-92f533c55ea7",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611501445420,
+			"name": "CastMemberShow",
 			"description": "Show object",
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"responses": []
@@ -302,6 +449,42 @@
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"responses": [],
 			"rawModeData": ""
+		},
+		{
+			"id": "ee777b7e-1e40-7ff9-cf0c-e9e5d75703df",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/cast_members",
+			"folder": "4df193f4-d97c-9ab1-1cae-92f533c55ea7",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611501482737,
+			"name": "CastMemberStore",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\": \"genres 1\",\n\t\"type\": 2\n}"
 		},
 		{
 			"id": "f3bc5dc9-c03c-dbbd-3c54-b71982186fbe",
