@@ -76,6 +76,7 @@ Media de teste 18 à 40 Megas
   Executando Teste em uma Única Class
     - vendor/bin/phpunit --filter CategoryTest
     - vendor/bin/phpunit --filter GenreTest
+    - vendor/bin/phpunit --filter CastMember
   Executando Teste em uma Única Class/Metodo
     - vendor/bin/phpunit --filter CategoryTest::testExample
     - vendor/bin/phpunit --filter GenreTest::testExample
