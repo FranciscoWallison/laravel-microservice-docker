@@ -38,7 +38,7 @@ ______
 ````
   - php artisan make:model Models/Category --all
   - php artisan make:model Models/Genre --all
-  - php artisan make:model Models/CastMember -aal
+  - php artisan make:model Models/CastMember --all
 ````
 Consultando Rotas da aplicação 
 ______
