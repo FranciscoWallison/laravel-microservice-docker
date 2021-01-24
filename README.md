@@ -53,24 +53,21 @@ ______
   Validando model criado pelas --seed
     - App\Models\Category::all()
 ````
-Consultando Models com Tinker
-______
-````
-  Iniciando TINKER
-    - php artisan tinker
-  Validando model criado pelas --seed
-    - App\Models\Category::all()
-````
 
 Test
 ______
 Media de teste 18 à 40 Megas
 ````
-  Criando FEATURE    
-    - php artisan make:test Models/CategoryTest
-    - php artisan make:test Http/Controllers/Api/CategoryTest
-    - php artisan make:test Models/GenreTest
-    - php artisan make:test Http/Controllers/Api/GenreTest
+  Criando FEATURE
+    ° Category
+      - php artisan make:test Models/CategoryTest
+      - php artisan make:test Http/Controllers/Api/CategoryControllerTest
+    ° Genre
+      - php artisan make:test Models/GenreTest
+      - php artisan make:test Http/Controllers/Api/GenreControllerTest
+    ° CastMember
+      - php artisan make:test Models/CastMemberTest
+      - php artisan make:test Http/Controllers/Api/CastMemberControllerTest
   Criando UNIT
     - php artisan make:test Models/CategoryTest --unit
     - php artisan make:test Models/GenreTest --unit
