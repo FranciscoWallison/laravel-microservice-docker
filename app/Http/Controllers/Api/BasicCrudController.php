@@ -10,6 +10,7 @@ abstract class BasicCrudController extends Controller
 {
     protected abstract function model();
     protected abstract function rulesStore();
+    protected abstract function rulesUpdate();
     
     public function index()
     {
@@ -24,25 +25,32 @@ abstract class BasicCrudController extends Controller
         return $obj;
     }
 
-    // public function show(Category $category)
-    // {
-    //     //
-    //     return $category;
-    // }
 
-    // public function update(Request $request, Category $category)
-    // {
-    //     //Iniciando validador
-    //     $this->validate($request, $this->rules);
-    //     $category->update($request->all());
-    //     return $category;
-    // }
+    protected function findOrFail($id)
+    {
+        $model = $this->model();
+        $keyName = (new $model)->getRouteKeyName();// where com  coluna dinâmica
+        return $this->model()::where($keyName, $id)->firstOrFail();
+    }
 
-    // public function destroy(Category $category)
-    // {
-    //     //
-    //     $category->delete();
-    //     //204 - No content
-    //     return response()->noContent();
-    // }
+    public function show($id)
+    {
+        $obj = $this->findOrFail($id);
+        return $obj;
+    }
+
+    public function update(Request $request, $id)
+    {
+        $obj = $this->findOrFail($id);
+        $validateData = $this->validate($request, $this->rulesUpdate());
+        $obj->update($validateData);
+        return $obj;
+    }
+
+    public function destroy($id)
+    {
+        $obj = $this->findOrFail($id);
+        $obj->delete();
+        return response()->noContent(); // status code 204
+    }
 }
