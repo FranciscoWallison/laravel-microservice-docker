@@ -39,6 +39,7 @@ ______
   - php artisan make:model Models/Category --all
   - php artisan make:model Models/Genre --all
   - php artisan make:model Models/CastMember --all
+  - php artisan make:model Models/Video --all
 ````
 Consultando Rotas da aplicação 
 ______
