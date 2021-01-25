@@ -69,6 +69,9 @@ Media de teste 18 à 40 Megas
     ° CastMember
       - php artisan make:test Models/CastMemberTest
       - php artisan make:test Http/Controllers/Api/CastMemberControllerTest
+    ° Video
+      - php artisan make:test Models/VideoTest
+      - php artisan make:test Http/Controllers/Api/VideoControllerTest
   Criando UNIT
     - php artisan make:test Models/CategoryTest --unit
     - php artisan make:test Models/GenreTest --unit
