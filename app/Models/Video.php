@@ -14,7 +14,7 @@ class Video extends Model
     protected $fillable = [
         'title',
         'description',
-        'yarn_launched',
+        'year_launched',
         'opened',
         'rating',
         'duration'
