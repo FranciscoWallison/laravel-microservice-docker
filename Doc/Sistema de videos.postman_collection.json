@@ -48,17 +48,69 @@
 			"owner": "2500282",
 			"folders_order": [],
 			"id": "8e1761b7-9026-5b89-ed36-d1f2586732ed"
+		},
+		{
+			"name": "Video",
+			"description": "",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"order": [
+				"7b5a36f9-f7c3-c63e-836f-2228e7d50679",
+				"66a7bf3c-3dfd-4e0a-7719-21c2a3df79a1",
+				"229439c9-0bf3-517b-d8a5-6bab97910802",
+				"c7211a53-9326-2fc3-e6d0-7dbd9ad32a19",
+				"18e72fc4-9b3a-5483-9b9d-66c7d095b84b"
+			],
+			"owner": "2500282",
+			"folders_order": [],
+			"id": "693428d6-44b3-169a-2a4f-ce6056962271"
 		}
 	],
 	"folders_order": [
 		"81a76e9f-5c10-0876-180f-860957d14622",
 		"8e1761b7-9026-5b89-ed36-d1f2586732ed",
-		"4df193f4-d97c-9ab1-1cae-92f533c55ea7"
+		"4df193f4-d97c-9ab1-1cae-92f533c55ea7",
+		"693428d6-44b3-169a-2a4f-ce6056962271"
 	],
 	"timestamp": 1611230298856,
 	"owner": "2500282",
 	"public": false,
 	"requests": [
+		{
+			"id": "18e72fc4-9b3a-5483-9b9d-66c7d095b84b",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/videos/9f1358d1-9ae2-49b3-9a88-65f0ec78310b",
+			"folder": "693428d6-44b3-169a-2a4f-ce6056962271",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611612469789,
+			"name": "VideoDelete",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": ""
+		},
 		{
 			"id": "1be9f7c3-da1f-8442-06ab-f999d6fef76e",
 			"headers": "Accept: application/json\nContent-Type: application/json\n",
@@ -94,6 +146,42 @@
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"responses": [],
 			"rawModeData": ""
+		},
+		{
+			"id": "229439c9-0bf3-517b-d8a5-6bab97910802",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/videos",
+			"folder": "693428d6-44b3-169a-2a4f-ce6056962271",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611611878773,
+			"name": "VideoStore",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": "{\n\t\"title\": \"video 1\",\n\t\"description\": \"DESCCRIÇÃO DO VIDEO\",\n\t\"year_launched\": 2020,\n\t\"opened\": true,\n\t\"rating\": \"12\",\n    \"duration\": 25\n}"
 		},
 		{
 			"id": "32091860-9d2b-f8cb-6d2b-7be2cd5ac26b",
@@ -191,6 +279,41 @@
 			"rawModeData": ""
 		},
 		{
+			"id": "66a7bf3c-3dfd-4e0a-7719-21c2a3df79a1",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/videos/036210a4-99c2-4f0f-b63c-e0c2f9640dab",
+			"folder": "693428d6-44b3-169a-2a4f-ce6056962271",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611570718122,
+			"name": "VideoShow",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": []
+		},
+		{
 			"id": "6d901ff1-cc8f-5fb0-90bc-369a2745c3ae",
 			"headers": "Accept: application/json\nContent-Type: application/json\n",
 			"headerData": [
@@ -222,6 +345,29 @@
 			"time": 1611264130944,
 			"name": "CategoryShow",
 			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": []
+		},
+		{
+			"id": "7b5a36f9-f7c3-c63e-836f-2228e7d50679",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8000/api/videos",
+			"folder": "693428d6-44b3-169a-2a4f-ce6056962271",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611570522978,
+			"name": "VideoIndex",
+			"description": "cerelização all category",
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"responses": []
 		},
@@ -282,6 +428,42 @@
 			"description": "cerelização all category",
 			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
 			"responses": []
+		},
+		{
+			"id": "c7211a53-9326-2fc3-e6d0-7dbd9ad32a19",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/videos/9f1358d1-9ae2-49b3-9a88-65f0ec78310b",
+			"folder": "693428d6-44b3-169a-2a4f-ce6056962271",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1611612449595,
+			"name": "VideoUpdate",
+			"description": "Show object",
+			"collectionId": "fe1376ff-fbf4-2297-3529-57f7a45ca02d",
+			"responses": [],
+			"rawModeData": "{\n\t\"title\": \"video 2\",\n\t\"description\": \"DESCCRIÇÃO DO VIDEO 2\",\n\t\"duration\": 30,\n\t\"year_launched\": 2020,\n\t\"rating\": \"12\"\n}"
 		},
 		{
 			"id": "cceecd64-eb25-54af-0cb7-ab1690c2fdca",
