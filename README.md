@@ -8,6 +8,10 @@ ______
 ° Como estou respondendo
   - key "Content-Type",  Value "application/json" 
 ````
+
+### Lazy Loading Vs Eager Loading
+
+
 ### Status code
 ````
     Respostas de sucesso (200-299)

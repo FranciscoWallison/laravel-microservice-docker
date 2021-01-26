@@ -21,7 +21,7 @@ class VideoController extends BasicCrudController
             'rating'        => 'required|in:'.implode(',', Video::RATING_LIST),
             'duration'      => 'required|integer',
             'categories_id' => 'required|array|exists:categories,id',
-            'genres_id' => 'required|array|exists:genres,id'
+            'genres_id'     => 'required|array|exists:genres,id'
         ];
     }
 
@@ -30,9 +30,9 @@ class VideoController extends BasicCrudController
         $validateData = $this->validate($request, $this->rulesStore());
         $self = $this;
         /** @var Video $obj */
-        $obj = DB::transaction(function() use ($request, $validateData, $self){
+        $obj = DB::transaction(function() use ($request, $validateData, $self){           
             $obj = $this->model()::create($validateData);
-            $self->handleRelation($obj, $request);
+            $self->handleRelations($obj, $request);
             return $obj;
         });
         $obj->refresh();
@@ -47,15 +47,15 @@ class VideoController extends BasicCrudController
          /** @var Video $obj */
         $obj = DB::transaction(function() use ($request, $validateData, $obj, $self){
             $obj->update($validateData);
-            $self->handleRelation($obj, $request);
+            $self->handleRelations($obj, $request);
             return $obj;
         });
         return $obj;
     }
 
-    protected function handleRelation($video, Request $request)
+    protected function handleRelations($video, Request $request)
     {
-        $video->categories()->sync($request->get('categories_id'));
+        $video->categories()->sync($request->get('categories_id'));   
         $video->genres()->sync($request->get('genres_id'));
     }
 
