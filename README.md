@@ -8,6 +8,10 @@ ______
 ° Como estou respondendo
   - key "Content-Type",  Value "application/json" 
 ````
+
+### Lazy Loading Vs Eager Loading
+
+
 ### Status code
 ````
     Respostas de sucesso (200-299)
@@ -69,6 +73,9 @@ Media de teste 18 à 40 Megas
     ° CastMember
       - php artisan make:test Models/CastMemberTest
       - php artisan make:test Http/Controllers/Api/CastMemberControllerTest
+    ° Video
+      - php artisan make:test Models/VideoTest
+      - php artisan make:test Http/Controllers/Api/VideoControllerTest
   Criando UNIT
     - php artisan make:test Models/CategoryTest --unit
     - php artisan make:test Models/GenreTest --unit
@@ -81,4 +88,6 @@ Media de teste 18 à 40 Megas
   Executando Teste em uma Única Class/Metodo
     - vendor/bin/phpunit --filter CategoryTest::testExample
     - vendor/bin/phpunit --filter GenreTest::testExample
+    - vendor/bin/phpunit --filter CastMember::testExample
+    - vendor/bin/phpunit --filter Video::testExample
 ````
