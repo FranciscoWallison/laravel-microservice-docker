@@ -8,6 +8,9 @@ use Tests\Traits\TestValidations;
 use Tests\Traits\TestSaves;
 use Tests\TestCase;
 
+use App\Models\Category;
+use App\Models\Genre;
+
 class VideoControllerTest extends TestCase
 {
     use DatabaseMigrations, TestValidations, TestSaves;
@@ -20,6 +23,13 @@ class VideoControllerTest extends TestCase
     {
         parent::setUp();
         $this->video = factory(Video::class)->create();
+        
+        $categories = factory(Category::class)->create();
+        $categories->refresh();
+
+        $genres = factory(Genre::class)->create();
+        $genres->refresh();
+
         $this->sendData = [
             "title" => "Velit quasi autem dicta.",
             "description" => "Fugit iste rerum eos et molestias voluptatibus occaecati ad at velit deserunt distinctio sint.",
@@ -27,6 +37,8 @@ class VideoControllerTest extends TestCase
             "opened" => true,
             "rating" => Video::RATING_LIST[0],
             "duration" => 25,
+            'categories_id' => [$categories->id],
+            'genres_id' => [$genres->id]
         ];
     }
 
@@ -45,7 +57,9 @@ class VideoControllerTest extends TestCase
             'description'   => '',
             'year_launched' => '',
             'rating'        => '',
-            'duration'      => ''
+            'duration'      => '',
+            'categories_id' => '',
+            'genres_id'     => ''
         ];
         $this->assertInvalidationInStoreAction($data, 'required');
         $this->assertInvalidationInUpdateAction($data, 'required');
@@ -88,14 +102,38 @@ class VideoControllerTest extends TestCase
     }
 
 
-    public function testInvalidationRatingField()
+    public function testInvalidationCategoriesIdField()
     {
         $data = [
-            'rating' => 0
+            'categories_id' => 'a'
         ];
 
-        $this->assertInvalidationInStoreAction($data, 'in');
-        $this->assertInvalidationInUpdateAction($data, 'in');
+        $this->assertInvalidationInStoreAction($data, 'array');
+        $this->assertInvalidationInUpdateAction($data, 'array');
+
+        $data = [
+            'categories_id' => [100]
+        ];
+
+        $this->assertInvalidationInStoreAction($data, 'exists');
+        $this->assertInvalidationInUpdateAction($data, 'exists');
+    }
+
+    public function testInvalidationGenresIdField()
+    {
+        $data = [
+            'genres_id' => 'a'
+        ];
+
+        $this->assertInvalidationInStoreAction($data, 'array');
+        $this->assertInvalidationInUpdateAction($data, 'array');
+
+        $data = [
+            'genres_id' => [100]
+        ];
+
+        $this->assertInvalidationInStoreAction($data, 'exists');
+        $this->assertInvalidationInUpdateAction($data, 'exists');
     }
 
 
