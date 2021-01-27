@@ -59,6 +59,11 @@ ______
     - php artisan make:migration create_category_video_table    
 ````
 
+Criando Rules
+______
+````
+  - php artisan make:rule GenresHasCategoriesRule
+````
 Consultando Rotas da aplicação 
 ______
 ````
