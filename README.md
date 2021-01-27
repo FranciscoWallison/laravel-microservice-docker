@@ -45,6 +45,20 @@ ______
   - php artisan make:model Models/CastMember --all
   - php artisan make:model Models/Video --all
 ````
+Criando Tables
+______
+````
+  1° Pode ser utilizado com o "make:model Models/<Nome> --all"
+    - php artisan make:migration create_categories_table
+    - php artisan make:migration create_genres_table
+    - php artisan make:migration create_cast_members_table
+    - php artisan make:migration create_videos_table
+  2° Relacionamentos entre tabelas
+    - php artisan make:migration create_category_genre_table
+    - php artisan make:migration create_genre_video_table
+    - php artisan make:migration create_category_video_table    
+````
+
 Consultando Rotas da aplicação 
 ______
 ````
