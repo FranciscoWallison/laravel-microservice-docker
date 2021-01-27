@@ -108,53 +108,6 @@ class GenreControllerTest extends TestCase
             ->assertJsonMissingValidationErrors(['is_active']);
     }
 
-    public function testStore()
-    {
-        $category = factory(Category::class)->create(); 
-        $data = [
-            'name' => 'test_name',
-            // 'categories_id' => [$category->id]
-        ];
-        $response = $this->assertStore(
-            $data, 
-            $data + ['is_active' => true , 'deleted_at' => null]
-        );
-        $response->assertJsonStructure([
-            'created_at', 'updated_at'
-        ]);
-        $this->assertHasCategory($response->json('id'), $category->id);
-
-        $data = [
-            'name' => 'test_name',
-            'is_active' => false
-        ];
-        $this->assertStore(
-            $data, 
-            $data + ['is_active' => false]
-        );
-    }
-
-
-    public function testUpdate()
-    {
-        $category = factory(Category::class)->create(); 
-        $this->category = factory(Genre::class)->create([
-            'is_active' => false
-        ]);
-        $data = [
-            'name' => 'test_update_name',
-            'is_active' => true            
-        ];
-        $response = $this->assertUpdate(
-            $data, 
-            $data + ['deleted_at' => null]
-        );
-        $response->assertJsonStructure([
-            'created_at', 'updated_at'
-        ]);
-        $this->assertHasCategory($response->json('id'), $category->id);
-    }
-
     public function testDestroy()
     {
         $response = $this->json('DELETE', route('genres.destroy', ['genre' => $this->genre->id]));
@@ -192,18 +145,18 @@ class GenreControllerTest extends TestCase
         ];
         $response = $this->json(
             'PUT', 
-            route('genres.update', ['genre' => $response->json('id')]),
+            route( 'genres.update', ['genre' => $response->json('id')]),
             $sendData
         );
         $this->assertDatabaseMissing('category_genre',[
             'category_id'   => $categoriesId[0],
             'genre_id'      => $response->json('id')
         ]);
-        $this->assertDatabaseMissing('category_genre',[
+        $this->assertDatabaseHas('category_genre',[
             'category_id'   => $categoriesId[1],
             'genre_id'      => $response->json('id')
         ]);
-        $this->assertDatabaseMissing('category_genre',[
+        $this->assertDatabaseHas('category_genre',[
             'category_id'   => $categoriesId[2],
             'genre_id'      => $response->json('id')
         ]);
@@ -278,7 +231,7 @@ class GenreControllerTest extends TestCase
 
         $hasError = false;
         try {
-            $controller->update($response);
+            $controller->update($response, $this->genre->id);
         } catch (TestException $exception)
         {
             $this->assertCount(1, Genre::all());
