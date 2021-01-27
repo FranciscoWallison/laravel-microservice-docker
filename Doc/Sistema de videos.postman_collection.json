@@ -466,7 +466,8 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:8000/api/genres/054bbe5f-9e2e-4f51-a5ed-bdd692c647c6",
+			"url": "http://localhost:8000/api/genres/088c85cf-f57e-4aa0-bc1c-ece4e3053a22",
+			"folder": "b6a6f154-e9c8-edeb-1410-4d28ca21400c",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -477,14 +478,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1611265561507,
+			"time": 1611748610264,
 			"name": "GenreUpdate",
 			"description": "Show object",
 			"collectionId": "880c88c0-7ff8-0997-1de2-acdd57c98335",
 			"responses": [],
-			"collection_id": "880c88c0-7ff8-0997-1de2-acdd57c98335",
-			"rawModeData": "{\n\t\"name\": \"genres 3\",\n\t\"is_active\": true\n}",
-			"folder": "b6a6f154-e9c8-edeb-1410-4d28ca21400c"
+			"rawModeData": "{\n\t\"name\": \"genres 3\",\n\t\"is_active\": true,\n\t\"categories_id\": [\"0b93640e-7fbc-4044-b5c7-ab9662aacfac\", \"0bbad0aa-e3ac-4834-b312-5844108dd6a5\"]\n}"
 		},
 		{
 			"id": "9bd95662-845e-44ef-7797-faf4d8732ae7",
@@ -504,6 +503,7 @@
 				}
 			],
 			"url": "http://localhost:8000/api/genres",
+			"folder": "b6a6f154-e9c8-edeb-1410-4d28ca21400c",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -514,14 +514,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1611265365745,
+			"time": 1611748517892,
 			"name": "GenreStore",
 			"description": "Show object",
 			"collectionId": "880c88c0-7ff8-0997-1de2-acdd57c98335",
 			"responses": [],
-			"collection_id": "880c88c0-7ff8-0997-1de2-acdd57c98335",
-			"rawModeData": "{\n\t\"name\": \"genres 1\",\n\t\"is_active\": false\n}",
-			"folder": "b6a6f154-e9c8-edeb-1410-4d28ca21400c"
+			"rawModeData": "{\n\t\"name\": \"genres 1\",\n\t\"is_active\": false,\n\t\"categories_id\": [\"030baf8d-fc7a-4537-a48b-da333406cdc6\", \"03361819-5130-434b-a769-c234277bf65f\"]\n}"
 		},
 		{
 			"id": "a7e1b898-1814-5059-5209-556339cb4392",
