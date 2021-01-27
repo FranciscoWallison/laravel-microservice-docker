@@ -365,7 +365,9 @@ class VideoControllerTest extends TestCase
         try {            
             $controller->store($request);          
         } catch (Exception $e) {
-            if(strpos($e->getMessage(), "Mockery_3_Illuminate_Http_Request::get()" )  !== false ){
+            if(
+                strpos($e->getMessage(), "Mockery_3_Illuminate_Http_Request::get()" )  !== false 
+                || $e->getMessage() == "" ){
                 $this->assertCount(1, Video::all());
                 $hasError = true;
             }
