@@ -41,7 +41,7 @@ trait TestSaves
     {
         $response = $this->json('PUT', $this->routeUpdate(), $sendData);
         if($response->status() !== 200){
-            throw new \Exception("Response status must be 200, give {$response->status()}: \n {$response->constant()}");
+            throw new \Exception("Response status must be 200, give {$response->status()}: \n {$response->content()}");
         }
        
         $this->assertInDatabase($response, $testDatabase);
