@@ -59,6 +59,6 @@ class GenresHasCategoriesRule implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+       return trans('validation.genres_has_categories');
     }
 }
