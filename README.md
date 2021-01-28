@@ -59,6 +59,11 @@ ______
     - php artisan make:migration create_category_video_table    
 ````
 
+Criando Rules
+______
+````
+  - php artisan make:rule GenresHasCategoriesRule
+````
 Consultando Rotas da aplicação 
 ______
 ````
@@ -93,6 +98,7 @@ Media de teste 18 à 40 Megas
   Criando UNIT
     - php artisan make:test Models/CategoryTest --unit
     - php artisan make:test Models/GenreTest --unit
+    - php artisan make:test Rules/GenresHasCategoriesRuleUnitTest --unit
   Executando Teste
     - vendor/bin/phpunit
   Executando Teste em uma Única Class

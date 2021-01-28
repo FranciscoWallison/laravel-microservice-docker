@@ -107,6 +107,67 @@ class GenreControllerTest extends TestCase
         $response
             ->assertJsonMissingValidationErrors(['is_active']);
     }
+    /*
+    public function testStore()
+    {
+        $categoryId = factory(Category::class)->create()->id; 
+        $data = [
+            'name' => 'test_name',
+            'categories_id' => [$categoryId]
+        ];
+        $dataStore = $data;
+
+        $dataStore['is_active'] = true;
+        $dataStore['deleted_at'] = null;
+
+        $response = $this->assertStore(
+            $data, 
+            $dataStore
+        );
+        $response->assertJsonStructure([
+            'created_at', 
+            'updated_at'
+        ]);
+        $this->assertHasCategory($response->json('id'), $categoryId);
+        
+
+        $data = [
+            'name' => 'test_name',
+            'is_active' => false,
+            'categories_id' => [$categoryId]
+        ];
+
+        $dataStore = $data;
+        $dataStore['is_active'] = false;
+        $this->assertStore(
+            $data, 
+            $data + ['is_active' => false]
+        );
+    }
+
+
+    public function testUpdate()
+    {
+        $category = factory(Category::class)->create(); 
+        $this->category = factory(Genre::class)->create([
+            'is_active' => false
+        ]);
+        $data = [
+            'name' => 'test_update_name',
+            'is_active' => true,
+            'categories_id' => [$category->id],
+            'deleted_at' => null
+        ];
+        $response = $this->assertUpdate(
+            $data, 
+            $data
+        );
+        $response->assertJsonStructure([
+            'created_at', 'updated_at'
+        ]);
+        $this->assertHasCategory($response->json('id'), $category->id);
+    }
+    */
 
     public function testDestroy()
     {
