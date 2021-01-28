@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class GenresHasCategoriesRule implements Rule
 {
-
+    
     protected $categoriesId;
-    protected $genreId;
+    protected $genresId;
 
     public function __construct(array $categoriesId)
     {
