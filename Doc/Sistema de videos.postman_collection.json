@@ -1,6 +1,6 @@
 {
 	"id": "880c88c0-7ff8-0997-1de2-acdd57c98335",
-	"name": "Sistema de videos copy",
+	"name": "Sistema de videos",
 	"description": "",
 	"order": [],
 	"folders": [
@@ -514,28 +514,28 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1611748517892,
+			"time": 1611965862219,
 			"name": "GenreStore",
 			"description": "Show object",
 			"collectionId": "880c88c0-7ff8-0997-1de2-acdd57c98335",
 			"responses": [],
-			"rawModeData": "{\n\t\"name\": \"genres 1\",\n\t\"is_active\": false,\n\t\"categories_id\": [\"030baf8d-fc7a-4537-a48b-da333406cdc6\", \"03361819-5130-434b-a769-c234277bf65f\"]\n}"
+			"rawModeData": "{\n\t\"name\": \"genres 1\",\n\t\"is_active\": false,\n\t\"categories_id\": [\"00bac7a4-46d7-414c-8629-7ffa50728613\"]\n}"
 		},
 		{
 			"id": "a7e1b898-1814-5059-5209-556339cb4392",
-			"headers": "Accept: application/json\nContent-Type: application/json\n",
+			"headers": "//Accept: application/json\n//Content-Type: application/x-www-form-urlencoded\n",
 			"headerData": [
 				{
 					"key": "Accept",
 					"value": "application/json",
 					"description": "",
-					"enabled": true
+					"enabled": false
 				},
 				{
 					"key": "Content-Type",
-					"value": "application/json",
+					"value": "application/x-www-form-urlencoded",
 					"description": "",
-					"enabled": true
+					"enabled": false
 				}
 			],
 			"url": "http://localhost:8000/api/videos",
@@ -545,17 +545,72 @@
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
+			"data": [
+				{
+					"key": "title",
+					"value": "video 1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "description",
+					"value": "DESCCRIÇÃO DO VIDEO",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "year_launched",
+					"value": "2020",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "opened",
+					"value": "true",
+					"type": "text",
+					"enabled": false
+				},
+				{
+					"key": "rating",
+					"value": "L",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "duration",
+					"value": "25",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "categories_id[]",
+					"value": "00bac7a4-46d7-414c-8629-7ffa50728613",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "genres_id[]",
+					"value": "18fb843a-d49b-49b8-80a6-e36073cbcc4c",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "video_file",
+					"value": "logoCraftro.png",
+					"description": "",
+					"type": "file",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1611620196135,
+			"time": 1611966738935,
 			"name": "VideoStore",
 			"description": "Show object",
 			"collectionId": "880c88c0-7ff8-0997-1de2-acdd57c98335",
-			"responses": [],
-			"rawModeData": "{\n\t\"title\": \"video 1\",\n\t\"description\": \"DESCCRIÇÃO DO VIDEO\",\n\t\"year_launched\": 2020,\n\t\"opened\": true,\n\t\"rating\": \"L\",\n    \"duration\": 25,\n    \"categories_id\": [\"00dc277a-56e1-45ac-9fb0-7dfad4ee2be8\", \"0512cbeb-0148-4d8c-b164-153f6448ed63\"],\n    \"genres_id\": [ \"02ec0375-1548-47b8-b857-c0a5fc886d17\", \"0402515b-04da-4725-9c04-2b421b7e04e0\"]\n}"
+			"responses": []
 		},
 		{
 			"id": "ac0fb2a2-078c-d242-7761-0e966c886f6e",
@@ -673,7 +728,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:8000/api/videos/036210a4-99c2-4f0f-b63c-e0c2f9640dab",
+			"url": "http://localhost:8000/api/videos/0a9c9a8f-e16a-46a6-91b9-f1b57b96015e",
 			"folder": "2d4fc0f0-112c-8f23-1823-13c63ad17d5c",
 			"queryParams": [],
 			"preRequestScript": null,
@@ -685,12 +740,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1611620226718,
+			"time": 1611755316362,
 			"name": "VideoUpdate",
 			"description": "Show object",
 			"collectionId": "880c88c0-7ff8-0997-1de2-acdd57c98335",
 			"responses": [],
-			"rawModeData": "{\n\t\"title\": \"video 2\",\n\t\"description\": \"DESCCRIÇÃO DO VIDEO 2\",\n\t\"duration\": 30,\n\t\"year_launched\": 2020,\n\t\"rating\": \"12\",\n\t\"categories_id\": [\"00dc277a-56e1-45ac-9fb0-7dfad4ee2be8\", \"0512cbeb-0148-4d8c-b164-153f6448ed63\"],\n    \"genres_id\": [ \"02ec0375-1548-47b8-b857-c0a5fc886d17\", \"0402515b-04da-4725-9c04-2b421b7e04e0\"]\n}"
+			"rawModeData": "{\n\t\"title\": \"video 2\",\n\t\"description\": \"DESCCRIÇÃO DO VIDEO 2\",\n\t\"duration\": 30,\n\t\"year_launched\": 2020,\n\t\"rating\": \"12\",\n\t\"categories_id\": [\"00b6447e-aa71-4545-ba1e-4e47109e5aff\", \"0555c246-3d77-422f-acd4-d50f2256821b\"],\n    \"genres_id\": [ \"0003d227-976b-41be-8eae-47927a3aa7be\", \"01051cdd-cbbd-49fe-bc4d-8b2165fa0ce5\"]\n}"
 		},
 		{
 			"id": "c07b95e1-7345-30b5-6a86-e8fa88144fee",

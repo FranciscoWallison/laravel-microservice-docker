@@ -110,4 +110,7 @@ Media de teste 18 à 40 Megas
     - vendor/bin/phpunit --filter GenreTest::testExample
     - vendor/bin/phpunit --filter CastMember::testExample
     - vendor/bin/phpunit --filter Video::testExample
+   Executando Teste em uma FEATURE Class
+    - vendor/bin/phpunit --filter UploadedFilesUnitTest
+    
 ````
