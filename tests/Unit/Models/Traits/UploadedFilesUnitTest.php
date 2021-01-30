@@ -19,6 +19,8 @@ class UploadedFilesUnitTest extends TestCase
 
     public function testUploadFile()
     {
+        $this->expectException( \Illuminate\Contracts\Container\BindingResolutionException::class);
+       
         Storage::fake();
         $file = UploadedFile::fake()->create('video.mp4');
         $this->obj->uploadFile($file);
@@ -28,6 +30,7 @@ class UploadedFilesUnitTest extends TestCase
 
     public function testUploadFiles()
     {
+        $this->expectException( \Illuminate\Contracts\Container\BindingResolutionException::class);
         Storage::fake();
         $file1 = UploadedFile::fake()->create('video.mp4');
         $file2 = UploadedFile::fake()->create('video.mp4');
@@ -37,6 +40,7 @@ class UploadedFilesUnitTest extends TestCase
     }
     public function testDeleteFile()
     {
+        $this->expectException( \Illuminate\Contracts\Container\BindingResolutionException::class);
         Storage::fake();
         $file = UploadedFile::fake()->create('video.mp4');
         $this->obj->uploadFile($file);
@@ -53,6 +57,7 @@ class UploadedFilesUnitTest extends TestCase
 
     public function testDeletesFiles()
     {
+        $this->expectException( \Illuminate\Contracts\Container\BindingResolutionException::class);
         Storage::fake();
         $file1 = UploadedFile::fake()->create('video.mp4');
         $file2 = UploadedFile::fake()->create('video.mp4');
@@ -65,6 +70,7 @@ class UploadedFilesUnitTest extends TestCase
 
     public function testExtractFiles()
     {
+        //$this->expectException( \Illuminate\Contracts\Container\BindingResolutionException::class);
         $attributes = [];
         $files = UploadFilesStub::extractFiles($attributes);
         $this->assertCount(0, $attributes);

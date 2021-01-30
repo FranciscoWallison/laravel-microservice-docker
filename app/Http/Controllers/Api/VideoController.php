@@ -35,6 +35,7 @@ class VideoController extends BasicCrudController
     {
         $this->addRuleIfGenreHasCategories($request);
         $validateData = $this->validate($request, $this->rulesStore());
+        
         $obj = $this->model()::create($validateData);
         $obj->refresh();
         return $obj;

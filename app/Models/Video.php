@@ -61,6 +61,7 @@ class Video extends Model
 
     public function update(array $attributes = [], array $options = [])
     {
+        $files = self::extractFiles($attributes);
         try {
             DB::beginTransaction();
   
@@ -68,6 +69,7 @@ class Video extends Model
             static::handleRelations($this, $attributes);
             if($saved){
                 //upload file
+                $this->uploadFiles($files);
                 //excluir os andtigos
             }
             DB::commit();
