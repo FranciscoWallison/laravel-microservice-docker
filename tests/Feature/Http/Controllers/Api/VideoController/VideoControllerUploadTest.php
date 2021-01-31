@@ -3,11 +3,8 @@
 namespace Tests\Feature\Http\Controllers\Api\VideoController;
 
 use App\Models\Video;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Traits\TestValidations;
-use Tests\Traits\TestSaves;
 use Tests\Traits\TestUploads;
-use Tests\TestCase;
 use App\Models\Category;
 use App\Models\Genre;
 use Illuminate\Http\UploadedFile;
