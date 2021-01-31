@@ -26,7 +26,7 @@ class VideoController extends BasicCrudController
                 'array', 
                 'exists:genres,id,deleted_at,NULL',
             ],
-            'video_file'    => 'required'
+            'video_file'    => 'mimetypes:video/mp4|max:12',
 
         ];
     }
@@ -35,6 +35,7 @@ class VideoController extends BasicCrudController
     {
         $this->addRuleIfGenreHasCategories($request);
         $validateData = $this->validate($request, $this->rulesStore());
+        
         $obj = $this->model()::create($validateData);
         $obj->refresh();
         return $obj;
