@@ -8,7 +8,7 @@ use Tests\Stubs\Models\UploadFilesStub;
 use Illuminate\Support\Facades\Storage;
 use Tests\Traits\TestStorages;
 
-class UploadedFilesUnitTest extends TestCase
+class UploadedFilesProdTest extends TestCase
 {
     use TestStorages;
     private $obj;
@@ -16,9 +16,11 @@ class UploadedFilesUnitTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->markTestSkipped();
         $this->obj = new UploadFilesStub();
         \Config::set('filesystems.default' , 'gcs');
         $this->deleteAllFiles();
+       
     }
 
     public function testUploadFile()
