@@ -21,22 +21,21 @@ abstract class BaseVideoControllerTestCase extends TestCase
             'opened' => false
         ]);
         
-        // $categories = factory(Category::class)->create();
-        // $categories->refresh();
+        $categories = factory(Category::class)->create();
+        $categories->refresh();
 
-        // $genres = factory(Genre::class)->create();
-        // $genres->refresh();
-        // $genres->categories()->sync($categories->id);
+        $genres = factory(Genre::class)->create();
+        $genres->refresh();
+        $genres->categories()->sync($categories->id);
 
         $this->sendData = [
             "title" => "Velit quasi autem dicta.",
             "description" => "Fugit iste rerum eos et molestias voluptatibus occaecati ad at velit deserunt distinctio sint.",
             "year_launched" => 2007,
-            // "opened" => true,
             "rating" => Video::RATING_LIST[0],
             "duration" => 25,
-            // 'categories_id' => [$categories->id],
-            // 'genres_id' => [$genres->id]
+            'categories_id' => [$categories->id],
+            'genres_id' => [$genres->id]
         ];
     }
 }
