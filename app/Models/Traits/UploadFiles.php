@@ -27,6 +27,11 @@ trait UploadFiles
         });
     }
 
+    public function relativeFilePath($value)
+    {
+        return "{$this->uploadDir()}/{$value}";
+    }
+
     /**
      * @param UploadedFile[] $files
      */
@@ -76,5 +81,10 @@ trait UploadFiles
             }
         }
         return $files;
+    }
+
+    protected function getFileUrl($filename)
+    {
+        return Storage::url($this->relativeFilePath($filename));
     }
 }
