@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Models\UploadFilesStub;
 use Illuminate\Support\Facades\Storage;
 
-class UploadedFilesUnitTest extends TestCase
+class UploadFilesUnitTest extends TestCase
 {
     private $obj;
 
@@ -15,6 +15,11 @@ class UploadedFilesUnitTest extends TestCase
     {
         parent::setUp();
         $this->obj = new UploadFilesStub();
+    }
+
+    public function testRelativeFilePath()
+    {
+        $this->assertEquals("1/video.mp4", $this->obj->testRelativeFilePath('video.mp4'));
     }
 
     public function testUploadFile()

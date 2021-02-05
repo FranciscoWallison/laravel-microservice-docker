@@ -49,8 +49,9 @@ return [
         ],
 
         'video_local' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/videos'),
+            'driver'=> 'local',
+            'root'  => storage_path('app/public/videos'),
+            'url'   => env('APP_URL'). '/storage/videos',
         ],
 
         'public' => [
