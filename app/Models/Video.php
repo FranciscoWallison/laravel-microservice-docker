@@ -25,6 +25,8 @@ class Video extends Model
         'opened',
         'rating',
         'duration',
+        'banner_file',
+        'trailer_file',
         'video_file',
         'thumb_file'
     ];
@@ -39,7 +41,7 @@ class Video extends Model
     ];
 
     public $incrementing = false;
-    public static $fileFields = ['video_file', 'thumb_file'];
+    public static $fileFields = ['video_file', 'thumb_file', 'banner_file', 'trailer_file'];
 
     public static function create(array $attributes = [])
     {
