@@ -69,9 +69,8 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
                 $this->sendData + 
                 $files
             );
-        
+ 
         $response->assertStatus(201);
-        $id = $response->json('id');
         $this->assertFilesOnPersist($response, $files);
     }
 

@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Traits;
 
-use Illuminate\Foundation\Testing\TestResponse;
-use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
 /**
  * 
@@ -50,7 +49,7 @@ trait TestUploads
         /** @var UploadFiles $model */
         foreach ($files as $file)
         {
-            \Storage::assertExists($model->relativeFilePath($file->hashName()));
+            Storage::assertExists($model->relativeFilePath($file->hashName()));
         }
     }
 }
