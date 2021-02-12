@@ -233,10 +233,11 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
         
         foreach ($data as $key => $value)
         {
-         
+            $value['test_data']['deleted_at'] = null;
             $response = $this->assertStore(
                 $value['send_data'], 
-                $value['test_data'] + ['deleted_at' => null]);
+                $value['test_data']
+                );
 
             $response->assertJsonStructure([
                 'created_at',

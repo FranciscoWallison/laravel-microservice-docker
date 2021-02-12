@@ -159,15 +159,19 @@ class VideoCrudTest extends BaseVideoTestCase
     public function testHandleRelations()
     {
         $video = factory(Video::class)->create();
+       
         Video::handleRelations($video, []);
         $this->assertCount(0, $video->categories);
         $this->assertCount(0, $video->genres);
+       
 
         $category = factory(Category::class)->create();
+      
         Video::handleRelations($video, [
             'categories_id' => [$category->id]
         ]);
         $video->refresh();
+    
         $this->assertCount(1, $video->categories);
 
         $genre = factory(Genre::class)->create();
