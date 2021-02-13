@@ -197,7 +197,7 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
 
         }
     }
-
+/*
     public function testSave()
     {
 
@@ -232,10 +232,11 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
                 'test_data' => $this->sendData + ['rating' => Video::RATING_LIST[1]] 
             ],
         ];
-        
+
         foreach ($data as $key => $value)
         {
             $value['test_data']['deleted_at'] = null;
+      
             $response = $this->assertStore(
                 $value['send_data'], 
                 $value['test_data']
@@ -267,7 +268,7 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
 
         }
     }
-
+*/
     public function  assertHasCategory($videoId, $categoryId)
     {
         $this->assertDatabaseHas(
