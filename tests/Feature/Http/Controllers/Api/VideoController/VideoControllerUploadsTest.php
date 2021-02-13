@@ -9,7 +9,6 @@ use Tests\Traits\TestUploads;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\Feature\Http\Controllers\Api\VideoController\BaseVideoControllerTestCase;
-use Illuminate\Support\Arr;
 
 class VideoControllerUploadsTest extends BaseVideoControllerTestCase
 {
@@ -99,7 +98,7 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
         $response->assertStatus(200);
         $this->assertFilesOnPersist(
             $response,
-            Arr::except($files, ['thumb_files', 'video_file']) + $newFiles
+            \Arr::except($files, ['thumb_files', 'video_file']) + $newFiles
         );
 
         $id = $response->json('id');

@@ -7,8 +7,6 @@ use Tests\Traits\TestValidations;
 use Tests\Traits\TestSaves;
 use App\Models\Category;
 use App\Models\Genre;
-use Illuminate\Database\Events\QueryExecuted;
-use Illuminate\Support\Arr;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\Feature\Http\Controllers\Api\VideoController\BaseVideoControllerTestCase;
@@ -132,14 +130,16 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
     
     public function testSaveWithoutFiles()
     {
-        $testData = Arr::except($this->sendData, ['categories_id', 'genres_id']);
+        
+        $testData = \Arr::except($this->sendData, ['categories_id', 'genres_id']);
+       
         $data = [
             [ 
                 'send_data' => $this->sendData,
                 'test_data' => $testData + ['opened' => false] 
             ],
             [ 
-                'send_data' => $this->sendData,
+                'send_data' => $this->sendData + ['opened' => true],
                 'test_data' => $testData + ['opened' => true] 
             ],
             [ 
@@ -152,10 +152,12 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
         
         foreach ($data as $key => $value)
         {
-         
+            $value['test_data']['deleted_at'] = null;
+           
             $response = $this->assertStore(
                 $value['send_data'], 
-                $value['test_data'] + ['deleted_at' => null]);
+                $value['test_data']
+                );
 
             $response->assertJsonStructure([
                 'created_at',
@@ -195,7 +197,7 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
 
         }
     }
-
+/*
     public function testSave()
     {
 
@@ -230,10 +232,11 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
                 'test_data' => $this->sendData + ['rating' => Video::RATING_LIST[1]] 
             ],
         ];
-        
+
         foreach ($data as $key => $value)
         {
             $value['test_data']['deleted_at'] = null;
+      
             $response = $this->assertStore(
                 $value['send_data'], 
                 $value['test_data']
@@ -265,7 +268,7 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
 
         }
     }
-
+*/
     public function  assertHasCategory($videoId, $categoryId)
     {
         $this->assertDatabaseHas(
