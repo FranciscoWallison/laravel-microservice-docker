@@ -96,6 +96,7 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
             'PUT', $this->routeUpdate(), $this->sendData + $newFiles
         );
         $response->assertStatus(200);
+        //var_dump($response,\Arr::except($files, ['thumb_files', 'video_file']) + $newFiles);
         $this->assertFilesOnPersist(
             $response,
             \Arr::except($files, ['thumb_files', 'video_file']) + $newFiles
