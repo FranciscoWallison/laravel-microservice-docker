@@ -29,7 +29,7 @@ trait TestUploads
                 $response = $this->json(
                     $route['method'], 
                     $route['route'], 
-                    $this->sendData + [$field => $file]
+                    [$field => $file]
                 );
 
                 $this->assertInvalidationsFields($response, [$field], $rule, $ruleParams);
@@ -38,7 +38,7 @@ trait TestUploads
                 $response = $this->json(
                     $route['method'], 
                     $route['route'], 
-                    $this->sendData + [$field => $file]
+                    [$field => $file]
                 );
 
                 $this->assertInvalidationsFields($response, [$field], 'max.file', ['max' => $maxSize]);
@@ -47,7 +47,7 @@ trait TestUploads
 
     public function assertFilesExistesInStorage($model, array $files)
     {
-       
+
         /** @var UploadFiles $model */
         foreach ($files as $file)
         {
