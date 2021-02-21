@@ -1,9 +1,9 @@
 <?php
 
+use Illuminate\Database\Seeder;
 use App\Models\Genre;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Seeder;
 use Illuminate\Http\UploadedFile;
 
 class VideoTableSeeder extends Seeder
@@ -45,15 +45,15 @@ class VideoTableSeeder extends Seeder
             });
         Model::unguard();
     }
-    
+
     public function fetchRelations()
     {
         $subGenres = $this->allGenres->random(5)->load('categories');
         $categories = [];
         foreach ($subGenres as $genre){
-            array_push($categoriesId, ...$genre->categories->pluck('id')->toArray());
+            array_push($categories, ...$genre->categories->pluck('id')->toArray());
         }
-        $categoriesId = array_unique($categoriesId);
+        $categoriesId = array_unique($categories);
         $genreId = $subGenres->pluck('id')->toArray();
         $this->relations['categories_id'] = $categoriesId;
         $this->relations['genres_id'] = $genreId;
