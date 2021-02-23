@@ -45,6 +45,11 @@ ______
   - php artisan make:model Models/CastMember --all
   - php artisan make:model Models/Video --all
 ````
+Criando Resource
+______
+````
+  - php artisan make:resource CategoryResource
+````
 Criando Tables
 ______
 ````
