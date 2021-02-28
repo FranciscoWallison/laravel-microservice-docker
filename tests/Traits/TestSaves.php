@@ -20,9 +20,8 @@ trait TestSaves
         $testJsonData = null
     ) : TestResponse
     {
-        
-        $response = $this->json('POST', $this->routeStore(), $sendData);
-       
+        /** @var TestResponse $response */
+        $response = $this->json('POST', $this->routeStore(), $sendData);       
         if($response->status() !== 201){
             throw new \Exception("Response status must be 201, give {$response->status()}: \n {$response->content()}");
         }
@@ -53,16 +52,18 @@ trait TestSaves
     {
         $model = $this->model();
         $table = (new $model)->getTable();
-        $idResponseJson = ['id' => $response->json('id')];
-        $this->assertDatabaseHas($table, $testDatabase + $idResponseJson);
+        $this->assertDatabaseHas($table, $testDatabase + ['id' => $this->getIdFromResponse($response)]);
     }
 
 
     private function assertJsonResponseContent(TestResponse $response, $testDatabase, $testJsonData = null)
     {
-        $idResponseJson = ['id' => $response->json('id')];
         $testResponse = $testJsonData ?? $testDatabase;
-        $response->assertJsonFragment($testResponse + $idResponseJson);
+        $response->assertJsonFragment($testResponse + ['id' => $this->getIdFromResponse($response)]);
     }
 
+    private function getIdFromResponse(TestResponse $response)
+    {
+        return $response->json('id') ?? $response->json('data.id');
+    }
 }
