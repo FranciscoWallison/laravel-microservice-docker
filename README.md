@@ -118,4 +118,4 @@ Media de teste 18 à 40 Megas
    Executando Teste em uma FEATURE Class
     - vendor/bin/phpunit --filter UploadedFilesUnitTest
     
-````
+```` 

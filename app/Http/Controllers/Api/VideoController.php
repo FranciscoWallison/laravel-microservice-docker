@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Models\Video;
 use App\Rules\GenresHasCategoriesRule;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Resources\VideoResource;
 
 class VideoController extends BasicCrudController
 {
@@ -30,7 +30,6 @@ class VideoController extends BasicCrudController
             'banner_file'    => 'image|max:'.Video::BANNER_FILE_MAX_SIZE, //10MB
             'trailer_file'    => 'mimetypes:video/mp4|max:'.Video::TRAILER_FILE_MAX_SIZE, //1GB
             'video_file'    => 'mimetypes:video/mp4|max:'.Video::VIDEO_FILE_MAX_SIZE, //50GB
-
         ];
     }
 
@@ -41,7 +40,8 @@ class VideoController extends BasicCrudController
         
         $obj = $this->model()::create($validateData);
         $obj->refresh();
-        return $obj;
+        $resource = $this->resource();
+        return new $resource($obj);
     }
 
     public function update(Request $request, $id)
@@ -51,8 +51,8 @@ class VideoController extends BasicCrudController
         $this->addRuleIfGenreHasCategories($request);
         $validateData = $this->validate($request, $this->rulesUpdate());
         $obj->update($validateData);
-
-        return $obj;
+        $resource = $this->resource();
+        return new $resource($obj);
     }
 
     protected function addRuleIfGenreHasCategories(Request $request)
@@ -77,5 +77,15 @@ class VideoController extends BasicCrudController
     protected function rulesUpdate()
     {
         return $this->rules;
+    }
+
+    protected function resourceCollection()
+    {
+        return $this->resource();
+    }
+
+    protected function resource()
+    {
+        return VideoResource::class;
     }
 }
