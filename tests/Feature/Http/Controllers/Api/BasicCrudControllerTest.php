@@ -29,12 +29,17 @@ class BasicCrudControllerTest extends TestCase
 
     public function testIndex()
     {
+        /** @var CategorySub $category */
         $category =  CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
         $category->refresh();
-       
-     
-        $result = $this->controller->index()->toArray();
-        $this->assertEquals([$category->toArray()], $result);
+        $result = $this->controller->index();
+        $serialize  = $result->response()->getData(true);
+        $this->assertEquals(
+            [$category->toArray()],
+            $serialize['data']
+        );
+        $this->assertArrayHasKey('meta',$serialize);
+        $this->assertArrayHasKey('links',$serialize);
 
     }
 
@@ -58,10 +63,11 @@ class BasicCrudControllerTest extends TestCase
             ->once()
             ->andReturn(['name'=>'test_name', 'description' => 'test_description']);
 
-        $obj = $this->controller->store($request);
+        $result = $this->controller->store($request);
+        $serialize  = $result->response()->getData(true);
         $this->assertEquals(
-            CategoryStub::find(1)->toArray(),
-            $obj->toArray()
+            CategoryStub::first()->toArray(),
+            $serialize['data']
         );
     }
 
