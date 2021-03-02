@@ -20,6 +20,7 @@ services:
         depends_on:
             - db
             - redis
+        working_dir: /var/www/backend
 
     nginx:
         build: .docker/nginx
