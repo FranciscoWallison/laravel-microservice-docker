@@ -55,7 +55,13 @@ class CastMemberControllerTest extends TestCase
 
         $response
         ->assertStatus(200)
-        ->assertJson($this->castMember->toArray());
+        ->assertJsonStructure([
+            'data' => $this->serializedFields
+        ]);
+
+        $id = $response->json('data.id');
+        $resource = new CastMemberResource(CastMember::find($id));
+        $this->assertResource($response, $resource);
     }
 
     //Falhas

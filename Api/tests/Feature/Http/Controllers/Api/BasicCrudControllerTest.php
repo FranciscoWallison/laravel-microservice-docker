@@ -101,8 +101,9 @@ class BasicCrudControllerTest extends TestCase
         $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description' ]);
         $category->refresh();
         $result = $this->controller->show($category->id);
+        $resource = $result->resource;
 
-        $this->assertEquals($result->toArray(), CategoryStub::find(1)->toArray());
+        $this->assertEquals($resource->toArray(), CategoryStub::find(1)->toArray());
     }
 
     public function testUpdate()
@@ -117,7 +118,9 @@ class BasicCrudControllerTest extends TestCase
             ->andReturn(['name'=>'test_name_changed', 'description' => 'test_description_changed']);
 
         $result = $this->controller->update($request, $category->id);
-        $this->assertEquals($result->toArray(), CategoryStub::find(1)->toArray());
+        $result = $this->controller->show($category->id);
+        $resource = $result->resource;
+        $this->assertEquals($resource->toArray(), CategoryStub::find(1)->toArray());
     }
 
     public function testDestroy()
