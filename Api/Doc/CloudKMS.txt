@@ -1,0 +1,11 @@
+O Google Cloud KMS está exigindo que a conta XXXXXX@cloudbuild.gserviceaccount.com tenha permissão de 
+descriptografia de chaves.
+
+Vamos precisar habilitar isto para fazer o processo de descriptografia no CI.
+
+Acesse IAM e administrador -> IAM e clique no ícone de editar da conta  XXXXXX@cloudbuild.gserviceaccount.com. 
+Adicione o papel Descriptografador do Cloud KMS CryptoKey e salve.
+
+Pronto, esta conta terá acesso a descriptografia de chaves.
+
+É isto aí, até próxima!
