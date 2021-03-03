@@ -52,6 +52,7 @@ class VideoController extends BasicCrudController
         $validateData = $this->validate($request, $this->rulesUpdate());
         $obj->update($validateData);
         $resource = $this->resource();
+    
         return new $resource($obj);
     }
 

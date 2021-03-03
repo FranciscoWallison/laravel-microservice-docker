@@ -87,10 +87,10 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
         $this->assertFilesOnPersist($response, $files);
 
         $newFiles = [
-            'thumb_file'  => UploadedFile::fake()->create("thumb_file.mp4"), 
+            'thumb_file'    => UploadedFile::fake()->create("thumb_file.jpg"),
             'video_file'    => UploadedFile::fake()->create("video_file.mp4")
         ];
-        //dd($this->sendData + $newFiles);
+       
         $response = $this->json(
             'PUT', $this->routeUpdate(), $this->sendData + $newFiles
         );
