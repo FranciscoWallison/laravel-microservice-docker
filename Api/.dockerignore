@@ -1,0 +1,3 @@
+backup/vendor/*
+backup/public/storage/*
+backup/storage/app/*
