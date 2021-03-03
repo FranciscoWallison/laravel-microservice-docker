@@ -1,0 +1,5 @@
+.docker/dbdata/
+.idea/
+.vscode/
+.env
+vendor/
