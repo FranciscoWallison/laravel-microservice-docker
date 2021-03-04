@@ -122,4 +122,4 @@ Media de teste 18 à 40 Megas
 
 # Iniciando com FrontEnd
 #### Comando
-  - npx create-react-app frontend --typescript
+  - npx create-react-app frontend --template typescript
