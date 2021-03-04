@@ -2,23 +2,21 @@
 import { AppBar, Toolbar, Typography, Button, makeStyles, Theme} from '@material-ui/core';
 import * as React from 'react';
 import logo from '../../static/img/logo.png';
-const useStyles = makeStyles( (theme: Theme) => {
-    return {
-        toolbar: {
-        backgroundColor: '#000000'
-        },
-        title: {
-            flexGrow: 1,
-            textAlign: 'center'
-        },
-        logo: {
-            width: 100,
-            [theme.breakpoints.up('sm')]: {
-                width: 170
-            }
+const useStyles = makeStyles( (theme: Theme) => ({
+    toolbar: {
+    backgroundColor: '#000000'
+    },
+    title: {
+        flexGrow: 1,
+        textAlign: 'center'
+    },
+    logo: {
+        width: 100,
+        [theme.breakpoints.up('sm')]: {
+            width: 170
         }
     }
-});
+}));
 
 type Props = {
     
