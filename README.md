@@ -3,7 +3,7 @@
 ### Headers
 ______
 ````
-° Como estou peguntando
+° Como estou perguntando
   - Key "Accept", Value "application/json" 
 ° Como estou respondendo
   - key "Content-Type",  Value "application/json" 
