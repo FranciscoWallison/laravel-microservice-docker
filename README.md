@@ -119,3 +119,7 @@ Media de teste 18 à 40 Megas
     - vendor/bin/phpunit --filter UploadedFilesUnitTest
     
 ```` 
+
+# Iniciando com FrontEnd
+#### Comando
+  - npx create-react-app frontend --template typescript
