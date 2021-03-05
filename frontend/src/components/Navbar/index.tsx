@@ -24,7 +24,11 @@ type Props = {
 };
 export const Navbar = (props: Props) => {
     const classes = useStyles();
-    
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleOpen = (event:any) => setAnchorEl(event.currentTarget);
+    const handleClose = () => setAnchorEl(null);
+
     return (
         
         <AppBar>
@@ -35,14 +39,22 @@ export const Navbar = (props: Props) => {
                     aria-label="open drawer" 
                     aria-controls="menu-appbar" 
                     aria-haspopup="true"
+                    onClick={handleOpen}
                 >
                         <MenuIcon/>
                 </IconButton>
                 <Menu
                     id="menu-appbar"
-                    open={false}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+                    transformOrigin={{vertical: 'top', horizontal: 'center'}}
+                    getContentAnchorEl={null}
                 >
-                    <MenuItem>
+                    <MenuItem
+                        onClick={handleClose}
+                    >
                         Categoria
                     </MenuItem>
                 </Menu>
