@@ -1,7 +1,6 @@
 // @flow 
 import { IconButton, Menu as MyMenu, MenuItem} from '@material-ui/core';
 import * as React from 'react';
-import logo from '../../static/img/logo.png';
 import MenuIcon from '@material-ui/icons/Menu'
 
 
