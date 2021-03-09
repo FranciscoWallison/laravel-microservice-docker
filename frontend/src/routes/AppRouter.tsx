@@ -8,7 +8,7 @@ const AppRouter = () => {
             {
                 routes.map(
                     (route, key) => {
-                        <Route 
+                        return <Route 
                             key={key}
                             path={route.path}
                             component={route.component}
