@@ -46,7 +46,7 @@ export default function Breadcrumbs() {
         {
           pathnames.map((value, index) => {
             const last = index === pathnames.length - 1;
-            const to = `/${pathnames.slice(0, index + 1).join('/').replace('//', '/')}`;
+            const to = `${pathnames.slice(0, index + 1).join('/').replace('//', '/')}`;
 
             return last ? (
               <Typography color="textPrimary" key={to}>
