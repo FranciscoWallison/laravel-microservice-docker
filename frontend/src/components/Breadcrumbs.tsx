@@ -7,6 +7,7 @@ import { Route } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import { Location } from 'history'
 import routes from '../routes';
+import RouteParse from 'route-parser';
 
 const breadcrumbNameMap: { [key: string]: string } = {};
 routes.forEach(route => breadcrumbNameMap[route.path as string] = route.label)
@@ -46,7 +47,13 @@ export default function Breadcrumbs() {
         {
           pathnames.map((value, index) => {
             const last = index === pathnames.length - 1;
-            const to = `${pathnames.slice(0, index + 1).join('/').replace('//', '/')}`;
+            const to = `${pathnames.slice(0, index + 1)
+                                    .join('/').replace('//', '/')}`;
+            const rout = Object.keys(breadcrumbNameMap)
+                                .find(path => new RouteParse(path)
+                                .match(to));
+
+            if(rout === undefined) return false;
 
             return last ? (
               <Typography color="textPrimary" key={to}>
