@@ -1,7 +1,7 @@
 // @flow 
 import  MUIDataTable,  { MUIDataTableColumn } from 'mui-datatables';
-import { count } from 'node:console';
 import * as React from 'react';
+import { httpVideo } from '../../util/http';
 
 const columnsDefinition: MUIDataTableColumn[] = [
     {
@@ -18,35 +18,30 @@ const columnsDefinition: MUIDataTableColumn[] = [
     }
 ]
 
-const data = [
-    {name: "teste1", is_active: true, created_at: "2021-03-22" },
-    {name: "teste2", is_active: false, created_at: "2021-03-22" },
-    {name: "teste3", is_active: true, created_at: "2021-03-22" },
-    {name: "teste4", is_active: false, created_at: "2021-03-22" },
-]
+// const data = [
+//     {name: "teste1", is_active: true, created_at: "2021-03-22" },
+//     {name: "teste2", is_active: false, created_at: "2021-03-22" },
+//     {name: "teste3", is_active: true, created_at: "2021-03-22" },
+//     {name: "teste4", is_active: false, created_at: "2021-03-22" },
+// ]
 
 type Props = {};
 const Table = (props: Props) => {
 
-    const [count, setCount] = React.useState(0);
+    const [data, setData] = React.useState([]);
 
     React.useEffect( () => {
-        console.log('qualquer coisa')
-       // return () => console.log('Desmontando')
+        httpVideo.get('categories').then(
+            response => setData(response.data.data)
+        )
     }, []);
-
-    React.useEffect( () => {
-        console.log(count);
-        return () => console.log('Desmontando')
-    }, [count]);
-
+    
     return (
-    //    <MUIDataTable
-    //     title="Listagem de categorias"
-    //     columns={columnsDefinition}
-    //     data={data}
-    //    />
-        <button onClick={() => setCount(count+1)}>{count}</button>
+       <MUIDataTable
+        title="Listagem de categorias"
+        columns={columnsDefinition}
+        data={data}
+       />
     );
 };
 
