@@ -13,11 +13,10 @@ services:
             - _DB_PASSWORD=root
             # TEST
             - _TEST_DB_DATABASE=code_micro_videos_teste
+            - CHOKIDAR_USEPOLLING=true
         ports:
           - "3000:3000"
           - "35729:35729"
-        environment: 
-            - CHOKIDAR_USEPOLLING=true
         volumes:
             - .:/var/www
         networks:
