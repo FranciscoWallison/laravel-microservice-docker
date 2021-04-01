@@ -1,6 +1,6 @@
 // @flow 
 import  MUIDataTable,  { MUIDataTableColumn } from 'mui-datatables';
-import * as React from 'react';
+ import React, { useEffect, useState } from "react";
 import { httpVideo } from '../../util/http';
 
 const columnsDefinition: MUIDataTableColumn[] = [
@@ -28,9 +28,9 @@ const columnsDefinition: MUIDataTableColumn[] = [
 type Props = {};
 const Table = (props: Props) => {
 
-    const [data, setData] = React.useState([]);
+    const [data, setData] = useState([]);
 
-    React.useEffect( () => {
+    useEffect( () => {
         httpVideo.get('categories').then(
             response => setData(response.data.data)
         )
