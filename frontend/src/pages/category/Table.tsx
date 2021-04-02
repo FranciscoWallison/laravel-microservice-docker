@@ -1,8 +1,9 @@
 // @flow 
 import { Chip } from '@material-ui/core';
 import  MUIDataTable,  { MUIDataTableColumn } from 'mui-datatables';
- import React, { useEffect, useState } from "react";
+ import { useEffect, useState } from "react";
 import { httpVideo } from '../../util/http';
+import { format, parseISO} from 'date-fns';
 
 const columnsDefinition: MUIDataTableColumn[] = [
     {
@@ -20,16 +21,14 @@ const columnsDefinition: MUIDataTableColumn[] = [
     },
     {
         name:  "created_at",
-        label: "Criado em"
+        label: "Criado em",
+        options: {
+            customBodyRender(value, tableMeta, updateValue){
+                return <span>{format(parseISO(value), 'dd/MM/yyyy')}</span>;
+            }
+        }
     }
 ]
-
-// const data = [
-//     {name: "teste1", is_active: true, created_at: "2021-03-22" },
-//     {name: "teste2", is_active: false, created_at: "2021-03-22" },
-//     {name: "teste3", is_active: true, created_at: "2021-03-22" },
-//     {name: "teste4", is_active: false, created_at: "2021-03-22" },
-// ]
 
 type Props = {};
 const Table = (props: Props) => {
