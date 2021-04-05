@@ -8,7 +8,9 @@ import { Link } from 'react-router-dom';
 export const MenuCustom = () => {
     const listRoutes = [
         'dashboard', 
-        'categorias.list'
+        'categorias.list',
+        'cast_members.list',
+        'genres.list',
     ];
     const menuRoutes = routes.filter(route => listRoutes.includes(route.name))
     const [anchorEl, setAnchorEl] = React.useState(null);
