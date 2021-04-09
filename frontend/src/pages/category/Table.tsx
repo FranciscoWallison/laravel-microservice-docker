@@ -28,15 +28,22 @@ const columnsDefinition: MUIDataTableColumn[] = [
             }
         }
     }
-]
+];
+
+interface  Category {
+    id: string;
+    name: string;
+}
 
 type Props = {};
 const Table = (props: Props) => {
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<Category[]>([]);
 
     useEffect( () => {
-        categoryHttp.list().then(
+        categoryHttp
+        .list<{data: Category[]}>()
+        .then(
             ({data}:any) => setData(data.data)
         );
     }, []);
