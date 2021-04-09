@@ -6,8 +6,8 @@ export default class HttpResource {
 
     }
     
-    list() {
-        return this.http.get(this.resource);
+    list<T>() {
+        return this.http.get<T>(this.resource);
     }
 
     get() {
