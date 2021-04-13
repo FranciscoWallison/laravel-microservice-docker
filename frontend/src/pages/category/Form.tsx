@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Box, Button, Checkbox, makeStyles, Theme, TextField} from "@material-ui/core";
 import {ButtonProps} from "@material-ui/core/Button";
 import { useForm } from 'react-hook-form';
+import categoryHttp from '../../util/http/category-http';
 
 const useStyle = makeStyles((theme: Theme) => {
     return {
@@ -17,7 +18,17 @@ export const Form = () => {
         className: classes.submit,
         variant: "outlined",
     };
-    const {register, getValues} = useForm();
+    const {register, getValues} = useForm({
+        defaultValues: {
+            is_active: true
+        }
+    });
+
+    function onsubmit(formData:any, event:any){
+        categoryHttp
+            .create(formData)
+            .then((response) => console.log(response));
+    }
 
     return (
         <form>
@@ -42,11 +53,12 @@ export const Form = () => {
             <Checkbox
                 name="is_active"
                 innerRef={register}
+                defaultChecked
             />
             Ativo?
 
             <Box dir={"rtl"}>
-                <Button {...buttonProps} onClick={() => console.log(getValues())}>Salvar e continuar editando</Button>
+                <Button {...buttonProps} onClick={() => onsubmit(getValues(), null)}>Salvar e continuar editando</Button>
                 <Button {...buttonProps} type="submit">Salvar</Button>
             </Box>
         </form>
