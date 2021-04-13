@@ -57,9 +57,9 @@ export const Form = () => {
             />
             Ativo?
 
-            <Box dir={"rtl"}>
-                <Button {...buttonProps} onClick={() => onsubmit(getValues(), null)}>Salvar e continuar editando</Button>
+            <Box dir={"rtl"}>                
                 <Button {...buttonProps} type="submit">Salvar</Button>
+                <Button {...buttonProps} onClick={() => onsubmit(getValues(), null)}>Salvar e continuar editando</Button>
             </Box>
         </form>
     )
