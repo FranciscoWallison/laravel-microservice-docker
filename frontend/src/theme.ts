@@ -9,8 +9,14 @@ const theme = createMuiTheme( {
         secondary: {
             main: '#4db5ab',
             contrastText: '#fff'
+        },
+        background: {
+            default: '#fafafa'
         }
-    } 
+    } ,
+    overrides: {
+
+    }
 });
 
 export default theme;
