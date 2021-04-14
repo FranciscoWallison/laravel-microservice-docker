@@ -16,7 +16,7 @@ export const Form = () => {
     const classes = useStyle();
     const buttonProps: ButtonProps = {
         className: classes.submit,
-        variant: "outlined",
+        variant: "contained",
     };
     const {register, getValues} = useForm({
         defaultValues: {
@@ -57,9 +57,12 @@ export const Form = () => {
             />
             Ativo?
 
-            <Box dir={"rtl"}>
+            <Box dir={"rtl"}>                
+                <Button 
+                color={"primary"}
+                {...buttonProps} 
+                type="submit">Salvar</Button>
                 <Button {...buttonProps} onClick={() => onsubmit(getValues(), null)}>Salvar e continuar editando</Button>
-                <Button {...buttonProps} type="submit">Salvar</Button>
             </Box>
         </form>
     )
