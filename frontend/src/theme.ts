@@ -15,7 +15,9 @@ const theme = createMuiTheme( {
         }
     } ,
     overrides: {
-
+        MuiDataTable: {
+            
+        }
     }
 });
 
