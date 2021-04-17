@@ -20,7 +20,8 @@ const theme = createMuiTheme( {
     overrides: {
         MUIDataTable: {
             paper: {
-                boxShadow: "none"
+                boxShadow: "none",
+                marginTop: "5%",
             }
         },
         MUIDataTableToolbar: {
@@ -31,13 +32,13 @@ const theme = createMuiTheme( {
             icon: {
                 color: (palette!.primary as SimplePaletteColorOptions).main,
                 '&:hover, &:active, &:focus': {
-                    color: "#055a52",
+                    color: (palette!.secondary as SimplePaletteColorOptions).dark,
                 },
             },
             iconActive: {
-                color: "#055a52",
+                color: (palette!.secondary as SimplePaletteColorOptions).dark,
                 '&:hover, &:active, &:focus': {
-                    color: "#055a52",
+                    color: (palette!.secondary as SimplePaletteColorOptions).dark,
                 },
             },
         },
@@ -46,20 +47,20 @@ const theme = createMuiTheme( {
                 paddingTop: 8,
                 paddingBottom: 8,
                 backgroundColor: (palette!.primary as SimplePaletteColorOptions).main,
-                color: '#ffffff',
+                color: '#000000',
                 '&[aria-sort]': {
                     backgroundColor: '#459ac4',
                 },
             },
             sortActive: {
-                color: '#ffffff',
+                color: '#000000',
             },
             sortAction: {
                 alignItems: 'center',
             },
             sortLabelRoot: {
                 '& svg': {
-                    color: '#ffffff !important',
+                    color: '#000000 !important',
                 },
             },
         },
