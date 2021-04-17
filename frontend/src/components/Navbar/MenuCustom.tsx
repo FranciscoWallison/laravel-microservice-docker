@@ -5,14 +5,16 @@ import MenuIcon from '@material-ui/icons/Menu'
 import routes, {MyRouteProps} from "../../routes";
 import { Link } from 'react-router-dom';
 
-export const MenuCustom = () => {
-    const listRoutes = [
-        'dashboard', 
-        'categorias.list',
-        'cast_members.list',
-        'genres.list',
-    ];
-    const menuRoutes = routes.filter(route => listRoutes.includes(route.name))
+const listRoutes =  {
+    'dashboard' : 'Dashboard',
+    'categorias.list' : 'Categorias',
+    'cast_members.list' : 'Membros de elenco',
+    'genres.list' : 'Gêneros'
+}
+
+const menuRoutes = routes.filter(route => Object.keys(listRoutes).includes(route.name));
+
+export const Menu = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
@@ -40,7 +42,7 @@ export const MenuCustom = () => {
                 getContentAnchorEl={null}
             >
                 {
-                    listRoutes.map(
+                     Object.keys(listRoutes).map(
                         (routeName, key) => {
                             const route = menuRoutes.find(route => route.name === routeName) as MyRouteProps;
                             return (

@@ -18,6 +18,7 @@ export const Form = () => {
     const classes = useStyle();
     const buttonProps: ButtonProps = {
         className: classes.submit,
+        color: 'secondary',
         variant: "outlined",
     };
     
