@@ -2,7 +2,7 @@
 import { AppBar, Toolbar, Typography, Button, makeStyles, Theme} from '@material-ui/core';
 import * as React from 'react';
 import logo from '../../static/img/logo.png';
-import { MenuCustom } from './MenuCustom';
+import MenuCustom from './MenuCustom';
 const useStyles = makeStyles( (theme: Theme) => ({
     toolbar: {
     backgroundColor: '#000000'

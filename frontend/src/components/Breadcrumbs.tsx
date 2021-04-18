@@ -74,7 +74,7 @@ export default function Breadcrumbs() {
 
   return (
     <Container>
-      <Box paddingTop={2} paddingBottom={2}>
+      <Box paddingTop={2} paddingBottom={1}>
         <Route>
           {
             ({location} : {location: Location}) => makeBreadcrumb(location)

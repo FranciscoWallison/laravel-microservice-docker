@@ -1,4 +1,5 @@
 import {createMuiTheme} from "@material-ui/core";
+import { green, red } from "@material-ui/core/colors";
 import { PaletteOptions, SimplePaletteColorOptions } from "@material-ui/core/styles/createPalette";
 
 const palette: PaletteOptions = {
@@ -12,6 +13,13 @@ const palette: PaletteOptions = {
     },
     background: {
         default: '#fafafa'
+    },
+    error: {
+        main: red.A400
+    },
+    success: {
+        main: green[500],
+        contrastText: '#fff'
     }
 }
 
@@ -20,8 +28,8 @@ const theme = createMuiTheme( {
     overrides: {
         MUIDataTable: {
             paper: {
-                boxShadow: "none",
-                marginTop: "5%",
+                // boxShadow: "none",
+                // marginTop: "5%",
             }
         },
         MUIDataTableToolbar: {
@@ -43,6 +51,9 @@ const theme = createMuiTheme( {
             },
         },
         MUIDataTableHeadCell: {
+            headers: {
+                borderColor: '#a03838'
+            },
             fixedHeaderCommon: {
                 paddingTop: 8,
                 paddingBottom: 8,
