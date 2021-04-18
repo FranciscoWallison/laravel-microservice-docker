@@ -20,7 +20,7 @@ const theme = createMuiTheme( {
     overrides: {
         MUIDataTable: {
             paper: {
-                boxShadow: "none",
+                // boxShadow: "none",
                 // marginTop: "5%",
             }
         },
