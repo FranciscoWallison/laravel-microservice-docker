@@ -21,7 +21,7 @@ const theme = createMuiTheme( {
         MUIDataTable: {
             paper: {
                 boxShadow: "none",
-                marginTop: "5%",
+                // marginTop: "5%",
             }
         },
         MUIDataTableToolbar: {
@@ -43,6 +43,9 @@ const theme = createMuiTheme( {
             },
         },
         MUIDataTableHeadCell: {
+            headers: {
+                borderColor: '#a03838'
+            },
             fixedHeaderCommon: {
                 paddingTop: 8,
                 paddingBottom: 8,

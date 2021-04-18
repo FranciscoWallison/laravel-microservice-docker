@@ -12,5 +12,6 @@ declare module '@material-ui/core/styles/overrides' {
         MUIDataTableBodyRow: any;
         MUIDataTablePagination: any;
         MUIDataTableFilterList: any;
+        MUIDataTableHeadRow: any;
     }
 }
