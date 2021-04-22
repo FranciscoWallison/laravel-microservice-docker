@@ -3,7 +3,7 @@ import {Box, Button, Checkbox, makeStyles, Theme, TextField} from "@material-ui/
 import {ButtonProps} from "@material-ui/core/Button";
 import { useForm } from 'react-hook-form';
 import categoryHttp from '../../util/http/category-http';
-import * as yup from 'yup';
+import * as yup from '../../util/vendor/yup';
 
 const useStyle = makeStyles((theme: Theme) => {
     return {
@@ -17,6 +17,7 @@ const validationSchema = yup.object().shape({
     name: yup.string()
     .label('Nome')
     .required()
+    .max(255),
 })
 
 export const Form = () => {
