@@ -1,9 +1,15 @@
+/*  eslint-disable-next-line */
 import * as React from 'react';
 import {Box, Button, Checkbox, makeStyles, Theme, TextField} from "@material-ui/core";
 import {ButtonProps} from "@material-ui/core/Button";
 import { useForm } from 'react-hook-form';
 import categoryHttp from '../../util/http/category-http';
 import * as yup from '../../util/vendor/yup';
+import { RouteParams } from '../../interfaces/RouteParams';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { CategoryInterface } from '../../interfaces/CategoryInterface'
 
 const useStyle = makeStyles((theme: Theme) => {
     return {
@@ -27,20 +33,35 @@ export const Form = () => {
         color: 'secondary',
         variant: "outlined",
     };
-    const {register, getValues, errors, handleSubmit} = useForm({
+    const {register, getValues, errors, handleSubmit, reset} = useForm({
         validationSchema,
         defaultValues: {
             is_active: true
         }
     });
 
+    const { id } = useParams<RouteParams>(); 
+    const [category, setCategory] = useState<CategoryInterface | null>(null);
+
+    useEffect( () => {
+        if(!id){
+            return;
+        }
+        categoryHttp.get(id)
+            .then(({data}) => {
+                setCategory(data.data);
+                reset(data.data);
+            })
+    }, []);  /* eslint-disable-line */
+
     function onSubmit(formData:any, event:any){
-        categoryHttp
-            .create(formData)
-            .then((response) => console.log(response));
+        const http = !category
+            ?  categoryHttp.create(formData)
+            : categoryHttp.update(category.id, formData)
+        
+        http.then((response) => console.log(response));
     }
 
-    console.log('errors', errors);
     return (
         <form onSubmit={handleSubmit(onSubmit)} >
             <TextField                
@@ -62,6 +83,7 @@ export const Form = () => {
                 variant={"outlined"}
                 error={(errors as any).name !== undefined}
                 helperText={(errors as any).name && (errors as any).name.message}
+                InputLabelProps={{shrink: true}}
             />           
             <TextField            
                 name="description"
@@ -72,6 +94,7 @@ export const Form = () => {
                 variant={"outlined"}
                 margin={"normal"}
                 inputRef={register}
+                InputLabelProps={{shrink: true}}
             />
 
             <Checkbox
