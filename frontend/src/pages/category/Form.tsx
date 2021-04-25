@@ -1,6 +1,6 @@
 /*  eslint-disable-next-line */
 import * as React from 'react';
-import {Box, Button, Checkbox, makeStyles, Theme, TextField} from "@material-ui/core";
+import {Box, Button, Checkbox, makeStyles, Theme, TextField, FormControlLabel} from "@material-ui/core";
 import {ButtonProps} from "@material-ui/core/Button";
 import { useForm } from 'react-hook-form';
 import categoryHttp from '../../util/http/category-http';
@@ -33,7 +33,15 @@ export const Form = () => {
         color: 'secondary',
         variant: "outlined",
     };
-    const {register, getValues, errors, handleSubmit, reset} = useForm({
+    const {
+        register,
+        getValues,
+        errors,
+        handleSubmit,
+        reset,
+        watch,
+        setValue
+    } = useForm({
         validationSchema,
         defaultValues: {
             is_active: true
@@ -42,6 +50,10 @@ export const Form = () => {
 
     const { id } = useParams<RouteParams>(); 
     const [category, setCategory] = useState<CategoryInterface | null>(null);
+
+    useEffect(() => {
+        register({name: "is_active"})
+    }, [register]);
 
     useEffect( () => {
         if(!id){
@@ -96,13 +108,20 @@ export const Form = () => {
                 inputRef={register}
                 InputLabelProps={{shrink: true}}
             />
-
-            <Checkbox
-                name="is_active"
-                innerRef={register}
-                defaultChecked
+            <FormControlLabel 
+                control={
+                    <Checkbox
+                        name="is_active"
+                        innerRef={register}
+                        onChange={ () =>
+                            setValue('is_active', !getValues()['is_active'])
+                        }
+                        checked={watch('is_active') as any}
+                    />
+                }
+                label={'Ativo?'}
+                labelPlacement={'end'}
             />
-            Ativo?
 
             <Box dir={"rtl"}>                
                 <Button {...buttonProps} onClick={() => onSubmit(getValues(), null)} >Salvar</Button>
