@@ -28,11 +28,6 @@ const validationSchema = yup.object().shape({
 
 export const Form = () => {
     const classes = useStyle();
-    const buttonProps: ButtonProps = {
-        className: classes.submit,
-        color: 'secondary',
-        variant: "outlined",
-    };
     const {
         register,
         getValues,
@@ -50,6 +45,14 @@ export const Form = () => {
 
     const { id } = useParams<RouteParams>(); 
     const [category, setCategory] = useState<CategoryInterface | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const buttonProps: ButtonProps = {
+        className: classes.submit,
+        color: 'secondary',
+        variant: "outlined",
+        disabled: loading
+    };
 
     useEffect(() => {
         register({name: "is_active"})
@@ -59,19 +62,24 @@ export const Form = () => {
         if(!id){
             return;
         }
+        setLoading(true);
         categoryHttp.get(id)
             .then(({data}) => {
                 setCategory(data.data);
                 reset(data.data);
             })
+            .finally(() => setLoading(false));
     }, []);  /* eslint-disable-line */
 
     function onSubmit(formData:any, event:any){
+        setLoading(true);
         const http = !category
             ?  categoryHttp.create(formData)
             : categoryHttp.update(category.id, formData)
         
-        http.then((response) => console.log(response));
+        http
+        .then((response) => console.log(response))
+        .finally(() => setLoading(false));
     }
 
     return (
@@ -96,6 +104,7 @@ export const Form = () => {
                 error={(errors as any).name !== undefined}
                 helperText={(errors as any).name && (errors as any).name.message}
                 InputLabelProps={{shrink: true}}
+                disabled={loading}
             />           
             <TextField            
                 name="description"
@@ -107,8 +116,10 @@ export const Form = () => {
                 margin={"normal"}
                 inputRef={register}
                 InputLabelProps={{shrink: true}}
+                disabled={loading}
             />
             <FormControlLabel 
+                disabled={loading}
                 control={
                     <Checkbox
                         name="is_active"
@@ -117,6 +128,7 @@ export const Form = () => {
                             setValue('is_active', !getValues()['is_active'])
                         }
                         checked={watch('is_active') as any}
+                        
                     />
                 }
                 label={'Ativo?'}
