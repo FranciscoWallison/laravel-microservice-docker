@@ -7,6 +7,7 @@ import categoryHttp from '../../util/http/category-http';
 import * as yup from '../../util/vendor/yup';
 import { RouteParams } from '../../interfaces/RouteParams';
 import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { CategoryInterface } from '../../interfaces/CategoryInterface'
@@ -43,6 +44,7 @@ export const Form = () => {
         }
     });
 
+    const history = useHistory();
     const { id } = useParams<RouteParams>(); 
     const [category, setCategory] = useState<CategoryInterface | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
@@ -71,15 +73,33 @@ export const Form = () => {
             .finally(() => setLoading(false));
     }, []);  /* eslint-disable-line */
 
-    function onSubmit(formData:any, event:any){
+    async function onSubmit(formData:any, event:any){
+        try {
         setLoading(true);
         const http = !category
             ?  categoryHttp.create(formData)
             : categoryHttp.update(category.id, formData)
         
         http
-        .then((response) => console.log(response))
+        .then(({data}) => {
+            //quando o evento de enviar. validar editar e criar.    
+            setTimeout(() => {
+                event
+                ? (
+                    id
+                        ? history.replace(`/categories/${data.data.id}/edit`)
+                        : history.push(`/categories/${data.data.id}/edit`)
+                )
+                : history.push('/categories');
+            })
+        })
         .finally(() => setLoading(false));
+
+        
+        } catch (e) {
+           console.log(e);
+
+        }
     }
 
     return (
