@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { CategoryInterface } from '../../interfaces/CategoryInterface'
+import { useSnackbar } from 'notistack';
 
 const useStyle = makeStyles((theme: Theme) => {
     return {
@@ -44,6 +45,7 @@ export const Form = () => {
         }
     });
 
+    const snackbar = useSnackbar();
     const history = useHistory();
     const { id } = useParams<RouteParams>(); 
     const [category, setCategory] = useState<CategoryInterface | null>(null);
@@ -83,6 +85,10 @@ export const Form = () => {
         http
         .then(({data}) => {
             //quando o evento de enviar. validar editar e criar.    
+            snackbar.enqueueSnackbar(
+                'Categoria salva com sucesso',
+                { variant: "success" }                
+            );
             setTimeout(() => {
                 event
                 ? (
@@ -92,6 +98,13 @@ export const Form = () => {
                 )
                 : history.push('/categories');
             })
+        })
+        .catch((error) => {
+            console.log(error);
+            snackbar.enqueueSnackbar(
+                'Error ao salva Categoria',
+                { variant: "error" }                
+            );
         })
         .finally(() => setLoading(false));
 
