@@ -29,7 +29,6 @@ const validationSchema = yup.object().shape({
 })
 
 export const Form = () => {
-    const classes = useStyle();
     const {
         register,
         getValues,
@@ -45,6 +44,7 @@ export const Form = () => {
         }
     });
 
+    const classes = useStyle();
     const snackbar = useSnackbar();
     const history = useHistory();
     const { id } = useParams<RouteParams>(); 
@@ -58,33 +58,43 @@ export const Form = () => {
         disabled: loading
     };
 
-    useEffect(() => {
-        register({name: "is_active"})
-    }, [register]);
-
     useEffect( () => {
         if(!id){
             return;
         }
-        setLoading(true);
-        categoryHttp.get(id)
-            .then(({data}) => {
+
+        async function getCategory() {
+            setLoading(true);
+            try {
+                const {data} = await categoryHttp.get(id);
                 setCategory(data.data);
                 reset(data.data);
-            })
-            .finally(() => setLoading(false));
+            } catch (error) {
+                console.error(error);
+                snackbar.enqueueSnackbar(
+                    'Não foi possível carregar as informações',
+                    {variant: 'error'}
+                )
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        getCategory();
+
     }, []);  /* eslint-disable-line */
 
+    useEffect(() => {
+        register({name: "is_active"})
+    }, [register]);
+
     async function onSubmit(formData:any, event:any){
-        try {
         setLoading(true);
-        const http = !category
-            ?  categoryHttp.create(formData)
-            : categoryHttp.update(category.id, formData)
-        
-        http
-        .then(({data}) => {
-            //quando o evento de enviar. validar editar e criar.    
+        try {            
+            const http = !category
+                ?  categoryHttp.create(formData)
+                : categoryHttp.update(category.id, formData)
+            const {data} = await http;
             snackbar.enqueueSnackbar(
                 'Categoria salva com sucesso',
                 { variant: "success" }                
@@ -97,21 +107,17 @@ export const Form = () => {
                         : history.push(`/categories/${data.data.id}/edit`)
                 )
                 : history.push('/categories');
-            })
-        })
-        .catch((error) => {
+            }) 
+        
+        } catch (error) {
             console.log(error);
             snackbar.enqueueSnackbar(
                 'Error ao salva Categoria',
                 { variant: "error" }                
             );
-        })
-        .finally(() => setLoading(false));
 
-        
-        } catch (e) {
-           console.log(e);
-
+        } finally {
+            setLoading(false)
         }
     }
 
