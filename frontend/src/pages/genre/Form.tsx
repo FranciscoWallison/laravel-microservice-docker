@@ -52,7 +52,7 @@ export const Form = () => {
     };
     
     useEffect( () => {
-        async function loadData() {
+        (async function loadData() {
             setLoading(true);
             const promises =[categoryHttp.list()];
             if(id){
@@ -79,9 +79,7 @@ export const Form = () => {
             } finally {
                 setLoading(false);
             }
-        }
-
-        loadData();
+        })();
 
     }, []);  /* eslint-disable-line */
     

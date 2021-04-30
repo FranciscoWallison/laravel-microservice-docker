@@ -63,7 +63,7 @@ export const Form = () => {
             return;
         }
 
-        async function getCatMember() {
+        (async function getCatMember() {
             setLoading(true);
             try {
                 const {data} = await casteMemberHttp.get(id);
@@ -78,9 +78,7 @@ export const Form = () => {
             } finally {
                 setLoading(false);
             }
-        }
-
-        getCatMember();
+        })();
 
     }, []);  /* eslint-disable-line */
 

@@ -63,7 +63,7 @@ export const Form = () => {
             return;
         }
 
-        async function getCategory() {
+        (async function getCategory() {
             setLoading(true);
             try {
                 const {data} = await categoryHttp.get(id);
@@ -78,9 +78,7 @@ export const Form = () => {
             } finally {
                 setLoading(false);
             }
-        }
-
-        getCategory();
+        })();
 
     }, []);  /* eslint-disable-line */
 
