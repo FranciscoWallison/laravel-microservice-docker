@@ -2,6 +2,7 @@
 import  MUIDataTable,  { MUIDataTableColumn } from 'mui-datatables';
 import { useEffect, useState } from "react";
 import { httpVideo } from '../../util/http';
+import genresHttp from '../../util/http/genres-http';
 import { format, parseISO} from 'date-fns';
 
 const columnsDefinition: MUIDataTableColumn[] = [
@@ -35,9 +36,17 @@ const Table = (props: Props) => {
     const [data, setData] = useState([]);
 
     useEffect( () => {
-        httpVideo.get('genres').then(
-            response => setData(response.data.data)
-        )
+        let isCancelled = false;
+        (async () => {
+            const {data} = await genresHttp.list();
+            if(!isCancelled){
+                setData(data.data)
+            }
+        })();
+
+        return () => {
+            isCancelled = true;
+        }
     }, []);
     
     return (
