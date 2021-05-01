@@ -41,11 +41,17 @@ const Table = (props: Props) => {
     const [data, setData] = useState<Category[]>([]);
 
     useEffect( () => {
-        categoryHttp
-        .list<{data: Category[]}>()
-        .then(
-            ({data}:any) => setData(data.data)
-        );
+        let isCancelled = false;
+        (async () => {
+            const {data} = await categoryHttp.list();
+            if(!isCancelled){
+                setData(data.data)
+            }
+        })();
+
+        return () => {
+            isCancelled = true;
+        }
     }, []);
     
     return (
