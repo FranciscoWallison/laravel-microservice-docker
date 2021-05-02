@@ -52,24 +52,27 @@ export const Form = () => {
     };
     
     useEffect( () => {
-        (async function loadData() {
+        let isSubscribed = true;
+        (async () => {
             setLoading(true);
             const promises =[categoryHttp.list()];
             if(id){
                 promises.push(genresHttp.get(id));
             }
             try {
-                const [categoriesResponse, genreResponse] = await Promise.all(promises);
-                setCategories(categoriesResponse.data.data);
-                if(id){
-                    setGenre(genreResponse.data.data);
-                    const categories_id = genreResponse.data.data.categories.map((category: any) => category.id) ;
-                        
-                    reset({
-                        ...genreResponse.data.data,
-                        categories_id
-                    });
+                const [categoriesResponse, genreResponse] = await Promise.all(promises);                
+                if(isSubscribed){
+                    setCategories(categoriesResponse.data.data);
+                    if(id){
+                        setGenre(genreResponse.data.data);
+                        const categories_id = genreResponse.data.data.categories.map((category: any) => category.id) ;
+                        reset({
+                            ...genreResponse.data.data,
+                            categories_id
+                        });
+                    }
                 }
+                
             } catch (error) {
                 console.error(error);
                 snackbar.enqueueSnackbar(
@@ -80,6 +83,10 @@ export const Form = () => {
                 setLoading(false);
             }
         })();
+
+        return () => {
+            isSubscribed = false;
+        }
 
     }, []);  /* eslint-disable-line */
     
