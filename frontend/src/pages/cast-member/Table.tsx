@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { httpVideo } from '../../util/http';
 import { format, parseISO} from 'date-fns';
 import castMemberHttp from '../../util/http/cast-members-http';
+import { CastMember, ListResponse } from '../../util/models';
 
 const CastMemberTypeMap = {
     1: 'Diretor',
@@ -38,12 +39,12 @@ const columnsDefinition: MUIDataTableColumn[] = [
 type Props = {};
 const Table = (props: Props) => {
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<CastMember[]>([]);
 
     useEffect( () => {
         let isCancelled = false;
         (async () => {
-            const {data} = await castMemberHttp.list();
+            const {data} = await castMemberHttp.list<ListResponse<CastMember>>();
             if(!isCancelled){
                 setData(data.data)
             }

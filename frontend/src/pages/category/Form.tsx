@@ -10,8 +10,8 @@ import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { CategoryInterface } from '../../interfaces/CategoryInterface'
 import { useSnackbar } from 'notistack';
+import { Category } from '../../util/models';
 
 const useStyle = makeStyles((theme: Theme) => {
     return {
@@ -48,7 +48,7 @@ export const Form = () => {
     const snackbar = useSnackbar();
     const history = useHistory();
     const { id } = useParams<RouteParams>(); 
-    const [category, setCategory] = useState<CategoryInterface | null>(null);
+    const [category, setCategory] = useState<Category | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
     const buttonProps: ButtonProps = {

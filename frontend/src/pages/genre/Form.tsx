@@ -9,6 +9,7 @@ import * as yup from '../../util/vendor/yup';
 import { useSnackbar } from 'notistack';
 import { useHistory, useParams } from 'react-router-dom';
 import { RouteParams } from '../../interfaces/RouteParams';
+import { Category, Genre, ListResponse } from '../../util/models';
 
 const useStyle = makeStyles((theme: Theme) => {
     return {
@@ -40,7 +41,7 @@ export const Form = () => {
     const snackbar = useSnackbar();
     const history = useHistory();
     const { id } = useParams<RouteParams>();
-    const [genre, setGenre] = useState<{id: string} | null>(null);
+    const [genre, setGenre] = useState<Genre | null>(null);
     const [categories, setCategories] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { httpVideo } from '../../util/http';
 import genresHttp from '../../util/http/genres-http';
 import { format, parseISO} from 'date-fns';
+import { Genre, ListResponse } from '../../util/models';
 
 const columnsDefinition: MUIDataTableColumn[] = [
     {
@@ -38,9 +39,9 @@ const Table = (props: Props) => {
     useEffect( () => {
         let isCancelled = false;
         (async () => {
-            const {data} = await genresHttp.list();
+            const {data} = await genresHttp.list<ListResponse<Genre>>()
             if(!isCancelled){
-                setData(data.data)
+                setData(data.data as any)
             }
         })();
 
