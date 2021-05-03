@@ -19,6 +19,7 @@ import { useSnackbar } from 'notistack';
 import { useHistory, useParams } from 'react-router-dom';
 import { RouteParams } from '../../interfaces/RouteParams';
 import { FormHelperText } from '@material-ui/core';
+import { CastMember } from '../../util/models';
 
 const useStyle = makeStyles((theme: Theme) => {
     return {
@@ -48,7 +49,7 @@ export const Form = () => {
     const snackbar = useSnackbar();
     const history = useHistory();
     const { id } = useParams<RouteParams>();
-    const [castMember, setCastMember] = useState<{id: string} | null>(null);
+    const [castMember, setCastMember] = useState<CastMember | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
     const buttonProps: ButtonProps = {
