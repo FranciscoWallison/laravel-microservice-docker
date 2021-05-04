@@ -9,7 +9,7 @@ import * as yup from '../../util/vendor/yup';
 import { useSnackbar } from 'notistack';
 import { useHistory, useParams } from 'react-router-dom';
 import { RouteParams } from '../../interfaces/RouteParams';
-import { Category, Genre, ListResponse } from '../../util/models';
+import {Genre } from '../../util/models';
 
 const useStyle = makeStyles((theme: Theme) => {
     return {
