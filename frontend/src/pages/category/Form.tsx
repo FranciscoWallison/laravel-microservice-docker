@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { Category } from '../../util/models';
 import SubmitActions from '../../components/SubmitActions';
+import { DefaultForm } from '../../components/DefaultForm';
 
 const validationSchema = yup.object().shape({
     name: yup.string()
@@ -107,7 +108,7 @@ export const Form = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} >
+        <DefaultForm onSubmit={handleSubmit(onSubmit)}>            
             <TextField                
                 inputRef={register({
                     required: {
@@ -171,7 +172,7 @@ export const Form = () => {
                     })
                 }
             />
-        </form>
+        </DefaultForm>
     )
 
 

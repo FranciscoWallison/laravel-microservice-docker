@@ -20,6 +20,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { RouteParams } from '../../interfaces/RouteParams';
 import { FormHelperText } from '@material-ui/core';
 import { CastMember } from '../../util/models';
+import { DefaultForm } from '../../components/DefaultForm';
 
 const useStyle = makeStyles((theme: Theme) => {
     return {
@@ -123,7 +124,7 @@ export const Form = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onsubmit)}>
+        <DefaultForm onSubmit={handleSubmit(onsubmit)}>
             <TextField                
                 name="name"
                 label="Nome"
@@ -162,7 +163,7 @@ export const Form = () => {
                 <Button {...buttonProps} onClick={() => onsubmit(getValues(), null)} >Salvar</Button>
                 <Button {...buttonProps} type="submit">Salvar e continuar editando</Button>
             </Box>
-        </form>
+        </DefaultForm>
     )
 
 
