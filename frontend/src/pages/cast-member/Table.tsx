@@ -1,9 +1,10 @@
 // @flow 
-import  MUIDataTable,  { MUIDataTableColumn } from 'mui-datatables';
+import { MUIDataTableColumn } from 'mui-datatables';
 import { useEffect, useState } from "react";
 import { format, parseISO} from 'date-fns';
 import castMemberHttp from '../../util/http/cast-members-http';
 import { CastMember, ListResponse } from '../../util/models';
+import DefaultTable from "../../components/Table";
 
 const CastMemberTypeMap = {
     1: 'Diretor',
@@ -55,7 +56,7 @@ const Table = (props: Props) => {
     }, []);
     
     return (
-       <MUIDataTable
+       <DefaultTable
         title="Listagem de membros de elencos"
         columns={columnsDefinition}
         data={data}
