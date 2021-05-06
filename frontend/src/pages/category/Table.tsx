@@ -1,10 +1,11 @@
 // @flow 
-import  MUIDataTable,  { MUIDataTableColumn } from 'mui-datatables';
+import { MUIDataTableColumn } from 'mui-datatables';
 import { useEffect, useState } from "react";
 import categoryHttp from '../../util/http/category-http';
 import { format, parseISO} from 'date-fns';
 import { BadgeNo, BadgeYes } from '../../components/Badge';
 import { Category, ListResponse } from '../../util/models';
+import DefaultTable from "../../components/Table";
 
 const columnsDefinition: MUIDataTableColumn[] = [
     {
@@ -51,7 +52,7 @@ const Table = (props: Props) => {
     }, []);
     
     return (
-       <MUIDataTable
+       <DefaultTable
         title="Listagem de categorias"
         columns={columnsDefinition}
         data={data}

@@ -1,9 +1,10 @@
 // @flow 
-import  MUIDataTable,  { MUIDataTableColumn } from 'mui-datatables';
+import { MUIDataTableColumn } from 'mui-datatables';
 import { useEffect, useState } from "react";
 import genresHttp from '../../util/http/genres-http';
 import { format, parseISO} from 'date-fns';
 import { Genre, ListResponse } from '../../util/models';
+import DefaultTable from "../../components/Table";
 
 const columnsDefinition: MUIDataTableColumn[] = [
     {
@@ -50,7 +51,7 @@ const Table = (props: Props) => {
     }, []);
     
     return (
-       <MUIDataTable
+       <DefaultTable
         title="Listagem de gêneros"
         columns={columnsDefinition}
         data={data}
