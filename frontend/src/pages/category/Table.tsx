@@ -8,6 +8,14 @@ import { Category, ListResponse } from '../../util/models';
 import DefaultTable from "../../components/Table";
 
 const columnsDefinition: MUIDataTableColumn[] = [
+    // {
+    //     name: 'id',
+    //     label:'ID',
+    //     // width:'33%'.toString(),
+    //     options: {
+    //         sort: false
+    //     }
+    // },
     {
         name:  "name",
         label: "Nome",
@@ -29,6 +37,10 @@ const columnsDefinition: MUIDataTableColumn[] = [
                 return <span>{format(parseISO(value), 'dd/MM/yyyy')}</span>;
             }
         }
+    },
+    {
+        name:  "actions",
+        label: "Ações",
     }
 ];
 
