@@ -6,6 +6,7 @@ import { format, parseISO} from 'date-fns';
 import { BadgeNo, BadgeYes } from '../../components/Badge';
 import { Category, ListResponse } from '../../util/models';
 import DefaultTable from "../../components/Table";
+import { useSnackbar } from 'notistack';
 
 const columnsDefinition: MUIDataTableColumn[] = [
     // {
@@ -48,14 +49,28 @@ type Props = {};
 const Table = (props: Props) => {
 
     const [data, setData] = useState<Category[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const snackbar = useSnackbar();
 
     useEffect( () => {
         let isCancelled = false;
         (async () => {
-            const {data} = await categoryHttp.list<ListResponse<Category>>();
-            if(!isCancelled){
-                setData(data.data)
+            setLoading(true);
+            try {
+                const {data} = await categoryHttp.list<ListResponse<Category>>();
+                if(!isCancelled){
+                    setData(data.data)
+                }
+            } catch (error) {
+                console.error(error);
+                snackbar.enqueueSnackbar(
+                    'Não foi possível carregar as informações',
+                    {variant: 'error'}
+                )
+            } finally {
+                setLoading(false);
             }
+            
         })();
 
         return () => {
@@ -68,6 +83,7 @@ const Table = (props: Props) => {
         title="Listagem de categorias"
         columns={columnsDefinition}
         data={data}
+        loading={loading}
        />
     );
 };
