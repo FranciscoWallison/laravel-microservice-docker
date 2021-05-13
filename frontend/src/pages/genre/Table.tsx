@@ -5,6 +5,9 @@ import genresHttp from '../../util/http/genres-http';
 import { format, parseISO} from 'date-fns';
 import { Genre, ListResponse } from '../../util/models';
 import DefaultTable from "../../components/Table";
+import { Link } from 'react-router-dom';
+import EditIcon from '@material-ui/icons/Edit';
+import { IconButton } from '@material-ui/core';
 
 const columnsDefinition: MUIDataTableColumn[] = [
     {
@@ -27,6 +30,25 @@ const columnsDefinition: MUIDataTableColumn[] = [
             customBodyRender(value, tableMeta, updateValue){
                 return <span>{format(parseISO(value), 'dd/MM/yyyy')}</span>;
             }
+        }
+    },
+    {
+        name:  "actions",
+        label: "Ações",
+        options: {
+            sort: false,
+                customBodyRender: (value, tableMeta) => {
+                    return (
+                        <samp>
+                            <IconButton
+                                color={'secondary'}
+                                component={Link}
+                                to={`/genres/${(tableMeta as any).rowIndex[0]}/edit`}
+                            />
+                            <EditIcon/>
+                        </samp>
+                    )
+                }
         }
     }
 ]

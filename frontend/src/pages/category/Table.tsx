@@ -5,8 +5,12 @@ import categoryHttp from '../../util/http/category-http';
 import { format, parseISO} from 'date-fns';
 import { BadgeNo, BadgeYes } from '../../components/Badge';
 import { Category, ListResponse } from '../../util/models';
-import DefaultTable from "../../components/Table";
+import DefaultTable, { makeActionStyles } from "../../components/Table";
 import { useSnackbar } from 'notistack';
+import { IconButton, MuiThemeProvider, Theme } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import EditIcon from '@material-ui/icons/Edit'
+
 
 const columnsDefinition: MUIDataTableColumn[] = [
     // {
@@ -42,11 +46,25 @@ const columnsDefinition: MUIDataTableColumn[] = [
     {
         name:  "actions",
         label: "Ações",
+        options: {
+            sort: false,
+                customBodyRender: (value, tableMeta) => {
+                    return (
+                        <samp>
+                            <IconButton
+                                color={'secondary'}
+                                component={Link}
+                                to={`/categories/${(tableMeta as any).rowIndex[0]}/edit`}
+                            />
+                            <EditIcon/>
+                        </samp>
+                    )
+                }
+        }
     }
 ];
 
-type Props = {};
-const Table = (props: Props) => {
+const Table = () => {
 
     const [data, setData] = useState<Category[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -79,13 +97,16 @@ const Table = (props: Props) => {
     }, []);
     
     return (
-       <DefaultTable
-        title="Listagem de categorias"
-        columns={columnsDefinition}
-        data={data}
-        loading={loading}
-        options={{responsive: "scrollMaxHeight"}}
-       />
+        <MuiThemeProvider theme={makeActionStyles(columnsDefinition)}>
+            <DefaultTable
+                title="Listagem de categorias"
+                columns={columnsDefinition}
+                data={data}
+                loading={loading}
+                options={{responsive: "scrollMaxHeight"}}
+            />
+        </MuiThemeProvider>
+       
     );
 };
 

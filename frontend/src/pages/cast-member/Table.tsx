@@ -5,6 +5,9 @@ import { format, parseISO} from 'date-fns';
 import castMemberHttp from '../../util/http/cast-members-http';
 import { CastMember, ListResponse } from '../../util/models';
 import DefaultTable from "../../components/Table";
+import { IconButton } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import EditIcon from '@material-ui/icons/Edit'
 
 const CastMemberTypeMap = {
     1: 'Diretor',
@@ -32,6 +35,25 @@ const columnsDefinition: MUIDataTableColumn[] = [
             customBodyRender(value, tableMeta, updateValue){
                 return <span>{format(parseISO(value), 'dd/MM/yyyy')}</span>;
             }
+        }
+    },
+    {
+        name:  "actions",
+        label: "Ações",
+        options: {
+            sort: false,
+                customBodyRender: (value, tableMeta) => {
+                    return (
+                        <samp>
+                            <IconButton
+                                color={'secondary'}
+                                component={Link}
+                                to={`/cast-members/${(tableMeta as any).rowIndex[0]}/edit`}
+                            />
+                            <EditIcon/>
+                        </samp>
+                    )
+                }
         }
     }
 ]
