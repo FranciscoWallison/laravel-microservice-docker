@@ -10,7 +10,7 @@ export interface TableColumn extends MUIDataTableColumn {
     width? : string
 }
 
-const defaultOptions: MUIDataTableOptions = {
+export const defaultOptions: MUIDataTableOptions = {
     print: false,
     download: false,
     textLabels: {
@@ -107,3 +107,19 @@ const Table: React.FC<TableProps> = (props) => {
 } 
 
 export default Table;
+
+
+
+export function makeActionStyles(column: any) {
+
+    return (theme: any) => {
+        const copyTheme = cloneDeep(theme)
+        const selector = `&[data-testid^="MuiDataTableBodyCell-${column.length-1}"]`;
+        (copyTheme.overrides as any).MuiDataTableBodyCell.root[selector] = {
+            paddingTop: '0px',
+            paddingBottom: '0px'
+        };
+        return copyTheme;
+    }
+
+}
