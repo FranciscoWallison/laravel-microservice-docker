@@ -11,6 +11,15 @@ import { IconButton } from '@material-ui/core';
 
 const columnsDefinition: MUIDataTableColumn[] = [
     {
+        name: "id",
+        label: "ID",
+        options: {
+            sort: false,
+            filter: false,
+            empty: false,
+        }
+    },
+    {
         name:  "name",
         label: "Nome",
     },
@@ -38,15 +47,17 @@ const columnsDefinition: MUIDataTableColumn[] = [
         options: {
             sort: false,
                 customBodyRender: (value, tableMeta) => {
+                    console.log('tableMeta', tableMeta, value)
                     return (
-                        <samp>
-                            <IconButton
-                                color={'secondary'}
-                                component={Link}
-                                to={`/genres/${(tableMeta as any).rowIndex[0]}/edit`}
-                            />
+               
+                        <IconButton
+                            color={'secondary'}
+                            component={Link}
+                            to={`/genres/${(tableMeta as any).rowData[0]}/edit`}
+                        >
                             <EditIcon/>
-                        </samp>
+                        </IconButton>
+         
                     )
                 }
         }
