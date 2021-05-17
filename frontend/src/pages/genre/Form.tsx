@@ -57,7 +57,7 @@ export const Form = () => {
         let isSubscribed = true;
         (async () => {
             setLoading(true);
-            const promises =[categoryHttp.list()];
+            const promises =[categoryHttp.list({queryParams: {all: ''}})];
             if(id){
                 promises.push(genresHttp.get(id));
             }
@@ -67,7 +67,7 @@ export const Form = () => {
                     setCategories(categoriesResponse.data.data);
                     if(id){
                         setGenre(genreResponse.data.data);
-                        const categories_id = genreResponse.data.data.categories.map((category: any) => category.id) ;
+                        const categories_id = genreResponse.data.data.categories.map((category: any) => category.id);
                         reset({
                             ...genreResponse.data.data,
                             categories_id
@@ -179,6 +179,7 @@ export const Form = () => {
                 </MenuItem>
                 {
                     categories.map(
+
                         (category, key) => (
                             <MenuItem key={key} value={category.id}>{category.name}</MenuItem>
                         )

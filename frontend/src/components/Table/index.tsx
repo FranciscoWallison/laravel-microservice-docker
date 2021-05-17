@@ -114,11 +114,11 @@ export function makeActionStyles(column: any) {
 
     return (theme: any) => {
         const copyTheme = cloneDeep(theme)
-        const selector = `&[data-testid^="MuiDataTableBodyCell-${column.length-1}"]`;
-        (copyTheme.overrides as any).MuiDataTableBodyCell.root[selector] = {
-            paddingTop: '0px',
-            paddingBottom: '0px'
-        };
+        // const selector = `&[data-testid^="MuiDataTableBodyCell-${column.length-1}"]`;
+        // (copyTheme.overrides as any).MuiDataTableBodyCell.root[selector] = {
+        //     paddingTop: '0px',
+        //     paddingBottom: '0px'
+        // };
         return copyTheme;
     }
 
