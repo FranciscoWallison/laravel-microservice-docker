@@ -16,6 +16,14 @@ const CastMemberTypeMap = {
 
 const columnsDefinition: MUIDataTableColumn[] = [
     {
+        name: 'id',
+        label:'ID',
+        // width:'33%'.toString(),
+        options: {
+            sort: false
+        }
+    },
+    {
         name:  "name",
         label: "Nome",
     },
@@ -44,14 +52,14 @@ const columnsDefinition: MUIDataTableColumn[] = [
             sort: false,
                 customBodyRender: (value, tableMeta) => {
                     return (
-                        <samp>
-                            <IconButton
+                        
+                        <IconButton
                                 color={'secondary'}
                                 component={Link}
-                                to={`/cast-members/${(tableMeta as any).rowIndex[0]}/edit`}
-                            />
+                                to={`/cast-members/${(tableMeta as any).rowData[0]}/edit`}
+                          >
                             <EditIcon/>
-                        </samp>
+                        </IconButton>
                     )
                 }
         }

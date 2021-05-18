@@ -164,15 +164,16 @@ export const Form = () => {
                 variant={"outlined"}
                 fullWidth
                 onChange={(e:any) => {
+                    console.log(' e.target.value',  e.target.value);
                     setValue('categories_id', e.target.value);
                 }}
                 SelectProps={{
                     multiple: true
                 }}
+                disabled={loading}
                 error={(errors as any).categories_id !== undefined}
                 helperText={(errors as any).categories_id && (errors as any).categories_id.message}
-                InputLabelProps={{shrink: true}}
-                disabled={loading}
+                InputLabelProps={{shrink: true}}               
             >
                 <MenuItem value="" disabled>
                     <em>Selecione categorias</em>
