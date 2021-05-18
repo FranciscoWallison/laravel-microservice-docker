@@ -13,14 +13,14 @@ import EditIcon from '@material-ui/icons/Edit'
 
 
 const columnsDefinition: MUIDataTableColumn[] = [
-    // {
-    //     name: 'id',
-    //     label:'ID',
-    //     // width:'33%'.toString(),
-    //     options: {
-    //         sort: false
-    //     }
-    // },
+    {
+        name: 'id',
+        label:'ID',
+        // width:'33%'.toString(),
+        options: {
+            sort: false
+        }
+    },
     {
         name:  "name",
         label: "Nome",
@@ -48,18 +48,18 @@ const columnsDefinition: MUIDataTableColumn[] = [
         label: "Ações",
         options: {
             sort: false,
-                customBodyRender: (value, tableMeta) => {
-                    return (
-                        <samp>
-                            <IconButton
-                                color={'secondary'}
-                                component={Link}
-                                to={`/categories/${(tableMeta as any).rowIndex[0]}/edit`}
-                            />
-                            <EditIcon/>
-                        </samp>
-                    )
-                }
+            customBodyRender: (value, tableMeta) => {
+                return (
+                  
+                    <IconButton
+                        color={'secondary'}
+                        component={Link}
+                        to={`/categories/${(tableMeta as any).rowData[0]}/edit`}
+                        >
+                        <EditIcon/>
+                    </IconButton>
+                )
+            }
         }
     }
 ];

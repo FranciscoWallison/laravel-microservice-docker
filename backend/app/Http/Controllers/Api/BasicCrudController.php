@@ -28,11 +28,11 @@ abstract class BasicCrudController extends Controller
             $query = $query->filter($request->all());
         }
 
-        $data = $request->has('all') || $this->perPage
+        $data = $request->has('all') || !$this->perPage
             ? $query->get()
             : $query->paginate($perPage);
 
-        $data = !$this->perPage ? $this->model()::all(): $this->model()::paginate($this->perPage);
+        //$data = !$this->perPage ? $this->model()::all(): $this->model()::paginate($this->perPage);
         $resourceCollectionClass = $this->resourceCollection();
         $refClass = new \ReflectionClass($resourceCollectionClass);
         return $refClass->isSubclassOf(AnonymousResourceCollection::class)
