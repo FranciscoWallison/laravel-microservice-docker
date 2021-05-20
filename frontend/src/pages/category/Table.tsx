@@ -12,8 +12,15 @@ import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit'
 
 
+interface Pagination{
+    page: number;
+    total: number;
+    per_page: number;
+}
+
 interface SearchState {
     search: string;
+    pagination: Pagination
 }
 
 const columnsDefinition: MUIDataTableColumn[] = [
@@ -74,7 +81,14 @@ const Table = () => {
     const subscribed = useRef(true);
     const [data, setData] = useState<Category[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [searchState, setSearchState] = useState<SearchState>({search: ''});
+    const [searchState, setSearchState] = useState<SearchState>({
+        search: '',
+        pagination: {
+            page: 1,
+            total: 0,
+            per_page: 10
+        }
+    });
 
     useEffect ( () => {
         subscribed.current = true;
@@ -82,18 +96,31 @@ const Table = () => {
         return () => {
             subscribed.current = false;
         }
-    }, [searchState])
+    }, [
+        searchState.search,
+        searchState.pagination.page,
+        searchState.pagination.per_page,
+    ])
 
     async function getData() {
         setLoading(true);
         try {
             const {data} = await categoryHttp.list<ListResponse<Category>>({
                 queryParams: {
-                    search: searchState.search
+                    search: searchState.search,
+                    page: searchState.pagination.page,
+                    per_page: searchState.pagination.per_page
                 }
             });
             if(subscribed.current){
-                setData(data.data)
+                setData(data.data);
+                setSearchState((prevSate => ({
+                    ...prevSate, 
+                    pagination: {
+                        ...prevSate.pagination,
+                        total: data.meta.toral
+                    }
+                })))
             }
         } catch (error) {
             console.error(error);
@@ -114,9 +141,31 @@ const Table = () => {
                 data={data}
                 loading={loading}
                 options={{
+                    serverSide: true,
                     responsive: "scrollMaxHeight",
                     searchText: searchState.search,
-                    onSearchChange: (value: string) => setSearchState({search: value})
+                    page: searchState.pagination.page - 1,
+                    rowsPerPage: searchState.pagination.per_page,
+                    count: searchState.pagination.total,
+                    onSearchChange: (value: string) => setSearchState((prevState => ({
+                        ...prevState,
+                        search: value
+                    }))),
+                    onChangePage: (page) => setSearchState((prevState => ({
+                        ...prevState,
+                        pagination: {
+                            ...prevState.pagination,
+                            page: page + 1,
+                        }
+                    }))),
+                    onChangeRowsPerPage: (perPage) => setSearchState((prevState => ({
+                        ...prevState,
+                        pagination: {
+                            ...prevState.pagination,
+                            per_page: perPage + 1,
+                        }
+                    }))),
+
                 }}
             />
         </MuiThemeProvider>
