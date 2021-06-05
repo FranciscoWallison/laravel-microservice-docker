@@ -18,9 +18,15 @@ interface Pagination{
     per_page: number;
 }
 
+interface Order {
+    sort: string | null;
+    dir: string | null;
+}
+
 interface SearchState {
     search: string;
-    pagination: Pagination
+    pagination: Pagination;
+    order: Order;
 }
 
 const columnsDefinition: MUIDataTableColumn[] = [
@@ -35,6 +41,9 @@ const columnsDefinition: MUIDataTableColumn[] = [
     {
         name:  "name",
         label: "Nome",
+        // options: {
+        //     sortDirection: 'desc'
+        // }
     },    
     {
         name:  "is_active",
@@ -87,8 +96,23 @@ const Table = () => {
             page: 1,
             total: 0,
             per_page: 10
+        },
+        order: {
+            sort: null,
+            dir: null
         }
     });
+
+    const columns  = columnsDefinition.map(column => {
+        return column.name === searchState.order.sort
+        ? {
+            ...column,
+            options: {
+                ...column.options,
+                sortDirection: searchState.order.dir as any
+            }
+        } : column;
+    })
 
     useEffect ( () => {
         subscribed.current = true;
@@ -100,6 +124,7 @@ const Table = () => {
         searchState.search,
         searchState.pagination.page,
         searchState.pagination.per_page,
+        searchState.order
     ])
 
     async function getData() {
@@ -109,7 +134,9 @@ const Table = () => {
                 queryParams: {
                     search: searchState.search,
                     page: searchState.pagination.page,
-                    per_page: searchState.pagination.per_page
+                    per_page: searchState.pagination.per_page,
+                    sort: searchState.order.sort,
+                    dir: searchState.order.dir,
                 }
             });
             if(subscribed.current){
@@ -118,7 +145,7 @@ const Table = () => {
                     ...prevSate, 
                     pagination: {
                         ...prevSate.pagination,
-                        total: data.meta.toral
+                        total: (data.meta as any).total
                     }
                 })))
             }
@@ -137,7 +164,7 @@ const Table = () => {
         <MuiThemeProvider theme={makeActionStyles(columnsDefinition)}>
             <DefaultTable
                 title="Listagem de categorias"
-                columns={columnsDefinition}
+                columns={columns}
                 data={data}
                 loading={loading}
                 options={{
@@ -165,7 +192,13 @@ const Table = () => {
                             per_page: perPage + 1,
                         }
                     }))),
-
+                    onColumnSortChange: (changedColumn: string, direction: string) => setSearchState((prevState => ({
+                        ...prevState,
+                        order: {
+                          sort: changedColumn,
+                          dir: direction.includes('desc') ? 'desc': 'asc',
+                        }
+                    }))),
                 }}
             />
         </MuiThemeProvider>
