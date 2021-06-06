@@ -9,8 +9,7 @@ import DefaultTable, { makeActionStyles } from "../../components/Table";
 import { useSnackbar } from 'notistack';
 import { IconButton, MuiThemeProvider, Theme } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import EditIcon from '@material-ui/icons/Edit'
-
+import EditIcon from '@material-ui/icons/Edit';
 
 interface Pagination{
     page: number;
@@ -151,6 +150,9 @@ const Table = () => {
             }
         } catch (error) {
             console.error(error);
+            if(categoryHttp.isCancelledRequest(error)){
+                return;
+            }
             snackbar.enqueueSnackbar(
                 'Não foi possível carregar as informações',
                 {variant: 'error'}
