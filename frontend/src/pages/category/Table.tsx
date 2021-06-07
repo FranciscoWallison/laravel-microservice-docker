@@ -10,6 +10,7 @@ import { useSnackbar } from 'notistack';
 import { IconButton, MuiThemeProvider, Theme } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
+import { FilterResetButton } from '../../components/Table/FilterResetButton';
 
 interface Pagination{
     page: number;
@@ -85,11 +86,7 @@ const columnsDefinition: MUIDataTableColumn[] = [
 
 const Table = () => {
 
-    const snackbar = useSnackbar();
-    const subscribed = useRef(true);
-    const [data, setData] = useState<Category[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [searchState, setSearchState] = useState<SearchState>({
+    const inicialState = {
         search: '',
         pagination: {
             page: 1,
@@ -100,7 +97,12 @@ const Table = () => {
             sort: null,
             dir: null
         }
-    });
+    }
+    const snackbar = useSnackbar();
+    const subscribed = useRef(true);
+    const [data, setData] = useState<Category[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [searchState, setSearchState] = useState<SearchState>(inicialState);
 
     const columns  = columnsDefinition.map(column => {
         return column.name === searchState.order.sort
@@ -176,9 +178,20 @@ const Table = () => {
                     page: searchState.pagination.page - 1,
                     rowsPerPage: searchState.pagination.per_page,
                     count: searchState.pagination.total,
+                    customToolbar: () => (
+                        <FilterResetButton
+                            handleClick={() => {
+                                setSearchState(inicialState);
+                            }}
+                        />
+                    ),
                     onSearchChange: (value: string) => setSearchState((prevState => ({
                         ...prevState,
-                        search: value
+                        search: value,
+                        pagination: {
+                            ...prevState.pagination,
+                            page: 1
+                        }
                     }))),
                     onChangePage: (page) => setSearchState((prevState => ({
                         ...prevState,
