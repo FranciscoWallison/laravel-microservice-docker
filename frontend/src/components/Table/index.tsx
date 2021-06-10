@@ -5,6 +5,7 @@ import MUIDataTable, { MUIDataTableColumn, MUIDataTableOptions, MUIDataTableProp
 import { MuiThemeProvider, Theme } from "@material-ui/core";
 import { cloneDeep, merge, omit } from 'lodash';
 import { useMediaQuery } from '@material-ui/core';
+import DebouncedTableSearch from './DebouncedTableSearch';
 
 export interface TableColumn extends MUIDataTableColumn {
     width? : string
@@ -44,7 +45,21 @@ export const defaultOptions: MUIDataTableOptions = {
             text: "registro(s) selecionados",
             delete: "Excluir",
             deleteAria: "Excluir registros selecionados",
-        }
+        },
+    },
+    customSearchRender: (
+        searchText: string,
+        handleSearch: any,
+        hideSearch: any,
+        options: any
+    ) => {
+        return <DebouncedTableSearch 
+            searchText={searchText}
+            onSearch={handleSearch}
+            onHide={hideSearch}
+            options={options}
+            //debouceTime={debouncedSearchTime}
+        />
     }
 };
 
