@@ -11,7 +11,6 @@ ______
 
 ### Lazy Loading Vs Eager Loading
 
-
 ### Status code
 ````
     Respostas de sucesso (200-299)
