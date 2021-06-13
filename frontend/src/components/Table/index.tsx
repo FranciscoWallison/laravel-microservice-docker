@@ -11,7 +11,7 @@ export interface TableColumn extends MUIDataTableColumn {
     width? : string
 }
 
-export const defaultOptions: MUIDataTableOptions = {
+const makeDefaultOptions = (debouncedSearchTime?: any): MUIDataTableOptions => ({
     print: false,
     download: false,
     textLabels: {
@@ -58,14 +58,15 @@ export const defaultOptions: MUIDataTableOptions = {
             onSearch={handleSearch}
             onHide={hideSearch}
             options={options}
-            //debouceTime={debouncedSearchTime}
+            debouceTime={debouncedSearchTime}
         />
     }
-};
+});
 
 interface TableProps extends MUIDataTableProps {
     columns: TableColumn[];
     loading?: boolean;
+    debouncedSearchTime?: number;
 }
 
 const Table: React.FC<TableProps> = (props) => {
@@ -102,6 +103,7 @@ const Table: React.FC<TableProps> = (props) => {
     const theme = cloneDeep<Theme>(useTheme());
     const isSmOrDown  = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const defaultOptions = makeDefaultOptions(props.debouncedSearchTime);
     const newProps = merge(
         { options: cloneDeep( defaultOptions ) },
         props,
