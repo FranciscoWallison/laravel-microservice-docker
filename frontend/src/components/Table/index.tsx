@@ -74,7 +74,7 @@ const Table: React.FC<TableProps> = (props) => {
     function extractMuiDateTableColumns(columns: TableColumn[]): MUIDataTableColumn[] {
         return columns.map(column => omit(column, 'width'))
     }
-
+    // eslint-disable-next-line
     function setColumnsWith( columns: TableColumn[] ){
         columns.forEach( (column, key) => {
             if(column.width) {
