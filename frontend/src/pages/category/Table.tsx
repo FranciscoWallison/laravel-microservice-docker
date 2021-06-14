@@ -7,7 +7,7 @@ import { BadgeNo, BadgeYes } from '../../components/Badge';
 import { Category, ListResponse } from '../../util/models';
 import DefaultTable, { makeActionStyles } from "../../components/Table";
 import { useSnackbar } from 'notistack';
-import { IconButton, MuiThemeProvider, Theme } from '@material-ui/core';
+import { IconButton, MuiThemeProvider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import { FilterResetButton } from '../../components/Table/FilterResetButton';
@@ -121,6 +121,7 @@ const Table = () => {
         return () => {
             subscribed.current = false;
         }
+        // eslint-disable-next-line
     }, [
         searchState.search,
         searchState.pagination.page,

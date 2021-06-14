@@ -16,7 +16,7 @@ export default class HttpResource {
         this.cancelList = axios.CancelToken.source();
         
         const config: AxiosRequestConfig = {
-            cancelToken: this.cancelList.token;
+            cancelToken: this.cancelList.token,
         };
         if(options && options.queryParams) {
             config.params = options.queryParams;
