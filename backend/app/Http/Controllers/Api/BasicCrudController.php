@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 abstract class BasicCrudController extends Controller
 {
-    protected $perPage = 15;
+    protected $defaultPerPage = 15;
     protected abstract function model();
     protected abstract function rulesStore();
     protected abstract function rulesUpdate();
@@ -19,7 +19,8 @@ abstract class BasicCrudController extends Controller
     
     public function index(Request $request)
     {
-        $perPage = (int) $request->get('per_page', $this->perPage);
+        
+        $perPage = (int) $request->get('per_page', $this->defaultPerPage );
         $hasFilter = in_array(Filterable::class, class_uses($this->model()));
 
         $query = $this->queryBuilder();
@@ -28,14 +29,15 @@ abstract class BasicCrudController extends Controller
             $query = $query->filter($request->all());
         }
 
-        $data = $request->has('all') || !$this->perPage
+        $data = $request->has('all') || !$this->defaultPerPage
             ? $query->get()
             : $query->paginate($perPage);
 
         //$data = !$this->perPage ? $this->model()::all(): $this->model()::paginate($this->perPage);
         $resourceCollectionClass = $this->resourceCollection();
-        $refClass = new \ReflectionClass($resourceCollectionClass);
-        return $refClass->isSubclassOf(AnonymousResourceCollection::class)
+        $refClass = new \ReflectionClass( $this->resourceCollection());
+
+        return $refClass->isSubclassOf(ResourceCollection::class)
             ? new $resourceCollectionClass($data)
             : $resourceCollectionClass::collection($data);
     }

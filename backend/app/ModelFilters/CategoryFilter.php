@@ -1,6 +1,7 @@
 <?php
 
 namespace App\ModelFilters;
+use Illuminate\Database\Eloquent\Builder;
 
 class CategoryFilter extends DefaultModelFilter
 {
@@ -10,5 +11,14 @@ class CategoryFilter extends DefaultModelFilter
     public function search($search)
     {
         $this->where('name','LIKE', "%$search%");
+    }
+
+    public function genres($genres)
+    {
+        $ids = explode(',', $genres);
+
+        $this->whereHas('genres', function (Builder $query) use ($ids) {
+            $query->whereIn('id', $ids);
+        });
     }
 }

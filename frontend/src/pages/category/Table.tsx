@@ -1,6 +1,6 @@
 // @flow 
 import { MUIDataTableColumn } from 'mui-datatables';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import categoryHttp from '../../util/http/category-http';
 import { format, parseISO} from 'date-fns';
 import { BadgeNo, BadgeYes } from '../../components/Badge';
@@ -84,25 +84,71 @@ const columnsDefinition: MUIDataTableColumn[] = [
     }
 ];
 
-const Table = () => {
-
-    const inicialState = {
-        search: '',
-        pagination: {
-            page: 1,
-            total: 0,
-            per_page: 10
-        },
-        order: {
-            sort: null,
-            dir: null
-        }
+const INICIAL_STATE = {
+    search: '',
+    pagination: {
+        page: 1,
+        total: 0,
+        per_page: 10
+    },
+    order: {
+        sort: null,
+        dir: null
     }
+}
+
+function reducer (state: any, action: any) {
+    switch  (action.type){
+        case 'search':
+            return {
+                ...state,
+                search: action.search,
+                pagination: {
+                    ...state.pagination,
+                    page: 1
+                }
+            }
+            break;
+        case 'page':
+            return {
+                ...state,
+                pagination: {
+                    ...state.pagination,
+                    page: action.page,
+                }
+            }
+            break;
+        case 'per_page':
+            return {
+                ...state,
+                pagination: {
+                    ...state.pagination,
+                    per_page: action.perPage,
+                }
+            }
+            break;
+        case 'order':
+            return {
+                ...state,
+                order: {
+                    sort: action.sort,
+                    dir: action.dir,
+                }
+            }
+            break;
+        default:
+            return INICIAL_STATE;
+    }
+
+}   
+
+const Table = () => {
     const snackbar = useSnackbar();
     const subscribed = useRef(true);
     const [data, setData] = useState<Category[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [searchState, setSearchState] = useState<SearchState>(inicialState);
+    const [searchState, dispatch] = useReducer(reducer, INICIAL_STATE);
+    //const [searchState, setSearchState] = useState<SearchState>(inicialState);
 
     const columns  = columnsDefinition.map(column => {
         return column.name === searchState.order.sort
@@ -143,13 +189,13 @@ const Table = () => {
             });
             if(subscribed.current){
                 setData(data.data);
-                setSearchState((prevSate => ({
-                    ...prevSate, 
-                    pagination: {
-                        ...prevSate.pagination,
-                        total: (data.meta as any).total
-                    }
-                })))
+                // setSearchState((prevSate => ({
+                //     ...prevSate, 
+                //     pagination: {
+                //         ...prevSate.pagination,
+                //         total: (data.meta as any).total
+                //     }
+                // })))
             }
         } catch (error) {
             console.error(error);
@@ -190,46 +236,18 @@ const Table = () => {
                     count: searchState.pagination.total,
                     customToolbar: () => (
                         <FilterResetButton
-                            handleClick={() => {
-                                setSearchState({
-                                    ...inicialState,
-                                    search: {
-                                        value: inicialState.search,
-                                        updated: true
-                                    } as any
-                                });
-                            }}
+                            handleClick={() => dispatch({})}
                         />
                     ),
-                    onSearchChange: (value: string) => setSearchState((prevState => ({
-                        ...prevState,
-                        search: value,
-                        pagination: {
-                            ...prevState.pagination,
-                            page: 1
-                        }
-                    }))),
-                    onChangePage: (page) => setSearchState((prevState => ({
-                        ...prevState,
-                        pagination: {
-                            ...prevState.pagination,
-                            page: page + 1,
-                        }
-                    }))),
-                    onChangeRowsPerPage: (perPage) => setSearchState((prevState => ({
-                        ...prevState,
-                        pagination: {
-                            ...prevState.pagination,
-                            per_page: perPage + 1,
-                        }
-                    }))),
-                    onColumnSortChange: (changedColumn: string, direction: string) => setSearchState((prevState => ({
-                        ...prevState,
-                        order: {
-                          sort: changedColumn,
-                          dir: direction.includes('desc') ? 'desc': 'asc',
-                        }
-                    }))),
+                    onSearchChange: (value: string) => dispatch({type: 'search', search: value}),
+                    onChangePage: (page) => dispatch({type: 'page', page: page + 1}),
+                    onChangeRowsPerPage: (perPage) => dispatch({type: 'per_page', per_page: perPage + 1}),
+                    onColumnSortChange: (changedColumn: string, direction: string) => 
+                        dispatch({
+                            type: 'order', 
+                            sort: changedColumn,
+                            dir:direction.includes('desc') ? 'desc': 'asc',
+                        }),
                 }}
             />
         </MuiThemeProvider>

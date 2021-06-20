@@ -23,6 +23,7 @@ abstract class DefaultModelFilter extends ModelFilter
 
     public function sort($column)
     {
+       
         if (method_exists($this, $method = 'sortBy' . Str::studly($column))) {
             $this->$method();
         }
