@@ -20,7 +20,7 @@ ______
 Conceitos Básicos
 ______
 ````
-  ° Status code com o valor ~200 é semântico para o sucesso.
+  ° Status code com o valor ~200 é sucesso.
     - 204, valor vazio muito utilizado para DELETE.
 ````
 #### Substituindo ID Por UUID
