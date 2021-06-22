@@ -28,6 +28,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "redux": "^4.0.5",
+    "reduxsauce": "^1.1.2",
     "route-parser": "0.0.5",
     "typescript": "^4.2.2",
     "web-vitals": "^1.1.0",
