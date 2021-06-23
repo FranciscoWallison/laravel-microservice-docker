@@ -12,7 +12,7 @@ export interface Order {
 }
 
 export interface State {
-    search: string;
+    search: string | {value: any, [key: string]: any};
     pagination: Pagination;
     order: Order;
 }
