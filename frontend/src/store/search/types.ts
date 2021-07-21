@@ -2,7 +2,6 @@ import {AnyAction} from 'redux';
 
 export interface Pagination{
     page: number;
-    total: number;
     per_page: number;
 }
 
@@ -42,4 +41,9 @@ export interface SetOrderAction extends AnyAction{
     }
 }
 
+export interface SetResetAction extends AnyAction {
+    payload: {
+        state: State
+    }
+}
 

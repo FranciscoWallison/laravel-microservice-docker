@@ -5,7 +5,8 @@ import {
     SetPageAction,
     SetPerPageAction,
     SetOrderAction,
-    State
+    State,
+    SetResetAction
 } from "./types";
 
 
@@ -15,24 +16,26 @@ export const { Types, Creators } = createActions<
         SET_PAGE: string,
         SET_PER_PAGE: string,
         SET_ORDER: string,
+        SET_RESET: string
     }, {
         setSearch(payload: SetSearchAction["payload"]): SetSearchAction;
         setPage(payload: SetPageAction["payload"]): SetPageAction;
         setPerPage(payload: SetPerPageAction["payload"]): SetPerPageAction;
         setOrder(payload: SetOrderAction["payload"]): SetOrderAction;
+        setReset(payload: SetResetAction['payload']): SetResetAction;
     }>
     ({
     setSearch: ["payload"],
     setPage: ["payload"],
     setPerPage: ["payload"],
-    setOrder: ["payload"]
+    setOrder: ["payload"],
+    setReset: ["payload"]
 });
 
 export const INITIAL_STATE: State = {
     search: '',
     pagination: {
         page: 1,
-        total: 0,
         per_page: 15
     },
     order: {
@@ -94,4 +97,8 @@ function setOrder(state = INITIAL_STATE, action: SetOrderAction) : State {
             dir: action.payload.dir
         }
     };
+}
+
+function setReset(state = INITIAL_STATE, action: SetResetAction): State {
+    return {...INITIAL_STATE, search: { value: null, update: true}};
 }
