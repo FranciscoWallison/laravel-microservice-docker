@@ -48,7 +48,8 @@ const reducer = createReducer(INITIAL_STATE, {
     [Types.SET_SEARCH]: setSearch as any,
     [Types.SET_PAGE]: setPage as any,
     [Types.SET_PER_PAGE]: setPerPage as any,
-    [Types.SET_ORDER]: setOrder as any
+    [Types.SET_ORDER]: setOrder as any,
+    [Types.SET_RESET]: setReset as any    
 });
 
 export default reducer;

@@ -162,15 +162,9 @@ const Table = () => {
                     page: searchState.pagination.page - 1,
                     rowsPerPage: searchState.pagination.per_page,
                     count: totalRecords,
-                    customToolbar: () => (
-                        <FilterResetButton
-                            handleClick={() => 
-                                {
-                                    dispatch(Creators.setReset())
-                                }
-                            }
-                        />
-                    ),
+                    customToolbar: () => {
+                        return <FilterResetButton handleClick={() => Creators.setReset({state: INITIAL_STATE})} />
+                    },
                     onSearchChange: (value: string) => dispatch(Creators.setSearch({search: value})),
                     onChangePage: (page) => dispatch(Creators.setPage({page: page +1})),
                     onChangeRowsPerPage: (perPage) => dispatch(Creators.setPerPage({per_page: perPage})),
