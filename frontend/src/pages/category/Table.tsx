@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import { FilterResetButton } from '../../components/Table/FilterResetButton';
 import reducer, {INITIAL_STATE, Creators} from '../../store/filter';
+import useFilter from '../../hooks/useFilter';
 
 const columnsDefinition: MUIDataTableColumn[] = [
     {
@@ -73,8 +74,12 @@ const Table = () => {
     const subscribed = useRef(true);
     const [data, setData] = useState<Category[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [searchState, dispatch] = useReducer(reducer, INITIAL_STATE);
-    const [totalRecords, setTotalRecords] =  useState<number>(0);
+    const {
+        searchState,
+        dispatch,
+        totalRecords,
+        setTotalRecords
+    } = useFilter();
     //const [searchState, setSearchState] = useState<SearchState>(inicialState);
 
     const columns  = columnsDefinition.map(column => {
