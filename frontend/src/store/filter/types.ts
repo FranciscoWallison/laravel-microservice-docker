@@ -47,3 +47,10 @@ export interface SetResetAction extends AnyAction {
     }
 }
 
+export type Actions = SetSearchAction
+    | SetPageAction
+    | SetPerPageAction
+    | SetOrderAction
+    | SetResetAction;
+    // | UpdateExtraFilterAction
+    // | ClearExtraFilter;
