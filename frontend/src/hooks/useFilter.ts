@@ -1,5 +1,5 @@
 import { MUIDataTableColumn } from "mui-datatables";
-import reducer, {INITIAL_STATE } from "../store/filter";
+import reducer, {INITIAL_STATE, Creators } from "../store/filter";
 import { Dispatch, Reducer, useReducer, useState } from "react";
 import { Actions as FilterActions, State, State as FilterState } from "../store/filter/types";
 
@@ -17,11 +17,14 @@ export default function useFilter(options: FilterManagerOptions) {
     filterManager.state = filterState;
     filterManager.dispatch = dispatch;
 
+    filterManager.applyOrdersInColumns();
     return {
+        columns: filterManager.columns,
+        filterManager,
         filterState,
         dispatch,
         totalRecords,
-        setTotalRecords
+        setTotalRecords        
     }
 
 }
@@ -44,4 +47,36 @@ export class FilterManager {
         this.rowsPerPageOptions = rowsPerPageOptions;
         this.debounceTime = debounceTime;
     }
+
+    changeSearch(value: any){
+        this.dispatch(Creators.setSearch({search: value}));
+    }
+   
+    changePage(page: any){
+        this.dispatch(Creators.setPage({page: page +1}))
+    }
+    changeRowsPerPage(perPage: any){
+        this.dispatch(Creators.setPerPage({per_page: perPage}))
+    }
+    changeColumnSortChange(changedColumn: string, direction: string){
+        this.dispatch( Creators.setOrder({
+            sort: changedColumn,
+            dir:direction.includes('desc') ? 'desc': 'asc',
+        }))
+    }
+
+    applyOrdersInColumns() {
+        this.columns = this.columns.map(column => {
+            return column.name === this.state.order.sort
+                ? {
+                    ...column,
+                    options: {
+                        ...column.options,
+                        sortDirection: this.state.order.dir as any
+                    }
+                }
+                : column;
+        });
+    }
+
 }
