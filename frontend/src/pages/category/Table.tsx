@@ -1,6 +1,6 @@
 // @flow 
 import { MUIDataTableColumn } from 'mui-datatables';
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import categoryHttp from '../../util/http/category-http';
 import { format, parseISO} from 'date-fns';
 import { BadgeNo, BadgeYes } from '../../components/Badge';
@@ -14,7 +14,7 @@ import { FilterResetButton } from '../../components/Table/FilterResetButton';
 import reducer, {INITIAL_STATE, Creators} from '../../store/filter';
 import useFilter from '../../hooks/useFilter';
 
-const columnsDefinition: MUIDataTableColumn[] = [
+const columnsDefinitions: MUIDataTableColumn[] = [
     {
         name: 'id',
         label:'ID',
@@ -75,23 +75,19 @@ const Table = () => {
     const [data, setData] = useState<Category[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const {
-        searchState,
+        columns,
+        filterManager,
+        filterState,
         dispatch,
         totalRecords,
         setTotalRecords
-    } = useFilter();
-    //const [searchState, setSearchState] = useState<SearchState>(inicialState);
-
-    const columns  = columnsDefinition.map(column => {
-        return column.name === searchState.order.sort
-        ? {
-            ...column,
-            options: {
-                ...column.options,
-                sortDirection: searchState.order.dir as any
-            }
-        } : column;
-    })
+    } = useFilter({
+        columns: columnsDefinitions,
+        debounceTime: 500,
+        rowsPerPage: 10,
+        rowsPerPageOptions: [10, 25, 50]
+    });
+    //const filterState = filterManager.clearSearchText(debouncedFilterState.search);
 
     useEffect ( () => {
         subscribed.current = true;
@@ -101,10 +97,10 @@ const Table = () => {
         }
         // eslint-disable-next-line
     }, [
-        searchState.search,
-        searchState.pagination.page,
-        searchState.pagination.per_page,
-        searchState.order
+        filterState.search,
+        filterState.pagination.page,
+        filterState.pagination.per_page,
+        filterState.order
     ])
 
     async function getData() {
@@ -112,17 +108,17 @@ const Table = () => {
         try {
             const {data} = await categoryHttp.list<ListResponse<Category>>({
                 queryParams: {
-                    search: cleanSearchText(searchState.search),
-                    page: searchState.pagination.page,
-                    per_page: searchState.pagination.per_page,
-                    sort: searchState.order.sort,
-                    dir: searchState.order.dir,
+                    search: cleanSearchText(filterState.search),
+                    page: filterState.pagination.page,
+                    per_page: filterState.pagination.per_page,
+                    sort: filterState.order.sort,
+                    dir: filterState.order.dir,
                 }
             });
             if(subscribed.current){
                 setData(data.data);
                 setTotalRecords(data.meta.toral);
-                // setSearchState((prevSate => ({
+                // setfilterState((prevSate => ({
                 //     ...prevSate, 
                 //     pagination: {
                 //         ...prevSate.pagination,
@@ -153,7 +149,7 @@ const Table = () => {
     }
     
     return (
-        <MuiThemeProvider theme={makeActionStyles(columnsDefinition)}>
+        <MuiThemeProvider theme={makeActionStyles(columnsDefinitions)}>
             <DefaultTable
                 title="Listagem de categorias"
                 columns={columns}
@@ -163,21 +159,17 @@ const Table = () => {
                 options={{
                     serverSide: true,
                     responsive: "scrollMaxHeight",
-                    searchText: searchState.search as any,
-                    page: searchState.pagination.page - 1,
-                    rowsPerPage: searchState.pagination.per_page,
+                    searchText: filterState.search as any,
+                    page: filterState.pagination.page - 1,
+                    rowsPerPage: filterState.pagination.per_page,
                     count: totalRecords,
                     customToolbar: () => {
                         return <FilterResetButton handleClick={() => Creators.setReset({state: INITIAL_STATE})} />
                     },
-                    onSearchChange: (value: string) => dispatch(Creators.setSearch({search: value})),
-                    onChangePage: (page) => dispatch(Creators.setPage({page: page +1})),
-                    onChangeRowsPerPage: (perPage) => dispatch(Creators.setPerPage({per_page: perPage})),
-                    onColumnSortChange: (changedColumn: string, direction: string) => 
-                        dispatch( Creators.setOrder({
-                            sort: changedColumn,
-                            dir:direction.includes('desc') ? 'desc': 'asc',
-                        })),
+                    onSearchChange: (value) => filterManager.changeSearch(value),
+                    onChangePage: (page) => filterManager.changePage(page),
+                    onChangeRowsPerPage: (perPage) => filterManager.changeRowsPerPage(perPage),
+                    onColumnSortChange: (changedColumn: string, direction: string) => filterManager.changeSort(changedColumn, direction)
                 }}
             />
         </MuiThemeProvider>
