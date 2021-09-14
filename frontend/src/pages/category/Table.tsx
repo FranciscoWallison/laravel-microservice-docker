@@ -69,6 +69,11 @@ const columnsDefinitions: MUIDataTableColumn[] = [
     }
 ];
 
+const debounceTime = 300;
+const debouncedSearchTime = 300;
+const rowsPerPage = 15;
+const rowsPerPageOptions = [15, 25, 50];
+
 const Table = () => {
     const snackbar = useSnackbar();
     const subscribed = useRef(true);
@@ -78,17 +83,18 @@ const Table = () => {
         columns,
         filterManager,
         filterState,
+        debouncedFilterState,
         dispatch,
         totalRecords,
         setTotalRecords
     } = useFilter({
         columns: columnsDefinitions,
-        debounceTime: 500,
-        rowsPerPage: 10,
-        rowsPerPageOptions: [10, 25, 50]
+        debounceTime: debounceTime,
+        rowsPerPage: rowsPerPage,
+        rowsPerPageOptions: rowsPerPageOptions
     });
-    //const filterState = filterManager.clearSearchText(debouncedFilterState.search);
 
+    const filteredSearch = filterManager.cleanSearchText(debouncedFilterState.search);
     useEffect ( () => {
         subscribed.current = true;
         getData()
@@ -97,10 +103,10 @@ const Table = () => {
         }
         // eslint-disable-next-line
     }, [
-        filterState.search,
-        filterState.pagination.page,
-        filterState.pagination.per_page,
-        filterState.order
+        filteredSearch,
+        debouncedFilterState.pagination.page,
+        debouncedFilterState.pagination.per_page,
+        debouncedFilterState.order
     ])
 
     async function getData() {
@@ -108,11 +114,11 @@ const Table = () => {
         try {
             const {data} = await categoryHttp.list<ListResponse<Category>>({
                 queryParams: {
-                    search: cleanSearchText(filterState.search),
-                    page: filterState.pagination.page,
-                    per_page: filterState.pagination.per_page,
-                    sort: filterState.order.sort,
-                    dir: filterState.order.dir,
+                    search: filterManager.cleanSearchText(debouncedFilterState.search),
+                    page: debouncedFilterState.pagination.page,
+                    per_page: debouncedFilterState.pagination.per_page,
+                    sort: debouncedFilterState.order.sort,
+                    dir: debouncedFilterState.order.dir,
                 }
             });
             if(subscribed.current){
@@ -139,14 +145,6 @@ const Table = () => {
             setLoading(false);
         }
     }
-
-    function cleanSearchText(text: any){
-        let newText = text;
-        if(text && text.value !== undefined){
-            text = text.value;
-        }
-        return newText;
-    }
     
     return (
         <MuiThemeProvider theme={makeActionStyles(columnsDefinitions)}>
@@ -155,7 +153,7 @@ const Table = () => {
                 columns={columns}
                 data={data}
                 loading={loading}
-                debouncedSearchTime={500}
+                debouncedSearchTime={debouncedSearchTime}
                 options={{
                     serverSide: true,
                     responsive: "scrollMaxHeight",
