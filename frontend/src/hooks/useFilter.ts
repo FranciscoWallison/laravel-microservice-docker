@@ -100,13 +100,33 @@ export class FilterManager {
 
     pushHistory() {
         const newLocation = {
-            pathname: '',
-            search: '',
+            pathname: this.history.location.pathname,
+            search: "?" + new URLSearchParams(this.formatSearchParams() as any),
             state: {
+                ...this.state,
+                search: this.cleanSearchText(this.state.search)
             }
         };
 
         this.history.push(newLocation);
     }
+
+    private formatSearchParams() {
+        const search = this.cleanSearchText(this.state.search);
+
+        return {
+            ...(search && search !== '' && { search: search }),
+            ...(this.state.pagination.page !== 1 && { page: this.state.pagination.page }),
+            ...(this.state.pagination.per_page !== 15 && { per_page: this.state.pagination.per_page }),
+            ...(
+                this.state.order.sort && {
+                    sort: this.state.order.sort,
+                    dir: this.state.order.dir,
+                }
+
+            )
+        }
+    }
+
 
 }
