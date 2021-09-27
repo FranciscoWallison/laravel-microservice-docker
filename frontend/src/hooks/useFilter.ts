@@ -1,10 +1,11 @@
 import { MUIDataTableColumn } from "mui-datatables";
 import reducer, {INITIAL_STATE, Creators } from "../store/filter";
 import { Dispatch, Reducer, useReducer, useState } from "react";
-import { Actions as FilterActions, State, State as FilterState } from "../store/filter/types";
+import { Actions as FilterActions, State as FilterState } from "../store/filter/types";
 import { useDebounce } from "use-debounce/lib";
 import { useHistory } from 'react-router-dom';
 import { History } from 'history';
+import { isEqual } from 'lodash';
 
 interface FilterManagerOptions {
     columns: MUIDataTableColumn[];
@@ -51,7 +52,7 @@ export class FilterManager {
 
     constructor(options: FilterManagerOptions)
     {
-        const {columns, rowsPerPage, rowsPerPageOptions, history, debounceTime} = options;
+        const {columns, rowsPerPage, rowsPerPageOptions, history} = options;
         this.columns = columns;
         this.rowsPerPage = rowsPerPage;
         this.rowsPerPageOptions = rowsPerPageOptions;
@@ -107,6 +108,13 @@ export class FilterManager {
                 search: this.cleanSearchText(this.state.search)
             }
         };
+
+        const oldState = this.history.location.state;
+        const nextState = this.state;
+
+        if (isEqual(oldState, nextState)) {
+            return;
+        }
 
         this.history.push(newLocation);
     }

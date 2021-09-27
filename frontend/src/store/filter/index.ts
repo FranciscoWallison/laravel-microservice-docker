@@ -1,4 +1,3 @@
-import * as Typings from "./types";
 import {createActions, createReducer} from 'reduxsauce';
 import {
     SetSearchAction,

@@ -11,7 +11,7 @@ import { IconButton, MuiThemeProvider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import { FilterResetButton } from '../../components/Table/FilterResetButton';
-import reducer, {INITIAL_STATE, Creators} from '../../store/filter';
+import {INITIAL_STATE, Creators} from '../../store/filter';
 import useFilter from '../../hooks/useFilter';
 
 const columnsDefinitions: MUIDataTableColumn[] = [
@@ -84,7 +84,7 @@ const Table = () => {
         filterManager,
         filterState,
         debouncedFilterState,
-        dispatch,
+       // dispatch,
         totalRecords,
         setTotalRecords
     } = useFilter({
@@ -97,6 +97,7 @@ const Table = () => {
     const filteredSearch = filterManager.cleanSearchText(debouncedFilterState.search);
     useEffect ( () => {
         subscribed.current = true;
+        filterManager.pushHistory();
         getData()
         return () => {
             subscribed.current = false;
@@ -107,6 +108,7 @@ const Table = () => {
         debouncedFilterState.pagination.page,
         debouncedFilterState.pagination.per_page,
         debouncedFilterState.order
+        // eslint-disable-next-line
     ])
 
     async function getData() {
