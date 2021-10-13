@@ -24,7 +24,6 @@ ______
     - 204, valor vazio muito utilizado para DELETE.
 ````
 #### Substituindo ID Por UUID
-
 ______
 ````
   ° Dificulta para o cliente saber a quantidade de registros feitos
