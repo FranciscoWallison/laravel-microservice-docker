@@ -11,9 +11,10 @@ export interface Order {
 }
 
 export interface State {
-    search: string | {value: any, [key: string]: any};
+    search: string | {value: any, [key: string]: any} | null;
     pagination: Pagination;
     order: Order;
+    extraFilter?: { [key: string]: any}
 }
 
 export interface SetSearchAction extends AnyAction{
@@ -41,6 +42,10 @@ export interface SetOrderAction extends AnyAction{
     }
 }
 
+export interface UpdateExtraFilterAction extends AnyAction{
+    payload: {[key : string]: any}
+} 
+
 export interface SetResetAction extends AnyAction {
     payload: {
         state: State
@@ -51,6 +56,6 @@ export type Actions = SetSearchAction
     | SetPageAction
     | SetPerPageAction
     | SetOrderAction
+    | UpdateExtraFilterAction
     | SetResetAction;
-    // | UpdateExtraFilterAction
     // | ClearExtraFilter;

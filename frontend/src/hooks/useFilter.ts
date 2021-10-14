@@ -1,5 +1,5 @@
 import { MUIDataTableColumn } from "mui-datatables";
-import reducer, {INITIAL_STATE, Creators } from "../store/filter";
+import reducer, { Creators } from "../store/filter";
 import { Dispatch, Reducer, useReducer, useState, useEffect } from "react";
 import { Actions as FilterActions, State as FilterState } from "../store/filter/types";
 import { useDebounce } from "use-debounce/lib";
