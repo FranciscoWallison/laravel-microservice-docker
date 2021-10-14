@@ -5,7 +5,8 @@ import {
     SetPerPageAction,
     SetOrderAction,
     State,
-    SetResetAction
+    SetResetAction,
+    UpdateExtraFilterAction
 } from "./types";
 
 
@@ -15,27 +16,30 @@ export const { Types, Creators } = createActions<
         SET_PAGE: string,
         SET_PER_PAGE: string,
         SET_ORDER: string,
-        SET_RESET: string
+        SET_RESET: string,
+        UPDATE_EXTRA_FILTER: string
     }, {
         setSearch(payload: SetSearchAction["payload"]): SetSearchAction;
         setPage(payload: SetPageAction["payload"]): SetPageAction;
         setPerPage(payload: SetPerPageAction["payload"]): SetPerPageAction;
         setOrder(payload: SetOrderAction["payload"]): SetOrderAction;
         setReset(payload: SetResetAction['payload']): SetResetAction;
+        updateExtraFilter(payload: UpdateExtraFilterAction['payload']): UpdateExtraFilterAction;
     }>
     ({
     setSearch: ["payload"],
     setPage: ["payload"],
     setPerPage: ["payload"],
     setOrder: ["payload"],
-    setReset: ["payload"]
+    setReset: ["payload"],
+    updateExtraFilter: ["payload"]
 });
 
 export const INITIAL_STATE: State = {
-    search: '',
+    search: null,
     pagination: {
         page: 1,
-        per_page: 15
+        per_page: 10
     },
     order: {
         sort: null,
@@ -101,4 +105,14 @@ function setOrder(state = INITIAL_STATE, action: SetOrderAction) : State {
 
 function setReset(state = INITIAL_STATE, action: SetResetAction): State {
     return {...INITIAL_STATE, search: { value: null, update: true}};
+}
+
+function updateExtraFilter(state = INITIAL_STATE, action: UpdateExtraFilterAction){// eslint-disable-line
+    return {
+        ...state,
+        extraFilter: {
+            ...state.extraFilter,
+            ...action.payload
+        }
+    }
 }
