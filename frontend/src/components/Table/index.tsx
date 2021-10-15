@@ -7,10 +7,6 @@ import { cloneDeep, merge, omit } from 'lodash';
 import { useMediaQuery } from '@material-ui/core';
 import DebouncedTableSearch from './DebouncedTableSearch';
 
-export interface TableColumn extends MUIDataTableColumn {
-    width? : string
-}
-
 const makeDefaultOptions = (debouncedSearchTime?: any): MUIDataTableOptions => ({
     print: false,
     download: false,
@@ -125,7 +121,14 @@ const Table: React.FC<TableProps> = (props) => {
 
 export default Table;
 
+export interface TableColumn extends MUIDataTableColumn {
+    width? : string
+}
 
+export interface MuiDataTableRefComponent {
+    changePage: (page: number) => void;
+    changeRowsPerPage: (rowsPerPage: number) => void;
+}
 
 export function makeActionStyles(column: any) {
 
