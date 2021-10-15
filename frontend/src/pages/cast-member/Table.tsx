@@ -1,20 +1,20 @@
 // @flow 
-import { MUIDataTableColumn } from 'mui-datatables';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { format, parseISO} from 'date-fns';
 import castMemberHttp from '../../util/http/cast-members-http';
-import { CastMember, ListResponse } from '../../util/models';
-import DefaultTable from "../../components/Table";
+import { CastMember, ListResponse, CastMemberTypeMap } from '../../util/models';
+import DefaultTable, {MuiDataTableRefComponent, TableColumn} from "../../components/Table";
 import { IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import EditIcon from '@material-ui/icons/Edit'
+import EditIcon from '@material-ui/icons/Edit';
+import { useSnackbar } from "notistack";
+import LoadingContext from "../../components/Loading/LoadingContext";
+import useFilter from "../../hooks/useFilter";
+import * as yup from '../../util/vendor/yup';
 
-const CastMemberTypeMap = {
-    1: 'Diretor',
-    2: 'Ator'
-};
+const castMemberNames = Object.values(CastMemberTypeMap);
 
-const columnsDefinition: MUIDataTableColumn[] = [
+const columnsDefinition: TableColumn[] = [
     {
         name: 'id',
         label:'ID',
@@ -66,10 +66,59 @@ const columnsDefinition: MUIDataTableColumn[] = [
     }
 ]
 
+const debounceTime = 300;
+const debouncedSearchTime = 300;
+const rowsPerPage = 15;
+const rowsPerPageOptions = [15, 25, 50];
+
 type Props = {};
 const Table = (props: Props) => {
 
+    const { enqueueSnackbar } = useSnackbar();
+    const subscribed = useRef(false);
     const [data, setData] = useState<CastMember[]>([]);
+    const loading = useContext(LoadingContext);
+    const tableRef = useRef() as React.MutableRefObject<MuiDataTableRefComponent>;
+
+    const {
+        columns,
+        filterManager,
+        filterState,
+        debouncedFilterState,
+        totalRecords,
+        setTotalRecords        
+    } = useFilter({
+        columns: columnsDefinition,
+        debounceTime: debounceTime,
+        rowsPerPage: rowsPerPage,
+        rowsPerPageOptions: rowsPerPageOptions,       
+        tableRef,
+        extraFilter: {
+            createValidationSchema: () => {
+                return yup.object().shape({
+                    type: yup
+                        .string()
+                        .nullable()
+                        .transform(value => {
+                            return !value || !castMemberNames.includes(value) ? undefined : value
+                        })
+                        .default(null)
+                })
+            },
+            formatSearchParams: () => {
+                return debouncedFilterState.extraFilter ? {
+                    ...(debouncedFilterState.extraFilter.type &&
+                        { type: debouncedFilterState.extraFilter.type }
+                    )
+                } : undefined
+            },
+            getStateFromURL: (queryParams) => {
+                return {
+                    type: queryParams.get('type')
+                }
+            }
+        }
+    });
 
     useEffect( () => {
         let isCancelled = false;

@@ -1,11 +1,10 @@
 // @flow 
-import { MUIDataTableColumn } from 'mui-datatables';
 import { useEffect, useRef, useState } from "react";
 import categoryHttp from '../../util/http/category-http';
 import { format, parseISO} from 'date-fns';
 import { BadgeNo, BadgeYes } from '../../components/Badge';
 import { Category, ListResponse } from '../../util/models';
-import DefaultTable, { makeActionStyles } from "../../components/Table";
+import DefaultTable, { makeActionStyles, TableColumn, MuiDataTableRefComponent } from "../../components/Table";
 import { useSnackbar } from 'notistack';
 import { IconButton, MuiThemeProvider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -14,7 +13,7 @@ import { FilterResetButton } from '../../components/Table/FilterResetButton';
 import {INITIAL_STATE, Creators} from '../../store/filter';
 import useFilter from '../../hooks/useFilter';
 
-const columnsDefinitions: MUIDataTableColumn[] = [
+const columnsDefinition: TableColumn[] = [
     {
         name: 'id',
         label:'ID',
@@ -79,6 +78,8 @@ const Table = () => {
     const subscribed = useRef(true);
     const [data, setData] = useState<Category[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const tableRef = useRef() as React.MutableRefObject<MuiDataTableRefComponent>;
+    
     const {
         columns,
         filterManager,
@@ -88,10 +89,11 @@ const Table = () => {
         totalRecords,
         setTotalRecords
     } = useFilter({
-        columns: columnsDefinitions,
+        columns: columnsDefinition,
         debounceTime: debounceTime,
-        rowsPerPage: rowsPerPage,
-        rowsPerPageOptions: rowsPerPageOptions
+        rowsPerPage,
+        rowsPerPageOptions,
+        tableRef
     });
 
     const filteredSearch = filterManager.cleanSearchText(debouncedFilterState.search);
@@ -149,7 +151,7 @@ const Table = () => {
     }
     
     return (
-        <MuiThemeProvider theme={makeActionStyles(columnsDefinitions)}>
+        <MuiThemeProvider theme={makeActionStyles(columnsDefinition)}>
             <DefaultTable
                 title="Listagem de categorias"
                 columns={columns}
@@ -169,7 +171,7 @@ const Table = () => {
                     onSearchChange: (value) => filterManager.changeSearch(value),
                     onChangePage: (page) => filterManager.changePage(page),
                     onChangeRowsPerPage: (perPage) => filterManager.changeRowsPerPage(perPage),
-                    onColumnSortChange: (changedColumn: string, direction: string) => filterManager.changeSort(changedColumn, direction)
+                    onColumnSortChange: (changedColumn: string, direction: string) => filterManager.changeColumnSort(changedColumn, direction)
                 }}
             />
         </MuiThemeProvider>
