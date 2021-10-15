@@ -42,3 +42,8 @@ export interface Genre extends Timestampable {
     is_active: boolean;
     categories: Category[];
 }
+
+export const CastMemberTypeMap: { [key: string]: any } = {
+    1: 'Diretor',
+    2: 'Ator'
+};

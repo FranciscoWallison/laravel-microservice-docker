@@ -1,15 +1,18 @@
 // @flow 
-import { MUIDataTableColumn } from 'mui-datatables';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useContext } from 'react';
 import genresHttp from '../../util/http/genres-http';
 import { format, parseISO} from 'date-fns';
-import { Genre, ListResponse } from '../../util/models';
-import DefaultTable from "../../components/Table";
+import { Genre, ListResponse, Category } from '../../util/models';
+import DefaultTable, { TableColumn, MuiDataTableRefComponent } from "../../components/Table";
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import { IconButton } from '@material-ui/core';
+import { useSnackbar } from "notistack";
+import LoadingContext from "../../components/Loading/LoadingContext";
+import useFilter from "../../hooks/useFilter";
+import * as yup from "../../util/vendor/yup";
 
-const columnsDefinition: MUIDataTableColumn[] = [
+const columnsDefinition: TableColumn[] = [
     {
         name: "id",
         label: "ID",
@@ -64,10 +67,60 @@ const columnsDefinition: MUIDataTableColumn[] = [
     }
 ]
 
-type Props = {};
-const Table = (props: Props) => {
+const debounceTime = 300;
+const debouncedSearchTime = 300;
+const rowsPerPage = 15;
+const rowsPerPageOptions = [15, 25, 50];
 
-    const [data, setData] = useState([]);
+const Table = () => {
+
+    const { enqueueSnackbar } = useSnackbar();
+    const [data, setData] = useState<Genre[]>([]);
+    const subscribed = useRef(true);
+    const loading = useContext(LoadingContext);
+    const tableRef = useRef() as React.MutableRefObject<MuiDataTableRefComponent>;
+    // eslint-disable-next-line
+    const [categories, setCategories] = useState<Category[]>([]);
+
+    const {
+        columns,
+        filterManager,
+        filterState,
+        debouncedFilterState,
+        totalRecords,
+        setTotalRecords,
+    } = useFilter({
+        columns: columnsDefinition,
+        debounceTime: debounceTime,
+        rowsPerPage,
+        rowsPerPageOptions,        
+        tableRef,
+        extraFilter: {
+            createValidationSchema: () => {
+                return yup.object().shape({
+                    categories: yup.mixed()
+                        .nullable()
+                        .transform(value => {
+                            return !value || value === '' ? undefined : value.split(",");
+                        })
+                        .default(null)
+                });
+            },
+            formatSearchParams: (debouncedState) => {
+                return debouncedState.extraFilter ? {
+                    ...(
+                        debouncedState.extraFilter.categories &&
+                        { categories: debouncedState.extraFilter.categories.join(',') }
+                    )
+                } : undefined
+            },
+            getStateFromURL: (queryParams) => {
+                return {
+                    categories: queryParams.get('categories')
+                }
+            }
+        }
+    });
 
     useEffect( () => {
         let isCancelled = false;
