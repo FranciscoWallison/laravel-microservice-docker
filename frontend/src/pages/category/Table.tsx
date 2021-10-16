@@ -19,20 +19,25 @@ const columnsDefinition: TableColumn[] = [
         label:'ID',
         // width:'33%'.toString(),
         options: {
-            sort: false
+            sort: false,
+            filter: false
         }
     },
     {
         name:  "name",
         label: "Nome",
-        // options: {
-        //     sortDirection: 'desc'
-        // }
+        options: {
+            // sortDirection: 'desc'
+            filter: false
+        }
     },    
     {
         name:  "is_active",
         label: "Ativo?",
         options: {
+            filterOptions: {
+                names: ['Sim', 'Nāo']
+            },
             customBodyRender(value, tableMeta, updateValue){
                 return value ? <BadgeYes/> : <BadgeNo/>  ;
             }
@@ -42,6 +47,7 @@ const columnsDefinition: TableColumn[] = [
         name:  "created_at",
         label: "Criado em",
         options: {
+            filter: false,
             customBodyRender(value, tableMeta, updateValue){
                 return <span>{format(parseISO(value), 'dd/MM/yyyy')}</span>;
             }
@@ -51,6 +57,7 @@ const columnsDefinition: TableColumn[] = [
         name:  "actions",
         label: "Ações",
         options: {
+            filter: false,
             sort: false,
             customBodyRender: (value, tableMeta) => {
                 return (

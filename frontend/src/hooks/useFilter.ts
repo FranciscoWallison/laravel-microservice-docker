@@ -88,6 +88,11 @@ export class FilterManager {
         this.tableRef.current.changePage(0);
     }
 
+    cleanExtraFilter() {
+        this.dispatch(Creators.clearExtraFilter({}));
+        this.resetTablePagination();
+    }
+
     changeSearch(value: any){
         this.dispatch(Creators.setSearch({search: value}));
     }

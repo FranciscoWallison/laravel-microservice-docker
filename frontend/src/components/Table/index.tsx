@@ -65,7 +65,7 @@ interface TableProps extends MUIDataTableProps {
     debouncedSearchTime?: number;
 }
 
-const Table: React.FC<TableProps> = (props) => {
+const Table = React.forwardRef<MuiDataTableRefComponent, TableProps>((props, ref) => {
 
     function extractMuiDateTableColumns(columns: TableColumn[]): MUIDataTableColumn[] {
         return columns.map(column => omit(column, 'width'))

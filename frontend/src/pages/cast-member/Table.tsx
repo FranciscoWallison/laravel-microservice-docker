@@ -11,6 +11,8 @@ import { useSnackbar } from "notistack";
 import LoadingContext from "../../components/Loading/LoadingContext";
 import useFilter from "../../hooks/useFilter";
 import * as yup from '../../util/vendor/yup';
+import {FilterResetButton} from "../../components/Table/FilterResetButton";
+import { invert } from 'lodash';
 
 const castMemberNames = Object.values(CastMemberTypeMap);
 
@@ -120,26 +122,110 @@ const Table = (props: Props) => {
         }
     });
 
-    useEffect( () => {
-        let isCancelled = false;
-        (async () => {
-            const {data} = await castMemberHttp.list<ListResponse<CastMember>>();
-            if(!isCancelled){
-                setData(data.data)
-            }
-        })();
+    const indexColumnType = columns.findIndex(c => c.name === 'type');
+    const columnType = columns[indexColumnType];
+    const typeFilterValue = filterState.extraFilter && filterState.extraFilter.type as never;
+    (columnType.options as any).filterList = typeFilterValue ? [typeFilterValue] : [];
+
+    const serverSideFilterList = columns.map(column => []);
+    if (typeFilterValue) {
+        serverSideFilterList[indexColumnType] = [typeFilterValue];
+    }
+
+    const filteredSearch = filterManager.cleanSearchText(debouncedFilterState.search);
+
+    useEffect(() => {
+
+        subscribed.current = true;
+        filterManager.pushHistory();
+        getData();
 
         return () => {
-            isCancelled = true;
+            subscribed.current = false;
         }
-    }, []);
+        // eslint-disable-next-line
+    }, [
+        filteredSearch,
+        debouncedFilterState.pagination.page,
+        debouncedFilterState.pagination.per_page,
+        debouncedFilterState.order,
+        // eslint-disable-next-line
+        JSON.stringify(debouncedFilterState.extraFilter)
+    ]);
+
+    async function getData() {
+
+        try {
+            const { data } = await castMemberHttp.list<ListResponse<CastMember>>({
+                queryParams: {
+                    search: filterManager.cleanSearchText(debouncedFilterState.search),
+                    page: debouncedFilterState.pagination.page,
+                    per_page: debouncedFilterState.pagination.per_page,
+                    sort: debouncedFilterState.order.sort,
+                    dir: debouncedFilterState.order.dir,
+                    ...(
+                        debouncedFilterState.extraFilter &&
+                        debouncedFilterState.extraFilter.type &&
+                        { type: invert(CastMemberTypeMap)[debouncedFilterState.extraFilter.type] }
+                    )
+                }
+            });
+
+            if (subscribed.current) {
+                setData(data.data);
+                setTotalRecords(data.meta.total);
+            }
+
+
+        } catch (e) {
+
+            if (castMemberHttp.isCancelledRequest(e)) {
+                return;
+            }
+
+            enqueueSnackbar("Não foi possível carregar as informações", { variant: "error" });
+        }
+    }
     
     return (
-       <DefaultTable
-        title="Listagem de membros de elencos"
-        columns={columnsDefinition}
+        <DefaultTable
+        title={"Membros de Elenco"}
+        columns={filterManager.columns}
         data={data}
-       />
+        loading={loading}
+        debouncedSearchTime={debouncedSearchTime}
+        ref={tableRef}
+        options={{
+            serverSideFilterList,
+            serverSide: true,
+            searchText: filterState.search as any,
+            page: filterState.pagination.page - 1,
+            rowsPerPage: filterState.pagination.per_page,
+            rowsPerPageOptions: rowsPerPageOptions,
+            count: totalRecords,            
+            onFilterChange: (column, filterList, type) => {
+
+                const columnIndex = columns.findIndex(c => c.name === column);
+
+                if (columnIndex && filterList[columnIndex]) {
+                    filterManager.changeExtraFilter({
+                        [column]: filterList[columnIndex].length ? filterList[columnIndex][0] : null
+                    })
+                } else {
+                    filterManager.cleanExtraFilter();
+                }
+            },
+            customToolbar: () => {
+                return <FilterResetButton 
+                    handleClick={() => filterManager.resetFilter()} 
+                />
+            },
+            onSearchChange: (value) => filterManager.changeSearch(value),
+            onChangePage: (page) => filterManager.changePage(page),
+            onChangeRowsPerPage: (per_page) => filterManager.changeRowsPerPage(per_page),
+            onColumnSortChange: (changedColumn: string, direction: string) => filterManager.changeColumnSort(changedColumn, direction)
+        }}
+    />
     );
 };
 
