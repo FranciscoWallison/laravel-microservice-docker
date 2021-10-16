@@ -52,10 +52,14 @@ export interface SetResetAction extends AnyAction {
     }
 }
 
+export interface ClearExtraFilter extends AnyAction {
+    payload: {}
+}
+
 export type Actions = SetSearchAction
     | SetPageAction
     | SetPerPageAction
     | SetOrderAction
     | UpdateExtraFilterAction
-    | SetResetAction;
-    // | ClearExtraFilter;
+    | SetResetAction
+    | ClearExtraFilter;

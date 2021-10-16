@@ -6,7 +6,8 @@ import {
     SetOrderAction,
     State,
     SetResetAction,
-    UpdateExtraFilterAction
+    UpdateExtraFilterAction,
+    ClearExtraFilter
 } from "./types";
 
 
@@ -17,7 +18,8 @@ export const { Types, Creators } = createActions<
         SET_PER_PAGE: string,
         SET_ORDER: string,
         SET_RESET: string,
-        UPDATE_EXTRA_FILTER: string
+        UPDATE_EXTRA_FILTER: string,
+        CLEAR_EXTRA_FILTER: string
     }, {
         setSearch(payload: SetSearchAction["payload"]): SetSearchAction;
         setPage(payload: SetPageAction["payload"]): SetPageAction;
@@ -25,6 +27,7 @@ export const { Types, Creators } = createActions<
         setOrder(payload: SetOrderAction["payload"]): SetOrderAction;
         setReset(payload: SetResetAction['payload']): SetResetAction;
         updateExtraFilter(payload: UpdateExtraFilterAction['payload']): UpdateExtraFilterAction;
+        clearExtraFilter(payload: ClearExtraFilter['payload']): ClearExtraFilter,
     }>
     ({
     setSearch: ["payload"],
@@ -32,7 +35,8 @@ export const { Types, Creators } = createActions<
     setPerPage: ["payload"],
     setOrder: ["payload"],
     setReset: ["payload"],
-    updateExtraFilter: ["payload"]
+    updateExtraFilter: ["payload"],
+    clearExtraFilter: ['payload']
 });
 
 export const INITIAL_STATE: State = {
@@ -52,7 +56,9 @@ const reducer = createReducer(INITIAL_STATE, {
     [Types.SET_PAGE]: setPage as any,
     [Types.SET_PER_PAGE]: setPerPage as any,
     [Types.SET_ORDER]: setOrder as any,
-    [Types.SET_RESET]: setReset as any    
+    [Types.SET_RESET]: setReset as any,
+    [Types.UPDATE_EXTRA_FILTER]: updateExtraFilter as any,
+    [Types.CLEAR_EXTRA_FILTER]: clearExtraFilter as any
 });
 
 export default reducer;
@@ -107,12 +113,19 @@ function setReset(state = INITIAL_STATE, action: SetResetAction): State {
     return {...INITIAL_STATE, search: { value: null, update: true}};
 }
 
-function updateExtraFilter(state = INITIAL_STATE, action: UpdateExtraFilterAction){// eslint-disable-line
+function updateExtraFilter(state = INITIAL_STATE, action: UpdateExtraFilterAction){
     return {
         ...state,
         extraFilter: {
             ...state.extraFilter,
             ...action.payload
         }
+    }
+}
+
+function clearExtraFilter(state = INITIAL_STATE, action: UpdateExtraFilterAction){
+    return {
+        ...state,
+        extraFilter: action.payload
     }
 }

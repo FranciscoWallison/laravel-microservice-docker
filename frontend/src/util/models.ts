@@ -13,7 +13,7 @@ export interface ListResponse<T> {
         path: string;
         per_page: number;
         to: number;
-        toral: number;
+        total: number;
     }
 }
 
