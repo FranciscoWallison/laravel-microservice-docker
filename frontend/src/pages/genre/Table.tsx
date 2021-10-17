@@ -11,6 +11,9 @@ import { useSnackbar } from "notistack";
 import LoadingContext from "../../components/Loading/LoadingContext";
 import useFilter from "../../hooks/useFilter";
 import * as yup from "../../util/vendor/yup";
+import { BadgeNo, BadgeYes } from "../../components/Badge";
+import categoryHttp from "../../util/http/category-http";
+import {FilterResetButton} from "../../components/Table/FilterResetButton";
 
 const columnsDefinition: TableColumn[] = [
     {
@@ -25,11 +28,30 @@ const columnsDefinition: TableColumn[] = [
     {
         name:  "name",
         label: "Nome",
+        options: {
+            filter: false,
+        }
+    },
+    {
+        name: "is_active",
+        label: "Ativo?",
+        options: {
+            filterOptions: {
+                names: ['Sim', 'Nāo']
+            },
+            customBodyRender(value, tableMeta, updateValue) {
+                return value ? <BadgeYes /> : <BadgeNo />
+            }
+        }
     },
     {
         name:  "categories",
         label: "Categorias",
         options: {
+            filterType: 'multiselect',
+            filterOptions: {
+                names: []
+            },
             customBodyRender: (value, tableMeta, updateValue) => {
                 return value.map((value: any) => value.name).join(', ');
             }
@@ -122,26 +144,133 @@ const Table = () => {
         }
     });
 
-    useEffect( () => {
-        let isCancelled = false;
+    const indexColumnCategories = columns.findIndex(c => c.name === 'categories');
+    const columnCategories = columns[indexColumnCategories];
+    const categoriesFilterValue = debouncedFilterState.extraFilter && debouncedFilterState.extraFilter.categories;
+    (columnCategories.options as any).filterList = categoriesFilterValue ? categoriesFilterValue : [];
+
+    const serverSideFilterList = columns.map(column => []);
+    if (categoriesFilterValue) {
+        serverSideFilterList[indexColumnCategories] = categoriesFilterValue;
+    }
+
+    useEffect(() => {
+        subscribed.current = true;
+
         (async () => {
-            const {data} = await genresHttp.list<ListResponse<Genre>>()
-            if(!isCancelled){
-                setData(data.data as any)
+
+            try {
+                const { data } = await categoryHttp.list({ queryParams: { all: '' } });
+
+                if (subscribed.current) {
+                    setCategories(data.data);
+                    (columnCategories.options as any).filterOptions.names = data.data.map((category: any) => category.name);
+                }
+            } catch (e) {
+                if (categoryHttp.isCancelledRequest(e)) {
+                    return;
+                }
+                enqueueSnackbar("Não foi possível carregar as informações", { variant: "error" });
             }
+
+
         })();
 
         return () => {
-            isCancelled = true;
+            subscribed.current = false
         }
-    }, []);
+        // eslint-disable-next-line
+    }, [enqueueSnackbar]);
     
+    const filteredSearch = filterManager.cleanSearchText(debouncedFilterState.search);
+
+    useEffect(() => {
+        subscribed.current = true;
+        getData();
+        filterManager.pushHistory();
+        return () => {
+            subscribed.current = false;
+        }
+        // eslint-disable-next-line
+    }, [
+        filteredSearch,
+        debouncedFilterState.pagination.page,
+        debouncedFilterState.pagination.per_page,
+        debouncedFilterState.order,
+        // eslint-disable-next-line
+        JSON.stringify(debouncedFilterState.extraFilter)
+    ]);
+
+    async function getData() {
+
+        try {
+
+            const { data } = await genresHttp.list<ListResponse<Genre>>({
+                queryParams: {
+                    search: filterManager.cleanSearchText(debouncedFilterState.search),
+                    page: debouncedFilterState.pagination.page,
+                    per_page: debouncedFilterState.pagination.per_page,
+                    sort: debouncedFilterState.order.sort,
+                    dir: debouncedFilterState.order.dir,
+                    ...(
+                        debouncedFilterState.extraFilter &&
+                        debouncedFilterState.extraFilter.categories &&
+                        { categories: debouncedFilterState.extraFilter.categories.join(',') }
+                    )
+                }
+            });
+
+            if (subscribed.current) {
+                setData(data.data);
+                setTotalRecords(data.meta.total);
+            }
+
+        } catch (e) {
+            if (genresHttp.isCancelledRequest(e)) {
+                return;
+            }
+            enqueueSnackbar("Não foi possível carregar as informações", { variant: "error" });
+        }
+        
+    }
+
     return (
-       <DefaultTable
-        title="Listagem de gêneros"
-        columns={columnsDefinition}
+        <DefaultTable
+        title={"Gêneros"}
+        columns={filterManager.columns}
         data={data}
-       />
+        loading={loading}
+        debouncedSearchTime={debouncedSearchTime}
+        ref={tableRef}
+        options={{
+            serverSide: true,
+            searchText: filterState.search as any,
+            page: filterState.pagination.page - 1,
+            rowsPerPage: rowsPerPage,
+            rowsPerPageOptions: rowsPerPageOptions,
+            count: totalRecords,
+            customToolbar: () => {
+                return <FilterResetButton handleClick={() => filterManager.resetFilter()} />
+            },
+            onFilterChange: (column, filterList, type) => {
+
+                const columnIndex = columns.findIndex(c => c.name === column);
+
+                if (columnIndex && filterList[columnIndex]) {
+                    filterManager.changeExtraFilter({
+                        [column]: filterList[columnIndex].length ? filterList[columnIndex] : null
+                    })
+                } else {
+                    filterManager.cleanExtraFilter();
+                }
+
+            },
+            onSearchChange: (value) => filterManager.changeSearch(value),
+            onChangePage: (page) => filterManager.changePage(page),
+            onChangeRowsPerPage: (per_page) => filterManager.changeRowsPerPage(per_page),
+            onColumnSortChange: (changedColumn: string, direction: string) => filterManager.changeColumnSort(changedColumn, direction)
+        }}
+    />
     );
 };
 
