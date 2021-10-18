@@ -59,7 +59,9 @@ ______
   2° Relacionamentos entre tabelas
     - php artisan make:migration create_category_genre_table
     - php artisan make:migration create_genre_video_table
-    - php artisan make:migration create_category_video_table    
+    - php artisan make:migration create_category_video_table
+    - php artisan make:migration create_cast_member_video
+    
 ````
 
 Criando Rules

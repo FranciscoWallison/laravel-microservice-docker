@@ -3,15 +3,18 @@
 use Illuminate\Database\Seeder;
 use App\Models\Genre;
 use App\Models\Video;
+use App\Models\CastMember;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 
 class VideoTableSeeder extends Seeder
 {
     private $allGenres;
+    private $allCastMembers;
     private $relations = [
         'genres_id' => [],
-        'categories_id' => []
+        'categories_id' => [],
+        'cast_members_id' => []
     ];
     /**
      * Run the database seeds.
@@ -25,6 +28,7 @@ class VideoTableSeeder extends Seeder
 
         $self = $this;
         $this->allGenres =  Genre::all();
+        $this->allCastMembers = CastMember::all();
         Model::reguard(); // mass assignment
         factory(\App\Models\Video::class, 100)
             ->make()
@@ -57,6 +61,7 @@ class VideoTableSeeder extends Seeder
         $genreId = $subGenres->pluck('id')->toArray();
         $this->relations['categories_id'] = $categoriesId;
         $this->relations['genres_id'] = $genreId;
+        $this->relations['cast_members_id'] = $this->allCastMembers->random(3)->pluck('id')->toArray();
     }
 
     public function getImageFile()
