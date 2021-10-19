@@ -134,7 +134,7 @@ const Table = () => {
             });
             if(subscribed.current){
                 setData(data.data);
-                setTotalRecords(data.meta.toral);
+                setTotalRecords(data.meta.total);
                 // setfilterState((prevSate => ({
                 //     ...prevSate, 
                 //     pagination: {
