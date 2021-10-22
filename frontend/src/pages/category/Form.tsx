@@ -165,7 +165,7 @@ export const Form = () => {
                 <Button {...buttonProps} type="submit">Salvar e continuar editando</Button>
             </Box> */}
             <SubmitActions 
-                disableeButtons={loading}
+                disableButtons={loading}
                 handleSave={() =>
                     triggerValidation().then(isValid => {
                         isValid && onSubmit(getValues(), null)

@@ -11,7 +11,7 @@ const useStyles = makeStyles( (theme: Theme) => {
 })
 
 interface SubmitActionsProps {
-    disableeButtons?: boolean;
+    disableButtons?: boolean;
     handleSave: () => void
 }
 
@@ -23,7 +23,7 @@ const SubmitActions: React.FC<SubmitActionsProps> = (props) => {
         className: classes.submit,
         color: 'secondary',
         variant: "outlined",
-        disabled: props.disableeButtons === undefined ? false : props.disableeButtons
+        disabled: props.disableButtons === undefined ? false : props.disableButtons
     };
 
     return (
