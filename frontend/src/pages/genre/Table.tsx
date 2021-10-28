@@ -13,7 +13,7 @@ import useFilter from "../../hooks/useFilter";
 import * as yup from "../../util/vendor/yup";
 import { BadgeNo, BadgeYes } from "../../components/Badge";
 import categoryHttp from "../../util/http/category-http";
-import {FilterResetButton} from "../../components/Table/FilterResetButton";
+import FilterResetButton from "../../components/Table/FilterResetButton";
 
 const columnsDefinition: TableColumn[] = [
     {

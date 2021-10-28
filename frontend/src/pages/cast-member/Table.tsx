@@ -11,7 +11,7 @@ import { useSnackbar } from "notistack";
 import LoadingContext from "../../components/Loading/LoadingContext";
 import useFilter from "../../hooks/useFilter";
 import * as yup from '../../util/vendor/yup';
-import {FilterResetButton} from "../../components/Table/FilterResetButton";
+import FilterResetButton from "../../components/Table/FilterResetButton";
 import { invert } from 'lodash';
 
 const castMemberNames = Object.values(CastMemberTypeMap);

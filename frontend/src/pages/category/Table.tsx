@@ -9,7 +9,7 @@ import { useSnackbar } from 'notistack';
 import { IconButton, MuiThemeProvider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
-import { FilterResetButton } from '../../components/Table/FilterResetButton';
+import FilterResetButton from "../../components/Table/FilterResetButton";
 import {INITIAL_STATE, Creators} from '../../store/filter';
 import useFilter from '../../hooks/useFilter';
 
