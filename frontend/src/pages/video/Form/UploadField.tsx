@@ -10,7 +10,7 @@ import InputFile, { InputFileComponent } from "../../../components/InputFile";
 interface UploadFieldProps {
     label: string;
     accept: string;
-    setValue: (value) => void;
+    setValue: (value: any) => void;
     error?: any;
     disabled?: boolean;
     FormControlProps?: FormControlProps

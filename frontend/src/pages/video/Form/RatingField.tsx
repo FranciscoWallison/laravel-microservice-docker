@@ -10,7 +10,7 @@ import { Box } from "@material-ui/core";
 
 interface RatingFieldProps {
     value: string;
-    setValue: (value) => void;
+    setValue: (value: any) => void;
     error: any;
     disabled?: boolean;
     FormControlProps?: FormControlProps
