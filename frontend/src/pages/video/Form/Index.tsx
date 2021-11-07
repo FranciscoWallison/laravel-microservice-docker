@@ -22,7 +22,7 @@ import LoadingContext from "../../../components/Loading/LoadingContext";
 import { InputFileComponent } from "../../../components/InputFile";
 import SnackbarUpload from "../../../components/SnackbarUpload";
 import useSnackbarFormError from "../../../hooks/useSnackbarFormError";
-import { RouteParams } from '../../interfaces/RouteParams';
+import { RouteParams } from '../../../interfaces/RouteParams';
 
 import { RatingField } from "./RatingField";
 import { UploadField } from "./UploadField";
@@ -72,7 +72,7 @@ const validationSchema = yup.object().shape({
             test(value) {
                 return value.every(
                     (v: any) => v.categories.filter(
-                        cat => this.parent.categories.map(c => c.id).includes(cat.id)
+                        (cat: any) => this.parent.categories.map((c: any) => c.id).includes(cat.id)
                     ).length !== 0
                 );
             }
@@ -337,7 +337,7 @@ const Index = () => {
                 <Grid item xs={12} md={6}>
                     <RatingField
                         value={watch('rating') + ""}
-                        setValue={(value => setValue('rating', value, true))}
+                        setValue={(value) => setValue('rating', value, true)}
                         error={errors.rating}
                         disabled={loading}
                         FormControlProps={{ margin: isGreaterMd ? 'none' : 'normal' }}
