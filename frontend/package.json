@@ -23,6 +23,7 @@
     "lodash": "^4.17.21",
     "mui-datatables": "^2.14.0",
     "notistack": "^0.9.7",
+    "object-to-formdata": "^3.0.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hook-form": "^4.8.2",
