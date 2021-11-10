@@ -162,12 +162,12 @@ const Index = () => {
         })();
     }, [enqueueSnackbar, id, reset]);
 
-    async function onSubmit(formData, event) {
+    async function onSubmit(formData: any, event: any ) {
 
         const sendData = omit(formData, ['cast_members', 'genres', 'categories']);
-        sendData['cast_members_id'] = formData['cast_members'].map(cast_member => cast_member.id);
-        sendData['genres_id'] = formData['genres'].map(genre => genre.id);
-        sendData['categories_id'] = formData['categories'].map(category => category.id);
+        sendData['cast_members_id'] = formData['cast_members'].map((cast_member: any) => cast_member.id);
+        sendData['genres_id'] = formData['genres'].map((genre: any) => genre.id);
+        sendData['categories_id'] = formData['categories'].map((category: any) => category.id);
 
         try {
             const http = !video
