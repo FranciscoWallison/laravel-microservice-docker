@@ -14,7 +14,7 @@ import { Genre } from "../../../util/models";
 
 interface CategoryFieldProps extends RefAttributes<CategoryFieldComponent> {
     categories: any[];
-    setCategories: (categories) => void;
+    setCategories: (categories: any) => void;
     genres: Genre[],
     error: any;
     disabled?: boolean;
