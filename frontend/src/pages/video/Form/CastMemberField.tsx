@@ -6,14 +6,14 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 
 import useHttpHandled from "../../../hooks/useHttpHandled";
 import useCollectionManager from "../../../hooks/useCollectionManager";
-import castMemberHttp from "../../../util/http/cast-member-http";
+import castMemberHttp from "../../../util/http/cast-members-http";
 import { AsyncAutoComplete, AsyncAutoCompleteComponent } from "../../../components/AsyncAutoComplete";
 import GridSelected from "../../../components/GridSelected";
 import GridSelectedItem from "../../../components/GridSelectedItem";
 
 interface CastMemberFieldProps extends RefAttributes<CastMemberFieldComponent> {
     castMembers: any[];
-    setCastMembers: (cast_members) => void;
+    setCastMembers: (cast_members: void) => void;
     error: any;
     disabled?: boolean;
     FormControlProps?: FormControlProps
