@@ -7,16 +7,16 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import GridSelectedItem from "../../../components/GridSelectedItem";
 import { AsyncAutoComplete, AsyncAutoCompleteComponent } from "../../../components/AsyncAutoComplete";
 import GridSelected from "../../../components/GridSelected";
-import genreHttp from "../../../util/http/genre-http";
-import { getGenresFromCategory } from "../../../util/model-filter";
+import genreHttp from "../../../util/http/genres-http"; // "../../../util/http/genre-http";
+import { getGenresFromCategory } from "../../../util/model-filter";//"../../../util/model-filter";
 import useHttpHandled from "../../../hooks/useHttpHandled";
 import useCollectionManager from "../../../hooks/useCollectionManager";
 
 interface GenreFieldProps extends RefAttributes<GenreFieldComponent> {
     genres: any[];
     categories: any[];
-    setGenres: (genres) => void;
-    setCategories: (categories) => void;
+    setGenres: (genres: void) => void;
+    setCategories: (categories: void) => void;
     error: any;
     disabled?: boolean;
     FormControlProps?: FormControlProps
