@@ -13,7 +13,7 @@ import { DeleteDialog } from "../../components/DeleteDialog";
 import FilterResetButton from "../../components/Table/FilterResetButton";
 import LoadingContext from "../../components/Loading/LoadingContext";
 import DefaultTable, { MuiDataTableRefComponent, TableColumn } from "../../components/Table";
-import { Category, listResponse, Video } from "../../util/models";
+import { Category, ListResponse, Video } from "../../util/models";
 import videoHttp from "../../util/http/video-http";
 import categoryHttp from "../../util/http/category-http";
 import useDeleteCollection from "../../hooks/useDeleteCollection";
@@ -182,7 +182,7 @@ const Table = () => {
 
                 if (subscribed.current) {
                     setCategories(data.data);
-                    (columnCategories.options as any).filterOptions.names = data.data.map(category => category.name);
+                    (columnCategories.options as any).filterOptions.names = data.data.map((category: any) => category.name);
                 }
             } catch (e) {
                 if (categoryHttp.isCancelledRequest(e)) {
@@ -199,7 +199,7 @@ const Table = () => {
         // eslint-disable-next-line
     }, [enqueueSnackbar]);
 
-    const filteredSearch = filterManager.clearSearchText(debouncedFilterState.search);
+    const filteredSearch = filterManager.cleanSearchText(debouncedFilterState.search);
 
     useEffect(() => {
         subscribed.current = true;
@@ -223,9 +223,9 @@ const Table = () => {
     async function getData() {
 
         try {
-            const { data } = await videoHttp.list<listResponse<Video>>({
+            const { data } = await videoHttp.list<ListResponse<Video>>({
                 queryParams: {
-                    search: filterManager.clearSearchText(debouncedFilterState.search),
+                    search: filterManager.cleanSearchText(debouncedFilterState.search),
                     page: debouncedFilterState.pagination.page,
                     per_page: debouncedFilterState.pagination.per_page,
                     sort: debouncedFilterState.order.sort,
@@ -314,14 +314,14 @@ const Table = () => {
                                 [column]: filterList[columnIndex].length ? filterList[columnIndex] : null
                             })
                         } else {
-                            filterManager.clearExtraFilter();
+                            filterManager.cleanExtraFilter();
                         }
 
                     },
                     onSearchChange: (value) => filterManager.changeSearch(value),
                     onChangePage: (page) => filterManager.changePage(page),
                     onChangeRowsPerPage: (per_page) => filterManager.changeRowsPerPage(per_page),
-                    onColumnSortChange: (changedColumn: string, direction: string) => filterManager.changeSort(changedColumn, direction),
+                    onColumnSortChange: (changedColumn: string, direction: string) => filterManager.changeColumnSort(changedColumn, direction),
                     onRowsDelete: (rowsDeleted) => {
                         setRowsToDelete(rowsDeleted as any);
                         return false;
