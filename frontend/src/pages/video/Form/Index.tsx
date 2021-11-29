@@ -294,7 +294,7 @@ const Index = () => {
                         ref={castMemberRef}
                         error={errors.cast_members}
                         castMembers={watch('cast_members') as any[]}
-                        setCastMembers={(value) => setValue('cast_members', value, true)}
+                        setCastMembers={(value: any) => setValue('cast_members', value, true)}
                         disabled={loading}
                     />
 
@@ -305,8 +305,8 @@ const Index = () => {
                                 error={errors.genres}
                                 genres={watch('genres') as any[]}
                                 categories={watch('categories') as any[]}
-                                setGenres={(value) => setValue('genres', value, true)}
-                                setCategories={(value) => setValue('categories', value, true)}
+                                setGenres={(value: any) => setValue('genres', value, true)}
+                                setCategories={(value: any) => setValue('categories', value, true)}
                                 disabled={loading}
                             />
                         </Grid>

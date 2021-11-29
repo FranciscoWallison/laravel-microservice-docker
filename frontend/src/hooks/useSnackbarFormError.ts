@@ -1,7 +1,7 @@
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 
-const useSnackbarFormError = (submitCount, errors) => {
+const useSnackbarFormError = (submitCount: any, errors: any) => {
 
     const { enqueueSnackbar } = useSnackbar();
 

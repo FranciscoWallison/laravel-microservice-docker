@@ -43,7 +43,7 @@ const InputFile = React.forwardRef<InputFileComponent, InputFileProps>((props, r
         hidden: true,
         ref: fileRef,
         // multiple: true,
-        onChange: (event) => {
+        onChange: (event: any) => {
             const files = event.target.files;
             if (files.length) {
                 setFileName(Array.from(files).map((file: any) => file.name).join(", "));
