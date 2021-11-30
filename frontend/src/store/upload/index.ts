@@ -37,11 +37,11 @@ function findIndexUpload(state: UploadState, id: string) {
     return state.uploads.findIndex(upload => upload.video.id === id);
 }
 
-function findIndexFile(files: Array<{ fileField }>, fileField: string) {
+function findIndexFile(files: Array<{ fileField: any}>, fileField: string) {
     return files.findIndex(file => file.fileField === fileField);
 }
 
-function findIndexUploadAndFile(state: UploadState, videoId: string, fileField: string): { indexUpload?, indexFile?} {
+function findIndexUploadAndFile(state: UploadState, videoId: string, fileField: string): { indexUpload?: any, indexFile?: any} {
 
     const indexUpload = findIndexUpload(state, videoId);
 
