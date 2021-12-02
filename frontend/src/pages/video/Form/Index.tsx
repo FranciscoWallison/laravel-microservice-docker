@@ -202,6 +202,7 @@ const Index = () => {
         genresRef.current.clear();
         reset(data);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [castMemberRef, categoriesRef, genresRef, uploadRef]);
 
     function validateSubmit() {
