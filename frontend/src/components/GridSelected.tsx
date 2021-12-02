@@ -16,6 +16,7 @@ interface GridSelected extends GridProps {
 
 }
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 const GridSelected: React.FC<GridSelected> = (props) => {
     const classes = useStyles();
     return (
