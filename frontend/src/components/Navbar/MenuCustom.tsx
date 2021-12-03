@@ -11,13 +11,15 @@ interface MenuListerRoutes {
     'categorias.list' : string,
     'cast_members.list' : string,
     'genres.list' : string,
+    'videos.list' : string,
 }
   
 const listRoutes: MenuListerRoutes = {
     'dashboard' : 'Dashboard',
     'categorias.list' : 'Categorias',
     'cast_members.list' : 'Membros de elenco',
-    'genres.list' : 'Gêneros'
+    'genres.list' : 'Gêneros',
+    'videos.list': 'Videos'
 };
 
 const menuRoutes = routes.filter(route => Object.keys(listRoutes).includes(route.name));
