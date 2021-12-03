@@ -66,29 +66,32 @@ const SnackbarUpload = React.forwardRef<any, SnackbarUploadProps>((props, ref) =
     const totalInProgress = countInProgress(uploads);
 
     return (
-        <Card ref={ref} className={classes.card}>
-            <CardActions classes={{ root: classes.cardActionRoot }}>
-                <Typography variant={"subtitle2"} className={classes.title}>
-                    Fazendo o upload de {totalInProgress} vídeo(s)
-                </Typography>
-                <div className={classes.icons}>
-                    <IconButton color={"inherit"} onClick={() => setExpanded(!expanded)}>
-                        <ExpandMoreIcon className={classNames(classes.expand, { [classes.expandOpen]: !expanded })} />
-                    </IconButton>
-                    <IconButton color={"inherit"} onClick={() => closeSnackbar(id)}>
-                        <CloseIcon />
-                    </IconButton>
-                </div>
-            </CardActions>
-            <Collapse in={expanded}>
-                <List className={classes.list}>
-                    {uploads.map((upload: Upload, key) => (
-                        <UploadItem key={key} upload={upload} />
-                    ))}
+      
+            <Card ref={ref} className={classes.card}>
+                <CardActions classes={{ root: classes.cardActionRoot }}>
+                    <Typography variant={"subtitle2"} className={classes.title}>
+                        Fazendo o upload de {totalInProgress} vídeo(s)
+                    </Typography>
+                    <div className={classes.icons}>
+                        <IconButton color={"inherit"} onClick={() => setExpanded(!expanded)}>
+                            <ExpandMoreIcon className={classNames(classes.expand, { [classes.expandOpen]: !expanded })} />
+                        </IconButton>
+                        <IconButton color={"inherit"} onClick={() => closeSnackbar(id)}>
+                            <CloseIcon />
+                        </IconButton>
+                    </div>
+                </CardActions>
+                <Collapse in={expanded}>
+                    <List className={classes.list}>
+                        {uploads.map((upload: Upload, key) => (
+                            <UploadItem key={key} upload={upload} />
+                        ))}
 
-                </List>
-            </Collapse>
-        </Card>
+                    </List>
+                </Collapse>
+            </Card>
+  
+        
     );
 });
 
