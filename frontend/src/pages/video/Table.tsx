@@ -114,7 +114,8 @@ const Table = () => {
     const [data, setData] = useState<Video[]>([]);
     const subscribed = useRef(true);
     const tableRef = useRef() as React.MutableRefObject<MuiDataTableRefComponent>;
-    const loading = useContext(LoadingContext);
+    //const loading = useContext(LoadingContext);
+    const [loading, setLoading] = useState<boolean>(false);
     // eslint-disable-next-line
     const [categories, setCategories] = useState<Category[]>();
     const { openDeleteDialog, setOpenDeleteDialog, rowsToDelete, setRowsToDelete } = useDeleteCollection();
@@ -221,7 +222,7 @@ const Table = () => {
     ]);
 
     async function getData() {
-
+        setLoading(true);
         try {
             const { data } = await videoHttp.list<ListResponse<Video>>({
                 queryParams: {
@@ -248,8 +249,11 @@ const Table = () => {
                 return;
             }
             enqueueSnackbar("Não foi possível carregar as informações", { variant: "error" });
+            
         }
-
+        finally {
+            setLoading(false);
+        }
     }
 
     async function deleteRows(confirmed: boolean) {

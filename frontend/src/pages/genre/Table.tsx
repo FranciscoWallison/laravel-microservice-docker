@@ -53,7 +53,8 @@ const columnsDefinition: TableColumn[] = [
                 names: []
             },
             customBodyRender: (value, tableMeta, updateValue) => {
-                return value.map((value: any) => value.name).join(', ');
+                console.log('value-customBodyRender', typeof value === 'undefined')
+                return  typeof value === 'undefined' ? "" : value.map((value: any) => value.name).join(', ') ;
             }
         }
     },
@@ -99,7 +100,7 @@ const Table = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [data, setData] = useState<Genre[]>([]);
     const subscribed = useRef(true);
-    const loading = useContext(LoadingContext);
+    const [loading, setLoading] = useState<boolean>(false);
     const tableRef = useRef() as React.MutableRefObject<MuiDataTableRefComponent>;
     // eslint-disable-next-line
     const [categories, setCategories] = useState<Category[]>([]);
@@ -202,7 +203,7 @@ const Table = () => {
     ]);
 
     async function getData() {
-
+        setLoading(true);
         try {
 
             const { data } = await genresHttp.list<ListResponse<Genre>>({
@@ -231,7 +232,9 @@ const Table = () => {
             }
             enqueueSnackbar("Não foi possível carregar as informações", { variant: "error" });
         }
-        
+        finally {
+            setLoading(false);
+        }
     }
 
     return (

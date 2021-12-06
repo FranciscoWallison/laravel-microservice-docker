@@ -87,7 +87,7 @@ const Table = React.forwardRef<MuiDataTableRefComponent, TableProps>((props, ref
         })
     }
 
-    function applyLoading(){
+    function applyLoading(){        
         const textLabels = (newProps.options as any).textLabels;
         textLabels.body.noMatch = 
             newProps.loading === true ? 'Carregando...': textLabels.body.noMatch;
