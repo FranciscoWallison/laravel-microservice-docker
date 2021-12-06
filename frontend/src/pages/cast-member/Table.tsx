@@ -79,7 +79,7 @@ const Table = (props: Props) => {
     const { enqueueSnackbar } = useSnackbar();
     const subscribed = useRef(false);
     const [data, setData] = useState<CastMember[]>([]);
-    const loading = useContext(LoadingContext);
+    const [loading, setLoading] = useState<boolean>(false);
     const tableRef = useRef() as React.MutableRefObject<MuiDataTableRefComponent>;
 
     const {
@@ -154,7 +154,7 @@ const Table = (props: Props) => {
     ]);
 
     async function getData() {
-
+        setLoading(true);
         try {
             const { data } = await castMemberHttp.list<ListResponse<CastMember>>({
                 queryParams: {
@@ -184,6 +184,9 @@ const Table = (props: Props) => {
             }
 
             enqueueSnackbar("Não foi possível carregar as informações", { variant: "error" });
+        }
+        finally {
+            setLoading(false);
         }
     }
     
