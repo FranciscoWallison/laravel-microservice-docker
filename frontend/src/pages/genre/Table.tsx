@@ -103,7 +103,7 @@ const Table = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const tableRef = useRef() as React.MutableRefObject<MuiDataTableRefComponent>;
     // eslint-disable-next-line
-    const [categories, setCategories] = useState<Category[]>([]);
+    const [categories, setCategories] = useState<Category[]>();
 
     const {
         columns,
@@ -120,6 +120,7 @@ const Table = () => {
         tableRef,
         extraFilter: {
             createValidationSchema: () => {
+
                 return yup.object().shape({
                     categories: yup.mixed()
                         .nullable()
@@ -127,7 +128,9 @@ const Table = () => {
                             return !value || value === '' ? undefined : value.split(",");
                         })
                         .default(null)
+                        
                 });
+
             },
             formatSearchParams: (debouncedState) => {
                 return debouncedState.extraFilter ? {
@@ -205,7 +208,6 @@ const Table = () => {
     async function getData() {
         setLoading(true);
         try {
-
             const { data } = await genresHttp.list<ListResponse<Genre>>({
                 queryParams: {
                     search: filterManager.cleanSearchText(debouncedFilterState.search),
