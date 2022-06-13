@@ -1,5 +1,5 @@
 // @flow 
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import genresHttp from '../../util/http/genres-http';
 import { format, parseISO} from 'date-fns';
 import { Genre, ListResponse, Category } from '../../util/models';
@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import { IconButton } from '@material-ui/core';
 import { useSnackbar } from "notistack";
-import LoadingContext from "../../components/Loading/LoadingContext";
 import useFilter from "../../hooks/useFilter";
 import * as yup from "../../util/vendor/yup";
 import { BadgeNo, BadgeYes } from "../../components/Badge";
@@ -72,8 +71,7 @@ const columnsDefinition: TableColumn[] = [
         label: "Ações",
         options: {
             sort: false,
-                customBodyRender: (value, tableMeta) => {
-                    console.log('tableMeta', tableMeta, value)
+                customBodyRender: (value, tableMeta) => {                    
                     return (
                
                         <IconButton

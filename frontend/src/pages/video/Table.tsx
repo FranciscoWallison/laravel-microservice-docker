@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,6 @@ import { format, parseISO } from "date-fns";
 
 import { DeleteDialog } from "../../components/DeleteDialog";
 import FilterResetButton from "../../components/Table/FilterResetButton";
-import LoadingContext from "../../components/Loading/LoadingContext";
 import DefaultTable, { MuiDataTableRefComponent, TableColumn } from "../../components/Table";
 import { Category, ListResponse, Video } from "../../util/models";
 import videoHttp from "../../util/http/video-http";

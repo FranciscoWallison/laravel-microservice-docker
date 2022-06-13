@@ -1,5 +1,5 @@
 // @flow 
-import { useEffect, useState, useRef, useContext } from "react";
+import { useEffect, useState, useRef } from "react";
 import { format, parseISO} from 'date-fns';
 import castMemberHttp from '../../util/http/cast-members-http';
 import { CastMember, ListResponse, CastMemberTypeMap } from '../../util/models';
@@ -8,7 +8,6 @@ import { IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import { useSnackbar } from "notistack";
-import LoadingContext from "../../components/Loading/LoadingContext";
 import useFilter from "../../hooks/useFilter";
 import * as yup from '../../util/vendor/yup';
 import FilterResetButton from "../../components/Table/FilterResetButton";
