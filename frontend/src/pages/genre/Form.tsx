@@ -54,22 +54,25 @@ export const Form = () => {
     };
     
     useEffect( () => {
+        if(!id){
+            return;
+        }
         let isSubscribed = true;
+       
         (async () => {
             setLoading(true);
-            const promises =[categoryHttp.list({queryParams: {all: ''}})];
-            if(id){
-                promises.push(genresHttp.get(id));
-            }
+            
             try {
-                const [categoriesResponse, genreResponse] = await Promise.all(promises);                
+                const {data} = await genresHttp.get(id);
+                const genreResponse = data;
+               
                 if(isSubscribed){
-                    setCategories(categoriesResponse.data.data);
+                    setCategories(genreResponse.data.categories);
                     if(id){
-                        setGenre(genreResponse.data.data);
-                        const categories_id = genreResponse.data.data.categories.map((category: any) => category.id);
+                        setGenre(genreResponse.data);
+                        const categories_id = genreResponse.data.categories.map((category: any) => category.id);
                         reset({
-                            ...genreResponse.data.data,
+                            ...genreResponse.data,
                             categories_id
                         });
                     }
@@ -164,7 +167,6 @@ export const Form = () => {
                 variant={"outlined"}
                 fullWidth
                 onChange={(e:any) => {
-                    console.log(' e.target.value',  e.target.value);
                     setValue('categories_id', e.target.value);
                 }}
                 SelectProps={{
